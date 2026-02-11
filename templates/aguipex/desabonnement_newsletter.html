@@ -1,0 +1,124 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}Désabonnement Newsletter - AGUIPEX{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 col-md-8">
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5 text-center">
+                    {% if success %}
+                    <!-- Succès -->
+                    <div class="mb-4">
+                        <i class="fas fa-check-circle fa-4x text-success"></i>
+                    </div>
+                    <h2 class="h3 text-success mb-3">
+                        Désabonnement Réussi
+                    </h2>
+                    <p class="text-muted mb-4">
+                        L'adresse e-mail <strong>{{ email }}</strong> a été supprimée de notre liste de diffusion.
+                    </p>
+                    <div class="alert alert-info border-0 bg-light">
+                        <i class="fas fa-info-circle me-2"></i>
+                        <strong>Note :</strong> Vous ne recevrez plus nos newsletters.
+                        Si vous changez d'avis, vous pouvez vous réinscrire à tout moment.
+                    </div>
+                    {% else %}
+                    <!-- Erreur -->
+                    <div class="mb-4">
+                        <i class="fas fa-exclamation-triangle fa-4x text-warning"></i>
+                    </div>
+                    <h2 class="h3 text-warning mb-3">
+                        Erreur de Désabonnement
+                    </h2>
+                    <p class="text-muted mb-4">
+                        {{ message|default:"Une erreur s'est produite lors du désabonnement." }}
+                    </p>
+                    <div class="alert alert-warning border-0 bg-light">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Problème :</strong> Impossible de traiter votre demande de désabonnement.
+                    </div>
+                    {% endif %}
+
+                    <div class="mt-4">
+                        <a href="{% url 'aguipex-index' %}" class="btn btn-primary me-3">
+                            <i class="fas fa-home me-2"></i>
+                            Retour à l'accueil
+                        </a>
+                        {% if success %}
+                        <a href="{% url 'aguipex-contact' %}" class="btn btn-outline-secondary">
+                            <i class="fas fa-envelope me-2"></i>
+                            Nous contacter
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <!-- Informations supplémentaires -->
+            <div class="card shadow-lg border-0 mt-4">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold text-primary mb-3">
+                        <i class="fas fa-question-circle me-2"></i>Questions fréquentes
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold">Puis-je me réinscrire ?</h6>
+                            <p class="text-muted small">Oui, vous pouvez vous réinscrire à tout moment via notre
+                                formulaire d'inscription.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold">Combien de temps pour être retiré ?</h6>
+                            <p class="text-muted small">Votre désabonnement est immédiat et effectif.</p>
+                        </div>
+                    </div>
+                    <div class="row mt-3">
+                        <div class="col-md-6">
+                            <h6 class="fw-bold">Mes données sont-elles conservées ?</h6>
+                            <p class="text-muted small">Nous conservons vos données pour éviter les réinscriptions
+                                accidentelles.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <h6 class="fw-bold">Puis-je me désabonner d'autres emails ?</h6>
+                            <p class="text-muted small">Oui, chaque email contient un lien de désabonnement en bas de
+                                page.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles personnalisés -->
+<style>
+    .card {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .text-success {
+        color: #28a745 !important;
+    }
+
+    .text-warning {
+        color: #ffc107 !important;
+    }
+
+    .btn {
+        border-radius: 25px;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+    }
+
+    .btn:hover {
+        transform: translateY(-1px);
+    }
+
+    .alert {
+        border-radius: 15px;
+    }
+</style>
+{% endblock %}

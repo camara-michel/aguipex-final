@@ -1,0 +1,174 @@
+/* CSS personnalisé pour les cartes d'actualité */
+
+/* Conteneur des cartes d'actualité */
+#blog-sec .slider-area {
+    position: relative;
+    padding: 0 20px;
+}
+
+/* Style uniforme pour toutes les cartes d'actualité */
+#blog-sec .blog-box2.style2 {
+    height: 420px;
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background: #fff;
+    margin: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Hover effect */
+#blog-sec .blog-box2.style2:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Conteneur de l'image avec dimensions fixes */
+#blog-sec .blog-box2.style2 .blog-img {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    border-radius: 15px;
+    position: relative;
+    flex-shrink: 0;
+}
+
+/* Image avec dimensions contrôlées */
+#blog-sec .blog-box2.style2 .blog-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 15px;
+    transition: transform 0.3s ease;
+    display: block;
+}
+
+/* Hover effect sur l'image */
+#blog-sec .blog-box2.style2:hover .blog-img img {
+    transform: scale(1.05);
+}
+
+/* Contenu de la carte */
+#blog-sec .blog-box2.style2 .blog-box2_content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Métadonnées */
+#blog-sec .blog-box2.style2 .blog-meta {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+    gap: 25px;
+}
+
+#blog-sec .blog-box2.style2 .blog-meta a,
+#blog-sec .blog-box2.style2 .blog-meta span {
+    color: #666;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+#blog-sec .blog-box2.style2 .blog-meta i {
+    margin-right: 8px;
+    color: var(--theme-color);
+    width: 16px;
+    text-align: center;
+}
+
+/* Titre de l'actualité */
+#blog-sec .blog-box2.style2 .box-title {
+    margin-bottom: 20px;
+    flex: 1;
+}
+
+#blog-sec .blog-box2.style2 .box-title a {
+    color: var(--title-color);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Bouton "Voir Plus" */
+#blog-sec .blog-box2.style2 .line-btn {
+    color: var(--theme-color);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    margin-top: auto;
+    padding: 8px 0;
+}
+
+#blog-sec .blog-box2.style2 .line-btn:hover {
+    color: var(--theme-color2);
+    transform: translateX(5px);
+}
+
+#blog-sec .blog-box2.style2 .line-btn i {
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+#blog-sec .blog-box2.style2 .line-btn:hover i {
+    transform: translateX(3px);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    #blog-sec .blog-box2.style2 {
+        height: 400px;
+        padding: 20px;
+    }
+    
+    #blog-sec .blog-box2.style2 .blog-img {
+        height: 180px;
+    }
+    
+    #blog-sec .blog-box2.style2 .blog-meta {
+        gap: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    #blog-sec .blog-box2.style2 {
+        height: 380px;
+        padding: 18px;
+    }
+    
+    #blog-sec .blog-box2.style2 .blog-img {
+        height: 160px;
+    }
+    
+    #blog-sec .blog-box2.style2 .blog-meta {
+        gap: 15px;
+        font-size: 13px;
+        flex-wrap: wrap;
+    }
+    
+    #blog-sec .blog-box2.style2 .blog-meta i {
+        margin-right: 6px;
+        width: 14px;
+    }
+}

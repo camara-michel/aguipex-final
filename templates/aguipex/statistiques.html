@@ -1,0 +1,265 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --surface: #fff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-lg: 16px;
+  }
+  .breadcumb-wrapper { background: linear-gradient(135deg, var(--brand), var(--brand-2)); padding: 50px 0; color: #fff; }
+  .breadcumb-title { font-weight: 800; font-size: 1.75rem; margin: 0 0 6px; }
+  .breadcumb-menu { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+  .breadcumb-menu a { color: #fff; text-decoration: none; }
+  .breadcumb-menu li + li::before { content: '›'; margin: 0 6px; opacity: 0.8; }
+  .page-intro { max-width: 720px; margin: 0 auto 1.5rem; text-align: center; }
+  .page-intro h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .page-intro p { color: var(--muted); font-size: 1rem; margin: 0; }
+  .filter-bar {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: flex-end;
+  }
+  .filter-bar label { font-size: 0.8rem; font-weight: 600; color: var(--muted); margin-bottom: 0.35rem; display: block; }
+  .filter-bar select {
+    min-width: 140px;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: var(--surface);
+  }
+  .filter-bar .btn-apply {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .filter-bar .btn-apply:hover { background: var(--brand-2); }
+  .filter-bar .btn-reset {
+    background: var(--surface-2);
+    color: var(--muted);
+    border: 1px solid #dee2e6;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+  .filter-bar .btn-reset:hover { background: #e9ecef; color: var(--text); }
+  .view-toggle {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .view-toggle span { font-size: 0.9rem; font-weight: 600; color: var(--muted); margin-right: 0.5rem; }
+  .view-toggle .btn-view {
+    padding: 0.4rem 0.9rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border: 1px solid #dee2e6;
+    background: var(--surface);
+    color: var(--muted);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .view-toggle .btn-view:hover { background: var(--surface-2); color: var(--text); }
+  .view-toggle .btn-view.active { background: var(--brand); color: #fff; border-color: var(--brand); }
+  .stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.25rem; }
+  .stats-grid.hide { display: none; }
+  .stat-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s;
+    border-left: 4px solid var(--brand);
+  }
+  .stat-card:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .stat-card .stat-category { font-size: 0.75rem; font-weight: 600; color: var(--brand); text-transform: uppercase; letter-spacing: 0.03em; margin-bottom: 0.35rem; }
+  .stat-card .stat-title { font-size: 1rem; font-weight: 600; color: var(--text); margin: 0 0 0.5rem; line-height: 1.35; }
+  .stat-card .stat-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; }
+  .stat-card .stat-value { font-size: 1.5rem; font-weight: 800; color: var(--brand); }
+  .stat-card .stat-value .unit { font-size: 0.9rem; font-weight: 600; color: var(--muted); }
+  .stats-table-wrap {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .stats-table-wrap.hide { display: none; }
+  .stats-table { width: 100%; border-collapse: collapse; }
+  .stats-table th, .stats-table td { padding: 0.85rem 1rem; text-align: left; border-bottom: 1px solid var(--surface-2); }
+  .stats-table th { background: var(--surface-2); font-size: 0.8rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.03em; }
+  .stats-table tr:last-child td { border-bottom: none; }
+  .stats-table tr:hover td { background: rgba(0,141,63,0.04); }
+  .stats-table .val-col { font-weight: 700; color: var(--brand); white-space: nowrap; }
+  .stats-footer { margin-top: 1rem; font-size: 0.9rem; color: var(--muted); }
+  .stats-footer strong { color: var(--text); }
+  .empty-state { text-align: center; padding: 3rem 1.5rem; background: var(--surface-2); border-radius: var(--radius-lg); color: var(--muted); }
+  .empty-state h3 { font-size: 1.1rem; color: var(--text); margin-bottom: 0.5rem; }
+  @media (max-width: 768px) {
+    .filter-bar { flex-direction: column; align-items: stretch; }
+    .filter-bar select { min-width: 100%; }
+    .stats-table th:nth-child(2), .stats-table td:nth-child(2) { display: none; }
+  }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">Statistiques</h1>
+      <ul class="breadcumb-menu d-flex flex-wrap align-items-center gap-1">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li><a href="{% url 'aguipex-donneeStrategique' %}">Ressources</a></li>
+        <li>Statistiques</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="space pt-4 pb-5">
+  <div class="container">
+    <div class="page-intro">
+      <h2>Statistiques AGUIPEX</h2>
+      <p>Consultez les statistiques par année, par mois et par catégorie.</p>
+    </div>
+
+    <form method="get" action="{% url 'aguipex-statistiques' %}" class="filter-bar">
+      <div>
+        <label for="annee">Année</label>
+        <select name="annee" id="annee">
+          <option value="">Toutes les années</option>
+          {% for a in annees_dispo %}
+          <option value="{{ a }}" {% if annee_choisie == a|stringformat:"s" %}selected{% endif %}>{{ a }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="mois">Mois</label>
+        <select name="mois" id="mois">
+          <option value="">Tous les mois / Annuelles</option>
+          {% for num, lib in mois_choices %}
+          <option value="{{ num }}" {% if mois_choisi == num|stringformat:"s" %}selected{% endif %}>{{ lib }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label for="categorie">Catégorie</label>
+        <select name="categorie" id="categorie">
+          <option value="">Toutes les catégories</option>
+          {% for cat in categories %}
+          <option value="{{ cat.slug }}" {% if categorie_choisie == cat.slug %}selected{% endif %}>{{ cat.nom }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="d-flex gap-2 align-items-end">
+        <button type="submit" class="btn-apply">Filtrer</button>
+        <a href="{% url 'aguipex-statistiques' %}" class="btn-reset">Réinitialiser</a>
+      </div>
+    </form>
+
+    {% if statistiques %}
+    <div class="view-toggle">
+      <span>Affichage :</span>
+      <button type="button" class="btn-view active" data-view="cards" aria-pressed="true">Cartes</button>
+      <button type="button" class="btn-view" data-view="table" aria-pressed="false">Tableau</button>
+    </div>
+
+    <div id="stats-cards" class="stats-grid">
+      {% for s in statistiques %}
+      <div class="stat-card">
+        {% if s.categorie %}<div class="stat-category">{{ s.categorie.nom }}</div>{% endif %}
+        <div class="stat-title">{{ s.titre }}</div>
+        <div class="stat-meta">{{ s.annee }}{% if s.mois %} — {{ s.get_mois_display }}{% else %} (annuelle){% endif %}</div>
+        <div class="stat-value">{{ s.valeur|floatformat:0 }}{% if s.unite %} <span class="unit">{{ s.unite }}</span>{% endif %}</div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div id="stats-table-wrap" class="stats-table-wrap hide">
+      <table class="stats-table">
+        <thead>
+          <tr>
+            <th>Année</th>
+            <th>Mois</th>
+            <th>Catégorie</th>
+            <th>Indicateur</th>
+            <th class="text-end">Valeur</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in statistiques %}
+          <tr>
+            <td>{{ s.annee }}</td>
+            <td>{% if s.mois %}{{ s.get_mois_display }}{% else %}— Annuelle{% endif %}</td>
+            <td>{% if s.categorie %}{{ s.categorie.nom }}{% else %}—{% endif %}</td>
+            <td>{{ s.titre }}</td>
+            <td class="val-col text-end">{{ s.valeur|floatformat:0 }}{% if s.unite %} <span class="unit">{{ s.unite }}</span>{% endif %}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="stats-footer"><strong>{{ statistiques|length }}</strong> statistique(s) affichée(s).</p>
+    {% else %}
+    <div class="empty-state">
+      <h3>Aucune statistique à afficher</h3>
+      <p>Modifiez les filtres ou ajoutez des statistiques dans l’espace d’administration.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+<script>
+(function() {
+  var cardsEl = document.getElementById('stats-cards');
+  var tableWrap = document.getElementById('stats-table-wrap');
+  if (!cardsEl || !tableWrap) return;
+  var btns = document.querySelectorAll('.view-toggle .btn-view');
+  function showView(view) {
+    if (view === 'cards') {
+      cardsEl.classList.remove('hide');
+      tableWrap.classList.add('hide');
+      btns.forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-view') === 'cards');
+        b.setAttribute('aria-pressed', b.getAttribute('data-view') === 'cards');
+      });
+    } else {
+      cardsEl.classList.add('hide');
+      tableWrap.classList.remove('hide');
+      btns.forEach(function(b) {
+        b.classList.toggle('active', b.getAttribute('data-view') === 'table');
+        b.setAttribute('aria-pressed', b.getAttribute('data-view') === 'table');
+      });
+    }
+  }
+  btns.forEach(function(btn) {
+    btn.addEventListener('click', function() { showView(this.getAttribute('data-view')); });
+  });
+})();
+</script>
+{% endblock content %}

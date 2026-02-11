@@ -1,0 +1,236 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --surface: #fff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-lg: 16px;
+  }
+  .breadcumb-wrapper { background: linear-gradient(135deg, var(--brand), var(--brand-2)); padding: 50px 0; color: #fff; }
+  .breadcumb-title { font-weight: 800; font-size: 1.5rem; margin: 0 0 6px; }
+  .breadcumb-menu { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+  .breadcumb-menu a { color: #fff; text-decoration: none; }
+  .breadcumb-menu li + li::before { content: '›'; margin: 0 6px; opacity: 0.8; }
+  .projet-hero {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 2rem 2rem 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .projet-hero .status-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+  }
+  .projet-hero .status-badge.en_cours { background: #e8f5e9; color: #2e7d32; }
+  .projet-hero .status-badge.termine { background: #e3f2fd; color: #1565c0; }
+  .projet-hero h1 {
+    font-size: 1.75rem;
+    font-weight: 800;
+    color: var(--text);
+    margin: 0 0 1rem;
+    line-height: 1.3;
+  }
+  .projet-hero .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    font-size: 0.9rem;
+    color: var(--muted);
+    margin-bottom: 1rem;
+  }
+  .projet-hero .meta-row span { display: flex; align-items: center; gap: 0.4rem; }
+  .projet-hero .meta-row i { color: var(--brand); width: 1.1rem; }
+  .projet-hero .assignee {
+    padding: 0.75rem 1rem;
+    background: var(--surface-2);
+    border-radius: var(--radius);
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .projet-hero .assignee strong { color: var(--text); }
+  .projet-description {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 1.5rem 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .projet-description h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--brand);
+  }
+  .projet-description .content { color: #444; line-height: 1.65; }
+  .projet-description .content p:last-child { margin-bottom: 0; }
+  .section-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .section-title i { color: var(--brand); }
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.4rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: linear-gradient(180deg, var(--brand), var(--brand-2));
+    border-radius: 2px;
+  }
+  .timeline-item {
+    position: relative;
+    padding-bottom: 2rem;
+  }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -2rem;
+    top: 0.4rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--brand);
+    border: 3px solid var(--surface);
+    box-shadow: 0 0 0 2px var(--brand);
+  }
+  .timeline-card {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    margin-left: 0;
+  }
+  .timeline-card .etape-date {
+    font-size: 0.8rem;
+    color: var(--brand);
+    font-weight: 600;
+    margin-bottom: 0.35rem;
+  }
+  .timeline-card .etape-titre {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0 0 0.5rem;
+  }
+  .timeline-card .etape-pourcentage {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--brand);
+    margin-left: 0.35rem;
+  }
+  .timeline-card .etape-desc { font-size: 0.95rem; color: #555; line-height: 1.6; }
+  .timeline-card .etape-desc p:last-child { margin-bottom: 0; }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--brand);
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+  }
+  .back-link:hover { color: var(--brand-2); }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">{{ projet.title }}</h1>
+      <ul class="breadcumb-menu d-flex flex-wrap align-items-center gap-1">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li><a href="{% url 'aguipex-projets' %}">Projets</a></li>
+        <li>{{ projet.title }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="space pt-4 pb-5">
+  <div class="container">
+    <a href="{% url 'aguipex-projets' %}" class="back-link"><i class="far fa-arrow-left"></i> Retour aux projets</a>
+
+    <div class="projet-hero">
+      <span class="status-badge {{ projet.status }}">{{ projet.get_status_display }}</span>
+      <h1>{{ projet.title }}</h1>
+      <div class="projet-hero meta-row">
+        {% if projet.start_date %}
+        <span><i class="far fa-calendar-alt"></i> Début : {{ projet.start_date|date:"d/m/Y" }}</span>
+        {% endif %}
+        {% if projet.end_date %}
+        <span><i class="far fa-calendar-check"></i> Fin prévue : {{ projet.end_date|date:"d/m/Y" }}</span>
+        {% endif %}
+      </div>
+      {% if projet.responsable_nom or projet.responsable_poste %}
+      <div class="assignee">
+        <i class="far fa-user"></i> <strong>Responsable du projet :</strong>
+        {{ projet.responsable_nom|default:"" }}{% if projet.responsable_poste %} — {{ projet.responsable_poste }}{% endif %}
+      </div>
+      {% endif %}
+    </div>
+
+    {% if projet.description %}
+    <div class="projet-description">
+      <h2>Présentation du projet</h2>
+      <div class="content">{{ projet.description|safe }}</div>
+    </div>
+    {% endif %}
+
+    <h2 class="section-title"><i class="far fa-list-alt"></i> Évolution et étapes du projet</h2>
+    {% if etapes %}
+    <div class="timeline">
+      {% for etape in etapes %}
+      <div class="timeline-item">
+        <div class="timeline-card">
+          {% if etape.date_etape %}
+          <div class="etape-date"><i class="far fa-calendar me-1"></i>{{ etape.date_etape|date:"d F Y" }}</div>
+          {% endif %}
+          <h3 class="etape-titre">{{ etape.titre }}{% if etape.pourcentage is not None %} <span class="etape-pourcentage">{{ etape.pourcentage }} %</span>{% endif %}</h3>
+          {% if etape.description %}
+          <div class="etape-desc">{{ etape.description|safe }}</div>
+          {% endif %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="projet-description">
+      <p class="text-muted mb-0">Les étapes et l'évolution de ce projet seront publiées au fur et à mesure.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,166 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% load html_filters %}
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --surface: #fff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-lg: 16px;
+  }
+  .breadcumb-wrapper { background: linear-gradient(135deg, var(--brand), var(--brand-2)); padding: 50px 0; color: #fff; }
+  .breadcumb-title { font-weight: 800; font-size: 1.75rem; margin: 0 0 6px; }
+  .breadcumb-menu { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+  .breadcumb-menu a { color: #fff; text-decoration: none; }
+  .breadcumb-menu li + li::before { content: '›'; margin: 0 6px; opacity: 0.8; }
+  .page-intro { max-width: 720px; margin: 0 auto 2.5rem; text-align: center; }
+  .page-intro h2 { font-size: 1.5rem; font-weight: 700; color: var(--text); margin-bottom: 0.5rem; }
+  .page-intro p { color: var(--muted); font-size: 1rem; margin: 0; }
+  .manifest-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .manifest-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+  .manifest-card-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--surface-2); }
+  .manifest-card-title { font-size: 1.15rem; font-weight: 700; color: var(--text); margin: 0 0 0.5rem; line-height: 1.35; }
+  .manifest-badge {
+    display: inline-block;
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.5rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .manifest-badge.bientot_prevu { 
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+    color: #1565c0; 
+    border: 1px solid rgba(33, 150, 243, 0.2);
+  }
+  .manifest-badge.a_postuler { 
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); 
+    color: #2e7d32; 
+    border: 1px solid rgba(76, 175, 80, 0.2);
+  }
+  .manifest-badge.selection_terminee { 
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); 
+    color: #e65100; 
+    border: 1px solid rgba(255, 152, 0, 0.2);
+  }
+  /* Badge SUCCÈS pour manifestation terminée - Mise en valeur progressive */
+  .manifest-badge.manifestation_terminee { 
+    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 50%, #81C784 100%);
+    color: #ffffff;
+    border: 2px solid #2e7d32;
+    box-shadow: 0 3px 10px rgba(76, 175, 80, 0.35), 0 0 15px rgba(76, 175, 80, 0.15);
+    font-weight: 700;
+    padding: 0.3rem 0.75rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+  }
+  .manifest-badge.manifestation_terminee::before {
+    content: '✓';
+    display: inline-block;
+    margin-right: 0.3rem;
+    font-size: 0.85rem;
+    font-weight: 800;
+  }
+  .manifest-badge.manifestation_terminee::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.25) 50%, transparent 70%);
+    animation: shine 3s infinite;
+  }
+  @keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  }
+  .manifest-badge.manifestation_terminee:hover {
+    transform: scale(1.05);
+    box-shadow: 0 5px 14px rgba(76, 175, 80, 0.45), 0 0 20px rgba(76, 175, 80, 0.25);
+  }
+  .manifest-meta { font-size: 0.85rem; color: var(--muted); display: flex; flex-wrap: wrap; gap: 1rem; }
+  .manifest-meta span { display: flex; align-items: center; gap: 0.35rem; }
+  .manifest-meta i { color: var(--brand); }
+  .manifest-card-body { padding: 1.25rem 1.5rem; flex-grow: 1; }
+  .manifest-card-footer { padding: 1rem 1.5rem; background: var(--surface-2); }
+  .manifest-link { color: var(--brand); font-weight: 600; font-size: 0.9rem; text-decoration: none; display: inline-flex; align-items: center; gap: 0.5rem; }
+  .manifest-link:hover { color: var(--brand-2); }
+  .empty-state { text-align: center; padding: 3rem 1.5rem; background: var(--surface-2); border-radius: var(--radius-lg); color: var(--muted); }
+  .empty-state h3 { font-size: 1.1rem; color: var(--text); margin-bottom: 0.5rem; }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">Manifestations commerciales</h1>
+      <ul class="breadcumb-menu d-flex flex-wrap align-items-center gap-1">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li>Ressources</li>
+        <li>Manifestations commerciales</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="space pt-4 pb-5">
+  <div class="container">
+    <div class="page-intro">
+      <h2>Manifestations commerciales</h2>
+      <p>Foires, salons et événements auxquels AGUIPEX participe ou pour lesquels les entreprises peuvent postuler.</p>
+    </div>
+    <div class="row g-4">
+      {% for m in manifestations %}
+      <div class="col-md-6 col-lg-4">
+        <div class="manifest-card">
+          <div class="manifest-card-header">
+            <span class="manifest-badge {{ m.statut_global }}">{{ m.get_statut_global_display }}</span>
+            <h3 class="manifest-card-title"><a href="{% url 'aguipex-manifestation-detail' m.slug %}" class="text-dark text-decoration-none">{{ m.titre|unescape_html }}</a></h3>
+            <div class="manifest-meta">
+              {% if m.date_debut %}<span><i class="far fa-calendar-alt"></i> {{ m.date_debut|date:"d/m/Y" }}{% if m.date_fin %} – {{ m.date_fin|date:"d/m/Y" }}{% endif %}</span>{% endif %}
+              {% if m.lieu %}<span><i class="far fa-map-marker-alt"></i> {{ m.lieu|unescape_html }}{% if m.pays %}, {{ m.pays|unescape_html }}{% endif %}</span>{% endif %}
+            </div>
+          </div>
+          <div class="manifest-card-body">
+            {% if m.description %}<div class="text-muted small">{{ m.description|unescape_html|striptags|truncatewords:25 }}</div>{% endif %}
+          </div>
+          <div class="manifest-card-footer">
+            <a href="{% url 'aguipex-manifestation-detail' m.slug %}" class="manifest-link">
+              Voir le détail et les étapes <i class="far fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="empty-state">
+          <h3>Aucune manifestation à afficher</h3>
+          <p>Les manifestations commerciales publiées apparaîtront ici.</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock content %}

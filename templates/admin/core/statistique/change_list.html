@@ -1,0 +1,15 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block result_list %}
+<div style="margin-bottom: 16px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
+    <a href="{% url 'admin:statistique_export_excel' %}" class="button" style="margin-right: 8px; background: #28a745; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;">
+        <i class="fas fa-file-excel"></i> Exporter en Excel
+    </a>
+    <a href="{% url 'admin:statistique_export_csv' %}" class="button" style="background: #17a2b8; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;">
+        <i class="fas fa-file-csv"></i> Exporter en CSV
+    </a>
+</div>
+{{ block.super }}
+{% endblock %}
+

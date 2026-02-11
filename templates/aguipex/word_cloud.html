@@ -1,0 +1,115 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --surface: #fff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+  }
+  .breadcumb-wrapper { background: linear-gradient(135deg, var(--brand), var(--brand-2)); padding: 50px 0; color: #fff; }
+  .breadcumb-title { font-weight: 800; font-size: 1.5rem; margin: 0 0 6px; }
+  .breadcumb-menu { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+  .breadcumb-menu a { color: #fff; text-decoration: none; }
+  .breadcumb-menu li + li::before { content: '›'; margin: 0 6px; opacity: 0.8; }
+  .wordcloud-section {
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    min-height: 400px;
+  }
+  .wordcloud-section h2 { font-size: 1.25rem; font-weight: 700; color: var(--text); margin-bottom: 1rem; }
+  .wordcloud-section p.lead { color: var(--muted); margin-bottom: 1.5rem; font-size: 0.95rem; }
+  #wordcloud-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    padding: 1rem 0;
+    line-height: 1.8;
+  }
+  #wordcloud-container .word {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    color: var(--brand);
+    font-weight: 600;
+    transition: transform 0.2s, color 0.2s;
+    cursor: default;
+  }
+  #wordcloud-container .word:hover {
+    color: var(--brand-2);
+    transform: scale(1.08);
+  }
+  .wordcloud-loading { text-align: center; color: var(--muted); padding: 2rem; }
+  .wordcloud-empty { text-align: center; color: var(--muted); padding: 2rem; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--brand); font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+  .back-link:hover { color: var(--brand-2); }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">Nuage de mots-clés</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li>Ressources</li>
+        <li>Nuage de mots-clés</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="space pt-4 pb-5">
+  <div class="container">
+    <a href="{% url 'aguipex-index' %}" class="back-link"><i class="far fa-arrow-left"></i> Retour à l'accueil</a>
+    <div class="wordcloud-section">
+      <h2><i class="far fa-cloud"></i> Mots-clés des questions posées à l'assistant</h2>
+      <p class="lead">Ce nuage reflète les thèmes les plus abordés par les visiteurs avec le chatbot AGUIPEX. La taille des mots correspond à leur fréquence.</p>
+      <div id="wordcloud-container">
+        <span class="wordcloud-loading">Chargement du nuage de mots...</span>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
+
+{% block script %}
+<script>
+(function() {
+  var container = document.getElementById('wordcloud-container');
+  fetch('{% url "aguipex-word-cloud-api" %}?limit=80')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      container.innerHTML = '';
+      var keywords = data.keywords || [];
+      if (keywords.length === 0) {
+        container.innerHTML = '<span class="wordcloud-empty">Aucun mot-clé pour le moment. Posez des questions au chatbot pour alimenter le nuage.</span>';
+        return;
+      }
+      var maxW = Math.max.apply(null, keywords.map(function(k) { return k.weight; })) || 1;
+      var minW = Math.min.apply(null, keywords.map(function(k) { return k.weight; })) || 1;
+      keywords.forEach(function(k) {
+        var span = document.createElement('span');
+        span.className = 'word';
+        span.textContent = k.word;
+        var size = 14 + (k.weight / maxW) * 24;
+        span.style.fontSize = Math.min(size, 42) + 'px';
+        span.style.opacity = 0.6 + (k.weight / maxW) * 0.4;
+        container.appendChild(span);
+      });
+    })
+    .catch(function() {
+      container.innerHTML = '<span class="wordcloud-empty">Impossible de charger le nuage. Réessayez plus tard.</span>';
+    });
+})();
+</script>
+{% endblock script %}

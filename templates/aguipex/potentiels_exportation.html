@@ -1,0 +1,755 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block style %}
+    <style>
+        .process-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: -1; /* L'image reste en arrière-plan */
+        }
+        
+        .small-title-text {
+            font-size: 0.85rem; /* Ajuste la taille selon tes besoins */
+            font-weight: normal; /* Optionnel : rendre le texte moins lourd */
+        }
+
+        .accordion-card.style2 .accordion-button::after {
+            display: none !important;
+        }
+
+        .svpl .icon-container {
+            margin-left: auto;
+            color: green; /* Icône en vert par défaut */
+            transition: color 0.3s ease-in-out; /* Animation fluide */
+        }
+        
+        .svpl[aria-expanded="true"] .icon-container {
+            color: white !important; /* Change en blanc quand ouvert */
+        } 
+        #select-product {
+            appearance: none; /* Supprime le style par défaut du navigateur */
+            -webkit-appearance: none; /* Pour Safari */
+            -moz-appearance: none; /* Pour Firefox */
+            background-color: green !important; /* Assurer le fond vert */
+            color: white !important; /* Texte en blanc */
+            padding-right: 30px; /* Laisse de l’espace pour l’icône */
+            position: relative;
+        }
+        
+        /* Ajouter une icône personnalisée */
+        #select-product::after {
+            content: '\25BC'; /* Code Unicode pour la flèche ▼ */
+            font-size: 16px;
+            color: white; /* Mettre la flèche en blanc */
+            position: absolute;
+            right: 10px; /* Ajuste la position à droite */
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none; /* Empêche l’icône d'être cliquable */
+        }
+        
+        /* Pour les navigateurs qui ne supportent pas "appearance:none" */
+        #select-product::-ms-expand {
+            display: none; /* Cache la flèche par défaut sous Internet Explorer */
+        }
+
+        .about-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .about-feature_icon {
+            font-size: 24px;
+            color: #007bff;
+            margin-right: 15px;
+        }
+        
+        .media-body {
+            flex-grow: 1;
+        }
+        
+        .about-feature_title {
+            font-size: 18px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .about-feature_text {
+            margin: 0;
+            font-size: 16px;
+            color: #555;
+        }
+        
+        .img-box9 img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+    </style>
+{% endblock style %}
+{% block content %}
+
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">Exportations</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>Exportations</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="space pt-0 pb-0 mt-0 mb-2 pt-0" id="procedure-exportation">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title-area mb-0">
+                    <span class="sub-title">
+                        <div class="icon-masking me-2"><img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}"
+                                alt="shape"></div>
+                        <span class="text-uppercase fs-20 mt-4">
+                            Procédure d'exportation
+
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="process-card-area position-relative">
+            <div class="process-line">
+                <img src="{% static 'assets/img/bg/process_line.png' %}" alt="line">
+            </div>
+            <div class="row gy-40">
+                {% for procedure in procedure_globales %}
+                <div class="col-sm-6 col-xl-3 process-card-wrap">
+                    <div class="process-card">
+                        <div class="process-card_number">{{ forloop.counter }}</div>
+                        <div class="process-card_icon">
+                            <img src="{% static 'assets/img/icon/process_card_1.svg' %}" alt="icon">
+                        </div>
+                        <div class="accordion-card style2">
+                            <div class="accordion-header" id="collapse-item-{{ forloop.counter }}">
+                                <button class="accordion-button collapsed small-title svpl d-flex justify-content-between align-items-center" type="button" 
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ forloop.counter }}" 
+                                    aria-expanded="false"
+                                    aria-controls="collapse-{{ forloop.counter }}">
+                                    
+                                    <!-- Titre avec taille réduite -->
+                                    <span class="small-title-text">{{ procedure.titre }}</span> 
+                                    
+                                    <!-- Icône d'œil au lieu du signe + -->
+                                    <span class="icon-container">
+                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                    </span>
+                                </button>
+                            </div>
+                            <div id="collapse-{{ forloop.counter }}" class="accordion-collapse collapse"
+                                aria-labelledby="collapse-item-{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p class="faq-text">{{ procedure.description|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<section class="space pt-0 pb-0 mt-2 mb-2"id="processus-exportation" >
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="title-area mb-0">
+                    <span class="sub-title mt-0 pt-0">
+                        <div class="icon-masking me-2">
+                            <img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape">
+                        </div>
+                        <span class="text-uppercase fs-20">
+                            Processus d'Exportation d'un produit
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Formulaire de sélection -->
+        <div class="row justify-content-center">
+            <div class="col-md-5" >
+                <select id="select-product" class="form-select bg-blue" style="background-color: rgb(80, 121, 80); color:white">
+                    <option value="" selected disabled style="background-color: white; color:black">Choisissez un produit</option>
+                    {% for procedure in produits %}
+                        <option value="{{ procedure.id  }}" style="background-color: white; color:black">{{ procedure.title }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-5">
+                <select id="select-voie" class="form-select" disabled style="background-color: green; color:white">
+                    <option value="" selected disabled style="background-color: white; color:black">Choisissez la voie d'exportation</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Message par défaut -->
+        <div id="default-message" class="text-center text-muted mt-4">
+            <strong>Veuillez sélectionner un produit et choisir une voie d’exportation parmi celles dont nous possédons les informations.</strong>
+        </div>
+
+        <div id="detail-procedure" class="mt-4"></div>
+
+        <!-- Affichage des informations sur l'exportation -->
+        <div id="export-details" class="mt-5 d-none">
+            <div class="card shadow-lg p-4">
+                <h4 class="text-center mb-3">Détails du Processus d'Exportation</h4>
+        
+                <div class="row align-items-center">
+                    <!-- Texte à gauche -->
+                    <div class="col-md-8">
+                        <div class="about-feature-list">
+                            <div class="about-feature d-flex align-items-center">
+                                <i class="fas fa-box about-feature_icon"></i>
+                                <div class="media-body">
+                                    <h5 class="about-feature_title">Produit</h5>
+                                    <p class="about-feature_text" id="detail-product"></p>
+                                </div>
+                            </div>
+        
+                            <div class="about-feature d-flex align-items-center">
+                                <i class="fas fa-ship about-feature_icon"></i>
+                                <div class="media-body">
+                                    <h5 class="about-feature_title">Voie d'Exportation</h5>
+                                    <p class="about-feature_text" id="detail-voie"></p>
+                                </div>
+                            </div>
+        
+                            <div class="about-feature d-flex align-items-center">
+                                <i class="fas fa-file-signature about-feature_icon"></i>
+                                <div class="media-body">
+                                    <h5 class="about-feature_title">Formalisation</h5>
+                                    <p class="about-feature_text" id="detail-formalisation"></p>
+                                </div>
+                            </div>
+        
+                            <div class="about-feature d-flex align-items-center">
+                                <i class="fas fa-file-alt about-feature_icon"></i>
+                                <div class="media-body">
+                                    <h5 class="about-feature_title">Déclaration Descriptive d’Exportation (DDE)</h5>
+                                    <p class="about-feature_text" id="detail-dde"></p>
+                                </div>
+                            </div>
+        
+                            <div class="about-feature d-flex align-items-center">
+                                <i class="fas fa-certificate about-feature_icon"></i>
+                                <div class="media-body">
+                                    <h5 class="about-feature_title">Certificat Technique</h5>
+                                    <p class="about-feature_text" id="detail-cert-tech"></p>
+                                </div>
+                            </div>
+        
+                            <div class="about-feature d-flex align-items-center">
+                                <i class="fas fa-scroll about-feature_icon"></i>
+                                <div class="media-body">
+                                    <h5 class="about-feature_title">Certificat Conventionnel</h5>
+                                    <p class="about-feature_text" id="detail-cert-conv"></p>
+                                </div>
+                            </div>
+        
+                            
+                        </div>
+                    </div>
+        
+                    <!-- Image à droite -->
+                    <div class="col-md-4 text-center">
+                        <div class="img-box9">
+                            <img src="" id="detail-image" alt="About" class="img-fluid rounded">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="about-feature d-flex align-items-center">
+                        <i class="fas fa-user-check about-feature_icon"></i>
+                        <div class="media-body">
+                            <h5 class="about-feature_title">Autorisation</h5>
+                            <p class="about-feature_text" id="detail-autorisation"></p>
+                        </div>
+                    </div>
+
+                    <div class="about-feature d-flex align-items-center">
+                        <i class="fas fa-money-bill-wave about-feature_icon"></i>
+                        <div class="media-body">
+                            <h5 class="about-feature_title">Redevance</h5>
+                            <p class="about-feature_text" id="detail-redevance"></p>
+                        </div>
+                    </div>
+
+                    <div class="about-feature d-flex align-items-center">
+                        <i class="fas fa-gavel about-feature_icon"></i>
+                        <div class="media-body">
+                            <h5 class="about-feature_title">Formalités Douanières</h5>
+                            <p class="about-feature_text" id="detail-formalite"></p>
+                        </div>
+                    </div>
+
+                    <div class="about-feature d-flex align-items-center">
+                        <i class="fas fa-sticky-note about-feature_icon"></i>
+                        <div class="media-body">
+                            <h5 class="about-feature_title">Notes</h5>
+                            <p class="about-feature_text" id="detail-nb"></p>
+                        </div>
+                    </div>
+                </div>
+                <button id="download-pdf" class="th-btn style-radius mt-3">Télécharger en PDF</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="space pt-0 pb-4 mt-6 mb-5" id="potentiel-exportation">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title-area mb-0">
+                    <span class="sub-title mt-0 pt-0">
+
+                        <div class="icon-masking me-2"><img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}"
+                                alt="shape"></div>
+                        <span class="text-uppercase fs-20">
+                            Potentiels d’exportations
+
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row gy-4">
+            {% for produit in produits %}
+            <div class="col-lg-4 col-md-6">
+                <div class="project-card">
+                    {% if produit.image %}
+                        <div class="project-img"><img src="{{produit.image.url}}" alt="{{produit.title}}">
+                    {% endif %}
+                    </div>
+                    <div class="project-content-wrap">
+                        <div class="project-content">
+                            <div class="box-particle" id="project-p1"></div>
+                            <h3 class="box-title">{{produit.title}}</h3>
+                            <!-- <p class="project-subtitle">Agricole</p> -->
+                            {% if produit.fiche_produit %}
+                                <a href="{{produit.fiche_produit.url}}" class="icon-btn popup-image"><i class="far fa-eye"></i></a>
+                            {% else %}
+                                <a href="{{produit.image.url}}" class="icon-btn popup-image"><i class="far fa-eye"></i></a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+    <!-- <div class="shape-mockup" data-top="0%" data-right="0%"><img src="{% static 'assets/img/shape/tech_shape_1.png' %}"
+            alt="shape"></div>
+    <div class="shape-mockup" data-bottom="0%" data-left="0%"><img src="{% static 'assets/img/shape/tech_shape_2.png' %}"
+            alt="shape"></div> -->
+</section>
+<section class="space pt-5 pb-0 mt-5" id="infrastructure-exportation">
+    <div class="container">
+        <div class="title-area text-xl-start text-center mb-0">
+            <span class="sub-title mt-0 pt-0">
+                <div class="icon-masking me-2"><img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}"
+                    alt="shape"></div>
+                <span class="text-uppercase fs-20">
+                    INFRASTRUCTURES LIÉES À L’EXPORTATION
+                </span>
+            </span>
+            <p class="sec-text mt-25">
+                AGUIPEX accompagne les exportateurs en mettant à leur disposition trois principales voies d’exportation. 
+                Choisissez la solution la plus adaptée pour acheminer vos produits vers les marchés internationaux.
+            </p>
+            <a href="#processus-exportation" class="th-btn style-radius">Voir le Processus d’Exportation</a>
+        </div>
+        <div class="process-card-area3">
+            <div class="process-line position-top">
+                <img src="{% static 'assets/img/bg/process_line_3.png' %}" alt="line">
+            </div>
+            <div class="row gy-40 justify-content-xl-between justify-content-center">
+                <div class="col-md-6 col-xl-auto process-card-wrap">
+                    <div class="process-card-other style3">
+                        <div class="process-card_icon">
+                            <img src="{% static 'assets/img/icon/route.png' %}" alt="icon">
+                        </div>
+                        <div class="process-card_number">1</div>
+                        <h2 class="box-title">Transport Terrestre</h2>
+                        <p class="process-card_text">
+                            Une solution sur mesure pour faciliter l’exportation vers les pays voisins via le transport terrestre.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-auto process-card-wrap">
+                    <div class="process-card-other style3">
+                        <div class="process-card_icon">
+                            <img src="{% static 'assets/img/icon/bateau.png' %}" alt="icon">
+                        </div>
+                        <div class="process-card_number">2</div>
+                        <h2 class="box-title">Transport Maritime</h2>
+                        <p class="process-card_text">
+                            Idéal pour l’exportation de grandes quantités de marchandises par voie maritime.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-xl-auto process-card-wrap">
+                    <div class="process-card-other style3">
+                        <div class="process-card_icon">
+                            <img src="{% static 'assets/img/icon/avion.png' %}" alt="icon">
+                        </div>
+                        <div class="process-card_number">3</div>
+                        <h2 class="box-title">Transport Aérien</h2>
+                        <p class="process-card_text">
+                            Convient aux exportations urgentes et aux marchandises à forte valeur ajoutée.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+{% endblock content %}
+{% block script %}
+
+<!-- <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const links = document.querySelectorAll('a[href^="#"]');
+        links.forEach(link => {
+            link.addEventListener("click", function (event) {
+                event.preventDefault();
+                const targetId = this.getAttribute("href").substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100, // Ajuste pour tenir compte du menu fixe
+                        behavior: "smooth"
+                    });
+                }
+            });
+        });
+    });
+
+document.getElementById("select-product").addEventListener("change", fetchExportationDetails);
+document.getElementById("select-voie").addEventListener("change", fetchExportationDetails);
+
+function fetchExportationDetails() {
+    let procedureId = document.getElementById("select-product").value;
+    let voieExportation = document.getElementById("select-voie").value;
+
+    if (!procedureId || !voieExportation) return;
+
+    fetch(`/get_exportation_details/?procedure_id=${procedureId}&voie_exportation=${voieExportation}`)
+  .then(response => response.json())
+  .then(data => {
+    if (data.error) {
+      // Afficher le message d'absence de données
+      document.getElementById("default-message").innerHTML = "<p style='color:red;'>Aucune information pour le moment pour les valeurs sélectionnées</p>";
+      document.getElementById("export-details").classList.add("d-none");
+    } else {
+      // Afficher les détails d'exportation
+      document.getElementById("default-message").innerHTML = "";
+      document.getElementById("export-details").classList.remove("d-none");
+      document.getElementById("detail-product").textContent = data.product;
+      document.getElementById("detail-voie").textContent = data.voie_exportation;
+      document.getElementById("detail-formalisation").textContent = data.formalisation;
+      document.getElementById("detail-dde").textContent = data.dde;
+      document.getElementById("detail-cert-tech").textContent = data.certificat_technique;
+      document.getElementById("detail-cert-conv").textContent = data.certificat_conventionnel;
+      document.getElementById("detail-autorisation").textContent = data.autorisation;
+      document.getElementById("detail-redevance").textContent = data.redevance;
+      document.getElementById("detail-formalite").textContent = data.formalite_douane;
+      document.getElementById("detail-nb").textContent = data.nb;
+      // Mise à jour de l'image du produit
+      let imageElement = document.getElementById("detail-image");
+      imageElement.src = data.image;
+      imageElement.alt = `Image de ${data.product}`;  }
+  })
+  .catch(error => {
+    console.error('Erreur:', error);
+    document.getElementById("default-message").innerHTML = "<h4>Erreur lors de la récupération des données.</h4>";
+  });
+
+}
+
+
+document.getElementById("download-pdf").addEventListener("click", function () {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+
+     // Titre principal en gras et centré
+     doc.setFont("centurygothic", "bold");
+     doc.setFontSize(18);
+     let title = "DÉTAILS DU PROCESSUS D'EXPORTATION D'UN PRODUIT";
+     let pageWidth = doc.internal.pageSize.getWidth(); // Largeur de la page
+     let textWidth = doc.getTextWidth(title); // Largeur du texte
+     let x = (pageWidth - textWidth) / 2; // Calcul du centre
+     doc.text(title, x, 15); // Y à 15 pour un meilleur alignement
+ 
+     let y = 30; // Ajustement de la position après le titre
+
+    const elements = [
+        { label: "Produit", id: "detail-product" },
+        { label: "Voie d'Exportation", id: "detail-voie" },
+        { label: "Formalisation", id: "detail-formalisation" },
+        { label: "Déclaration Descriptive d’Exportation (DDE)", id: "detail-dde" },
+        { label: "Certificat Technique", id: "detail-cert-tech" },
+        { label: "Certificat Conventionnel", id: "detail-cert-conv" },
+        { label: "Autorisation", id: "detail-autorisation" },
+        { label: "Redevance", id: "detail-redevance" },
+        { label: "Formalités Douanières", id: "detail-formalite" },
+        { label: "Notes", id: "detail-nb" }
+    ];
+
+    doc.setFontSize(12);
+    
+    elements.forEach(({ label, id }) => {
+        let value = document.getElementById(id).innerText.trim();
+        if (value) {
+            // Affichage du titre en gras
+            doc.setFont("centurygothic", "bold");
+            doc.text(`${label}:`, 10, y);
+            y += 7; // Espace après le titre
+
+            // Affichage du contenu en normal
+            doc.setFont("centurygothic", "normal");
+            let splitText = doc.splitTextToSize(value, 180);
+            doc.text(splitText, 10, y);
+            y += splitText.length * 7 + 5; // Ajustement de l'espacement
+        }
+    });
+
+    // Ajout de l'image si disponible
+    let imgElement = document.getElementById("detail-image");
+    if (imgElement && imgElement.src) {
+        let img = new Image();
+        img.src = imgElement.src;
+        img.onload = function () {
+            doc.addImage(img, "JPEG", 140, 20, 50, 50); // Position et taille de l'image
+            doc.save("exportation-details.pdf");
+        };
+    } else {
+        doc.save("exportation-details.pdf");
+    }
+});
+
+
+    
+
+</script> -->
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const selectProduct = document.getElementById("select-product");
+        const selectVoie = document.getElementById("select-voie");
+        const exportDetails = document.getElementById("export-details");
+    
+        // Champs à remplir dynamiquement
+        const fields = {
+            product: document.getElementById("detail-product"),
+            voie: document.getElementById("detail-voie"),
+            formalisation: document.getElementById("detail-formalisation"),
+            dde: document.getElementById("detail-dde"),
+            certTech: document.getElementById("detail-cert-tech"),
+            certConv: document.getElementById("detail-cert-conv"),
+            autorisation: document.getElementById("detail-autorisation"),
+            redevance: document.getElementById("detail-redevance"),
+            formalite: document.getElementById("detail-formalite"),
+            nb: document.getElementById("detail-nb"),
+            image: document.getElementById("detail-image")
+        };
+    
+        // Étape 1 : chargement des voies selon le produit sélectionné
+        selectProduct.addEventListener("change", function () {
+            const productId = this.value;
+            selectVoie.innerHTML = '<option disabled selected>Chargement...</option>';
+            selectVoie.disabled = true;
+    
+            fetch(`/get-voies-by-produit/?product_id=${productId}`)
+                .then(response => response.json())
+                .then(data => {
+                    selectVoie.innerHTML = '<option value="" disabled selected>Choisissez une voie</option>';
+                    data.voies.forEach(voie => {
+                        const option = document.createElement("option");
+                        option.value = voie;
+                        option.textContent = formatVoie(voie);
+                        option.style.backgroundColor = 'white';
+                        option.style.color = 'black';
+                        selectVoie.appendChild(option);
+                    });
+                    selectVoie.disabled = false;
+                });
+        });
+    
+        // Étape 2 : affichage des détails lorsque la voie est sélectionnée
+        selectVoie.addEventListener("change", function () {
+            const voie = this.value;
+            const productId = selectProduct.value;
+    
+            fetch(`/get-procedure-details/?product_id=${productId}&voie_exportation=${voie}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        exportDetails.classList.add("d-none");
+                        return;
+                    }
+    
+                    // Affichage des valeurs dans les éléments HTML
+                    fields.product.textContent = selectProduct.options[selectProduct.selectedIndex].text;
+                    fields.voie.textContent = formatVoie(voie);
+                    fields.formalisation.textContent = data.formalisation || '—';
+                    fields.dde.textContent = data.dde || '—';
+                    fields.certTech.textContent = data.certificat_technique || '—';
+                    fields.certConv.textContent = data.certificat_conventionnel || '—';
+                    fields.autorisation.textContent = data.autorisation || '—';
+                    fields.redevance.textContent = data.redevance || '—';
+                    fields.formalite.textContent = data.formalite_douane || '—';
+                    fields.nb.textContent = data.nb || '—';
+    
+                    // Si vous avez une image à afficher
+                    if (data.image) {
+                        fields.image.src = data.image;
+                    } else {
+                        fields.image.src = "/static/images/default.jpg";
+                    }
+    
+                    exportDetails.classList.remove("d-none");
+                });
+        });
+    
+        function formatVoie(voie) {
+            switch (voie) {
+                case 'transport_aerien': return 'Transport Aérien';
+                case 'transport_maritime': return 'Transport Maritime';
+                case 'transport_terrestre': return 'Transport Terrestre';
+                default: return voie;
+            }
+        }
+    });
+
+    document.getElementById("download-pdf").addEventListener("click", function () {
+        const { jsPDF } = window.jspdf;
+        const doc = new jsPDF();
+    
+        // Titre principal
+        doc.setFont("centurygothic", "bold");
+        doc.setFontSize(18);
+        let title = "DÉTAILS DU PROCESSUS D'EXPORTATION D'UN PRODUIT";
+        let pageWidth = doc.internal.pageSize.getWidth();
+        let textWidth = doc.getTextWidth(title);
+        let x = (pageWidth - textWidth) / 2;
+        doc.text(title, x, 15);
+    
+        let y = 30;
+    
+        const elements = [
+            { label: "Produit", id: "detail-product" },
+            { label: "Voie d'Exportation", id: "detail-voie" },
+            { label: "Formalisation", id: "detail-formalisation" },
+            { label: "Déclaration Descriptive d’Exportation (DDE)", id: "detail-dde" },
+            { label: "Certificat Technique", id: "detail-cert-tech" },
+            { label: "Certificat Conventionnel", id: "detail-cert-conv" },
+            { label: "Autorisation", id: "detail-autorisation" },
+            { label: "Redevance", id: "detail-redevance" },
+            { label: "Formalités Douanières", id: "detail-formalite" },
+            { label: "Notes", id: "detail-nb" }
+        ];
+    
+        doc.setFontSize(12);
+    
+        elements.forEach(({ label, id }) => {
+            let value = document.getElementById(id).innerText.trim();
+            if (value) {
+                doc.setFont("centurygothic", "bold");
+                doc.text(`${label}:`, 10, y);
+                y += 7;
+    
+                doc.setFont("centurygothic", "normal");
+                let splitText = doc.splitTextToSize(value, 180);
+                doc.text(splitText, 10, y);
+                y += splitText.length * 7 + 5;
+            }
+        });
+    
+        function addWatermarkAndSave(doc) {
+            const watermark = new Image();
+            watermark.src = "{% static 'assets/img/logo.png' %}"; // ton chemin correct
+        
+            watermark.onload = function () {
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+        
+                // Taille naturelle de l'image
+                const naturalWidth = watermark.naturalWidth;
+                const naturalHeight = watermark.naturalHeight;
+        
+                // Réduction proportionnelle sans déformation
+                const scale = 0.1; // 10% de la taille réelle
+                const displayWidth = naturalWidth * scale;
+                const displayHeight = naturalHeight * scale;
+        
+                const posX = (pageWidth - displayWidth) / 2;
+                const posY = (pageHeight - displayHeight) / 2;
+        
+                // Ajouter l'image avec opacité (via options avancées)
+                doc.addImage(
+                    watermark,
+                    'PNG',
+                    posX,
+                    posY,
+                    displayWidth,
+                    displayHeight,
+                    '',
+                    'NONE',
+                    0.1 // 🔥 Vraie transparence : valeur entre 0.0 (transparent) et 1.0 (opaque)
+                );
+        
+                doc.save("exportation-details.pdf");
+            };
+        }
+        
+        
+    
+        // ✅ Ajouter image produit si elle existe, sinon juste le filigrane
+        let imgElement = document.getElementById("detail-image");
+        if (imgElement && imgElement.src) {
+            let img = new Image();
+            img.src = imgElement.src;
+            img.onload = function () {
+                doc.addImage(img, "JPEG", 140, 20, 50, 50);
+                addWatermarkAndSave(doc);
+            };
+        } else {
+            addWatermarkAndSave(doc);
+        }
+    });
+    
+    
+ 
+    
+    </script>
+    
+    
+    
+{% endblock script %}

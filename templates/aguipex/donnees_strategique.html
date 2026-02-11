@@ -1,0 +1,43 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">Données stratégiques</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>Données stratégiques</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section class="service-area12 overflow-hidden space" id="service-sec">
+    <div class="container th-container4">
+
+        <div class="slider-area">
+            <div class="swiper th-slider has-shadow" id="serviceSlider12"
+                data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
+                <div class="swiper-wrapper">
+                    {% for donnee in donnees_strategiques %}
+                    <div class="swiper-slide">
+                        <div class="service-item2 th-ani">
+                            <div class="service-item2_content">
+                                <h3 class="box-title"><a href="#">{{donnee.titre}}</a></h3>
+                                <p class="service-item2_text">{{ donnee.detail|safe|truncatewords:40 }}
+                                </p><a href="{% url 'aguipex-detail_donnee' donnee.slug %}" class="line-btn">Lire plus<i
+                                        class="fa-solid fa-arrow-right ms-2"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div><button data-slider-prev="#serviceSlider12" class="slider-arrow slider-prev"><i
+                    class="far fa-arrow-left"></i></button> <button data-slider-next="#serviceSlider12"
+                class="slider-arrow slider-next"><i class="far fa-arrow-right"></i></button>
+        </div>
+    </div>
+</section>
+{% endblock content %}

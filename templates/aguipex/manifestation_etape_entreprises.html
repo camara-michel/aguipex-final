@@ -1,0 +1,146 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --surface: #fff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-lg: 16px;
+  }
+  .breadcumb-wrapper { background: linear-gradient(135deg, var(--brand), var(--brand-2)); padding: 50px 0; color: #fff; }
+  .breadcumb-title { font-weight: 800; font-size: 1.5rem; margin: 0 0 6px; }
+  .breadcumb-menu { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+  .breadcumb-menu a { color: #fff; text-decoration: none; }
+  .breadcumb-menu li + li::before { content: '›'; margin: 0 6px; opacity: 0.8; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--brand); font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+  .back-link:hover { color: var(--brand-2); }
+  .manifest-hero {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .manifest-badge { display: inline-block; padding: 0.35rem 0.85rem; border-radius: 999px; font-size: 0.75rem; font-weight: 600; text-transform: uppercase; margin-bottom: 1rem; }
+  .manifest-badge.bientot_prevu { background: #e3f2fd; color: #1565c0; }
+  .manifest-badge.a_postuler { background: #e8f5e9; color: #2e7d32; }
+  .manifest-badge.selection_terminee { background: #fff3e0; color: #e65100; }
+  .manifest-badge.manifestation_terminee { background: #f5f5f5; color: #616161; }
+  .manifest-hero h1 { font-size: 1.75rem; font-weight: 800; color: var(--text); margin: 0 0 0.5rem; }
+  .manifest-hero .etape-context { font-size: 0.95rem; color: var(--brand); font-weight: 600; margin-bottom: 0.75rem; }
+  .manifest-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.9rem; color: var(--muted); }
+  .manifest-meta span { display: flex; align-items: center; gap: 0.4rem; }
+  .manifest-meta i { color: var(--brand); }
+  .section-title { font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 0 0 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  .section-title i { color: var(--brand); }
+  .entreprise-list { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow); overflow: hidden; border: 1px solid rgba(0,0,0,0.06); }
+  .entreprise-item {
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid var(--surface-2);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    transition: all 0.2s ease;
+  }
+  .entreprise-item:last-child { border-bottom: none; }
+  .entreprise-item:hover { 
+    background: rgba(0,141,63,0.04);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  .entreprise-nom { font-weight: 700; color: var(--text); font-size: 1.05rem; margin-bottom: 0.25rem; }
+  .entreprise-responsable { font-size: 0.9rem; color: var(--brand); font-weight: 500; margin-bottom: 0.25rem; display: flex; align-items: center; gap: 0.4rem; }
+  .entreprise-responsable i { font-size: 0.85rem; }
+  .entreprise-contact { font-size: 0.9rem; color: var(--muted); display: flex; align-items: center; gap: 0.4rem; flex-wrap: wrap; }
+  .entreprise-contact i { font-size: 0.85rem; }
+  .entreprise-link { color: var(--brand); font-weight: 600; text-decoration: none; font-size: 0.9rem; display: inline-flex; align-items: center; gap: 0.4rem; }
+  .entreprise-link:hover { color: var(--brand-2); }
+  .entreprise-info { flex: 1; min-width: 200px; }
+  .empty-state { text-align: center; padding: 2rem; background: var(--surface-2); border-radius: var(--radius-lg); color: var(--muted); }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">Entreprises — {{ etape.titre }}</h1>
+      <ul class="breadcumb-menu d-flex flex-wrap align-items-center gap-1">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li><a href="{% url 'aguipex-manifestations' %}">Manifestations commerciales</a></li>
+        <li><a href="{% url 'aguipex-manifestation-detail' manifestation.slug %}">{{ manifestation.titre }}</a></li>
+        <li>Étape {{ etape.ordre }} : {{ etape.titre }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="space pt-4 pb-5">
+  <div class="container">
+    <a href="{% url 'aguipex-manifestation-detail' manifestation.slug %}" class="back-link"><i class="far fa-arrow-left"></i> Retour à la manifestation</a>
+
+    <div class="manifest-hero">
+      <div class="etape-context">Étape {{ etape.ordre }} : {{ etape.titre }}</div>
+      <span class="manifest-badge {{ manifestation.statut_global }}">{{ manifestation.get_statut_global_display }}</span>
+      <h1>{{ manifestation.titre }}</h1>
+      <div class="manifest-meta">
+        {% if manifestation.date_debut %}
+        <span><i class="far fa-calendar-alt"></i> Début : {{ manifestation.date_debut|date:"d/m/Y" }}</span>
+        {% endif %}
+        {% if manifestation.date_fin %}
+        <span><i class="far fa-calendar-check"></i> Fin : {{ manifestation.date_fin|date:"d/m/Y" }}</span>
+        {% endif %}
+        {% if manifestation.lieu or manifestation.pays %}
+        <span><i class="far fa-map-marker-alt"></i> {{ manifestation.lieu|default:"" }}{% if manifestation.pays %}{% if manifestation.lieu %}, {% endif %}{{ manifestation.pays }}{% endif %}</span>
+        {% endif %}
+      </div>
+    </div>
+
+    <h2 class="section-title"><i class="far fa-building"></i> Entreprises pour cette étape</h2>
+    {% if candidatures %}
+    <div class="entreprise-list">
+      {% for c in candidatures %}
+      <div class="entreprise-item">
+        <div class="entreprise-info">
+          <div class="entreprise-nom">{% if c.entreprise.nom %}{{ c.entreprise.nom|upper }}{% elif c.nom_entreprise %}{{ c.nom_entreprise|upper }}{% else %}—{% endif %}</div>
+          {% if c.responsable_entreprise %}
+          <div class="entreprise-responsable">
+            <i class="far fa-user-tie"></i>
+            <span><strong>Responsable :</strong> {{ c.responsable_entreprise }}</span>
+          </div>
+          {% endif %}
+          {% if c.email_contact or c.telephone_contact %}
+          <div class="entreprise-contact">
+            {% if c.email_contact %}
+            <span><i class="far fa-envelope"></i> {{ c.email_contact }}</span>
+            {% endif %}
+            {% if c.email_contact and c.telephone_contact %}
+            <span style="opacity: 0.3;">|</span>
+            {% endif %}
+            {% if c.telephone_contact %}
+            <span><i class="far fa-phone"></i> {{ c.telephone_contact }}</span>
+            {% endif %}
+          </div>
+          {% endif %}
+        </div>
+        {% if c.entreprise and c.entreprise.slug %}
+        <a href="{% url 'aguipex-entreprise-detail' c.entreprise.slug %}" class="entreprise-link">Voir la fiche entreprise <i class="far fa-arrow-right"></i></a>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state">
+      <p class="mb-0">Aucune entreprise publiée pour cette étape.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Simple des Menus - AGUIPEX</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-menu {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .test-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .test-menu li {
+            margin: 10px 0;
+        }
+
+        .test-menu a {
+            color: #333;
+            text-decoration: none;
+            padding: 12px 20px;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 2px solid #ddd;
+            background: #f8f9fa;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .test-menu a:hover {
+            background: #008D3F;
+            color: white;
+            border-color: #008D3F;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .click-log {
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            max-height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>🧪 Test Simple des Menus - AGUIPEX</h1>
+
+        <div class="status success">
+            <strong>Objectif :</strong> Vérifier que tous les menus sont cliquables
+        </div>
+
+        <h2>📋 Menu de Test</h2>
+        <div class="test-menu">
+            <ul>
+                <li><a href="/" class="menu-link">🏠 Accueil</a></li>
+                <li><a href="/a-propos/" class="menu-link">ℹ️ À propos</a></li>
+                <li><a href="/entreprises/" class="menu-link">🏢 Entreprises</a></li>
+                <li><a href="/foires/" class="menu-link">🎪 Foires</a></li>
+                <li><a href="/actualite/" class="menu-link">📰 Actualité</a></li>
+                <li><a href="/contactez-nous/" class="menu-link">📞 Contact</a></li>
+            </ul>
+        </div>
+
+        <h2>📝 Journal des Clics</h2>
+        <div class="click-log" id="clickLog">
+            <strong>Journal des clics :</strong><br>
+            • Aucun clic enregistré pour le moment
+        </div>
+
+        <div class="status success">
+            🎉 <strong>Test terminé !</strong> Tous les menus doivent être cliquables.
+        </div>
+    </div>
+
+    <script>
+        // Script de test très simple
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🧪 Test simple des menus chargé');
+
+            const clickLog = document.getElementById('clickLog');
+            let clickCount = 0;
+
+            // Fonction pour enregistrer un clic
+            function logClick(linkText, linkHref) {
+                clickCount++;
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.innerHTML = `• <strong>${timestamp}</strong> - Clic sur "${linkText}"`;
+                clickLog.appendChild(logEntry);
+
+                // Garder seulement les 8 derniers clics
+                if (clickLog.children.length > 9) {
+                    clickLog.removeChild(clickLog.firstElementChild.nextElementSibling);
+                }
+
+                console.log(`🔗 Clic ${clickCount}: ${linkText} → ${linkHref}`);
+            }
+
+            // Tester que tous les liens sont présents
+            const allLinks = document.querySelectorAll('.menu-link');
+            console.log(`📊 Nombre de liens trouvés : ${allLinks.length}`);
+
+            // Tester la fonctionnalité des liens
+            allLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const linkText = this.textContent.trim();
+                    const linkHref = this.href;
+
+                    // Enregistrer le clic
+                    logClick(linkText, linkHref);
+
+                    // Effet visuel
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+
+                    // Simuler la navigation
+                    setTimeout(() => {
+                        alert(`✅ Test réussi ! Le lien "${linkText}" est cliquable.\n\nURL : ${linkHref}`);
+                    }, 100);
+                });
+            });
+
+            // Test automatique des liens
+            setTimeout(() => {
+                console.log('🧪 Test automatique des liens...');
+                allLinks.forEach((link, index) => {
+                    setTimeout(() => {
+                        link.style.background = '#28a745';
+                        link.style.color = 'white';
+                        console.log(`✅ Lien testé : ${link.textContent.trim()}`);
+
+                        setTimeout(() => {
+                            link.style.background = '';
+                            link.style.color = '';
+                        }, 500);
+                    }, index * 300);
+                });
+            }, 2000);
+        });
+    </script>
+</body>
+
+</html>

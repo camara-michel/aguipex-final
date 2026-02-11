@@ -1,0 +1,15 @@
+{% extends "admin/change_form.html" %}
+{% load i18n %}
+
+{% block submit_buttons_bottom %}
+{{ block.super }}
+{% if original and original.pk %}
+<div class="submit-row" style="margin-top: 1em; padding: 0.5em 0;">
+  <p class="deletelink-box" style="margin: 0;">
+    <strong>Avancement :</strong>
+    <input type="submit" name="_accepter" value="Accepter la candidature (étape suivante)" style="margin-left: 0.5em; background: #417690; color: white; padding: 0.4em 0.8em; border: none; border-radius: 4px; cursor: pointer;">
+    <input type="submit" name="_refuser" value="Refuser (rester à l'étape actuelle)" style="margin-left: 0.5em; background: #ba2121; color: white; padding: 0.4em 0.8em; border: none; border-radius: 4px; cursor: pointer;">
+  </p>
+</div>
+{% endif %}
+{% endblock %}

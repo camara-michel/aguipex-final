@@ -1,0 +1,123 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+    .nav-tabs .nav-link {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: #008d3f;
+        color: white;
+        border-color: #008d3f;
+    }
+
+    .table-container {
+        margin-top: 20px;
+    }
+
+    .foire-header {
+        background: url('{% static "assets/img/bg/foire_header.jpg" %}') no-repeat center center;
+        background-size: cover;
+        padding: 60px 0;
+        color: white;
+        text-align: center;
+    }
+
+    .foire-header h1 {
+        font-size: 36px;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+</style>
+{% endblock style %}
+
+
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">Details de la foire</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>{{foire.titre}}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="foire-header">
+    <h1>{{ foire.titre }}</h1>
+    <p><strong>Lieu:</strong> {{ foire.lieu }} | <strong>Date:</strong> Du {{ foire.date_debut|date:"d F Y" }} au
+        {{ foire.date_fin|date:"d F Y" }}</p>
+</div>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-8">
+            <h2 class="mb-4">Présentation de la foire</h2>
+            <p>{{ foire.description|safe }}</p>
+        </div>
+        <div class="col-md-4">
+            <h3 class="mb-3">KPI</h3>
+            <ul class="list-group">
+                <li class="list-group-item">Nombre d'entreprise: <strong>{{ foire.nbre_entreprise }}</strong></li>
+                <li class="list-group-item">Nombre de produit vendu: <strong>{{ foire.nbre_produit_vendu }}</strong>
+                </li>
+                <li class="list-group-item">Montant: <strong>{{ foire.montant_des_ventes }} GNF</strong></li>
+                <li class="list-group-item">Superficie: <strong>{{ foire.superficie }} m²</strong></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Exposants et participants</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nom de l'exposant</th>
+                <th>Type d'activité</th>
+                <th>Ville</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for entreprise in entreprises %}
+            <tr>
+                <td>{{ entreprise.nom }}</td>
+                <td>{{ entreprise.type_activite }}</td>
+                <td>{{ entreprise.ville }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Galerie Photos</h2>
+    <div class="row">
+        <div class="space-top space-extra-bottom pt-0 pb-0">
+            <div class="container">
+                <div class="row gy-4">
+
+                    {% for photo in f_images %}
+                    <div class="col-md-6 col-xl-4">
+                        <div class="gallery-card">
+                            <div class="gallery-img"><img src="{{photo.images.url}}" alt="gallery image"> <a
+                                    href="{{photo.images.url}}" class="play-btn style3 popup-image"><i
+                                        class="far fa-plus"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                </div>
+              {% include "partials/pagination.html" with datas=f_images %}
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

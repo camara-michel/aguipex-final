@@ -1,0 +1,213 @@
+/**
+ * CKEditor Contents CSS - Utilise la police par défaut du site
+ * Cette feuille de style est appliquée au contenu édité dans CKEditor
+ */
+
+/* Utiliser la police par défaut du site (Century Gothic) */
+body {
+    font-family: "Century Gothic", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    color: #737887;
+    line-height: 26px;
+    padding: 10px;
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    /* Assurer que les icônes et caractères spéciaux s'affichent correctement */
+    text-rendering: optimizeLegibility;
+}
+
+/* Assurer que tous les éléments utilisent la police par défaut */
+p, div, span, li, td, th, h1, h2, h3, h4, h5, h6, a, strong, em, u, s, b, i {
+    font-family: inherit;
+}
+
+/* Zone éditable CKEditor */
+.cke_editable {
+    font-family: "Century Gothic", sans-serif;
+    font-size: 16px;
+    line-height: 26px;
+    color: #737887;
+    /* Assurer que les icônes s'affichent */
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Styles pour les titres */
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    line-height: 1.2;
+    font-family: "Century Gothic", sans-serif;
+    color: #141d38;
+    margin: 1em 0 0.5em 0;
+}
+
+h1 { font-size: 2em; }
+h2 { font-size: 1.75em; }
+h3 { font-size: 1.5em; }
+h4 { font-size: 1.25em; }
+h5 { font-size: 1.1em; }
+h6 { font-size: 1em; }
+
+/* Styles pour les listes */
+ul, ol, dl {
+    margin: 1em 0;
+    padding-left: 2em;
+    /* IE7: reset rtl list margin */
+    *margin-right: 0px;
+    /* Preserved spaces for list items */
+    padding: 0 40px;
+}
+
+ul {
+    list-style-type: disc;
+}
+
+ol {
+    list-style-type: decimal;
+}
+
+/* Styles pour les tableaux */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1em 0;
+}
+
+table td, table th {
+    padding: 8px;
+    border: 1px solid #e0e0e0;
+    font-family: inherit;
+}
+
+/* Styles pour les liens */
+a {
+    color: #684df4;
+    text-decoration: underline;
+}
+
+a:hover {
+    color: #5a3dd4;
+}
+
+/* Styles pour les images */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+img.right {
+    border: 1px solid #ccc;
+    float: right;
+    margin-left: 15px;
+    padding: 5px;
+}
+
+img.left {
+    border: 1px solid #ccc;
+    float: left;
+    margin-right: 15px;
+    padding: 5px;
+}
+
+/* Styles pour les citations */
+blockquote {
+    font-style: italic;
+    font-family: "Century Gothic", sans-serif;
+    padding: 2px 0;
+    border-style: solid;
+    border-color: #684df4;
+    border-width: 0;
+    margin: 1em 0;
+    padding-left: 1em;
+    border-left-width: 3px;
+}
+
+.cke_contents_ltr blockquote {
+    padding-left: 20px;
+    padding-right: 8px;
+    border-left-width: 5px;
+}
+
+.cke_contents_rtl blockquote {
+    padding-left: 8px;
+    padding-right: 20px;
+    border-right-width: 5px;
+}
+
+/* Styles pour le code */
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    -moz-tab-size: 4;
+    tab-size: 4;
+    font-family: "Courier New", Courier, monospace;
+}
+
+code {
+    font-family: "Courier New", Courier, monospace;
+}
+
+/* Styles pour les séparateurs */
+hr {
+    border: 0px;
+    border-top: 1px solid #ccc;
+    margin: 1em 0;
+}
+
+/* Styles pour les marqueurs */
+.marker {
+    background-color: Yellow;
+}
+
+/* Styles pour les éléments avec langue */
+span[lang] {
+    font-style: italic;
+}
+
+/* Styles pour les figures */
+figure {
+    text-align: center;
+    outline: solid 1px #ccc;
+    background: rgba(0,0,0,0.05);
+    padding: 10px;
+    margin: 10px 20px;
+    display: inline-block;
+}
+
+figure > figcaption {
+    text-align: center;
+    display: block;
+}
+
+a > img {
+    padding: 1px;
+    margin: 1px;
+    border: none;
+    outline: 1px solid #684df4;
+}
+
+/* Assurer que les caractères spéciaux et icônes s'affichent */
+.cke_editable * {
+    font-family: inherit;
+}
+
+/* Styles pour les éléments de formatage */
+strong, b {
+    font-weight: bold;
+}
+
+em, i {
+    font-style: italic;
+}
+
+u {
+    text-decoration: underline;
+}
+
+s, strike {
+    text-decoration: line-through;
+}
+

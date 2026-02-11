@@ -1,0 +1,44 @@
+{% if datas.has_other_pages %}
+                <div class="th-pagination mt-5 text-center">
+                    <ul>
+                        {% if datas.has_previous %}
+                        <li>
+                            <a href="?page={{datas.previous_page_number}}"><i class="far fa-arrow-left"></i></a>
+                            
+                        </li>
+                        <li>
+                            <a href="?page=1">Début</a>
+                        </li>
+                        <li>
+                            <a href="#">...</a>
+                        </li>
+                        {% endif %}
+
+                        {% for page in datas.paginator.page_range %}
+                        {% if datas.number == page %}
+                        <li style="background-color: #008d3f; color:white;">
+                            <a href="?page={{page}}">{{page}}</a>
+                        </li>
+                        {% elif page > datas.number|add:'-2' and page < datas.number|add:'2' %}
+                        <li>
+                            <a href="?page={{page}}">{{page}}</a>
+                        </li>
+                        {% endif %}
+                        {% endfor %}
+                        {% if datas.has_next %}
+                        <li>
+                            <a href="#">...</a>
+                        </li>
+                        <li>
+                            <a href="?page={{datas.paginator.num_pages}}">Fin</a>
+                        </li>
+                        <li>
+
+                            <a href="?page={{datas.next_page_number}}">
+                                <i class="far fa-arrow-right"></i>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}

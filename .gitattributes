@@ -1,0 +1,24 @@
+# Force LF (Unix-style) line endings for code and config files
+*.html text eol=lf
+*.css text eol=lf
+*.js text eol=lf
+*.py text eol=lf
+*.json text eol=lf
+*.yml text eol=lf
+*.sh text eol=lf
+
+# Binary files - keep as-is
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.svg binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.eot binary
+
+# Don't normalize line endings for images and fonts
+*.zip binary
+*.pdf binary

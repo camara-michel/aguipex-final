@@ -1,0 +1,352 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block style %}
+<style>
+    .nav-tabs .nav-link {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .nav-tabs .nav-link.active {
+        background-color: #008d3f;
+        color: white;
+        border-color: #008d3f;
+    }
+
+    .table-container {
+        margin-top: 20px;
+    }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">Foires</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>Foires</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="space pt-0 pb-0" id="service-sec">
+    <div class="round-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="title-area mb-0">
+                        <span class="sub-title">
+                            <div class="icon-masking me-2"><img
+                                    src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape"></div>
+                            <span class="text-uppercase fs-20 ">
+                                STATISTIQUES DES FOIRES
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row gy-40 justify-content-between pb-4">
+                <div class="col-6 col-lg-auto">
+                    <div class="counter-card">
+                        <div class="icon">
+                            <img src="{% static 'assets/img/icon/counter_2_1.png' %}" alt="Icon">
+                        </div>
+                        <div class="media-body">
+                            <h2 class="counter-card_number text-title">
+                                <span class="counter-number">{{ total_foires_realisees }}</span>+
+                            </h2>
+                            <p class="counter-card_text text-body">Foires réalisées</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-6 col-lg-auto">
+                    <div class="counter-card">
+                        <div class="icon">
+                            <img src="{% static 'assets/img/icon/counter_2_2.png' %}" alt="Icon">
+                        </div>
+                        <div class="media-body">
+                            <h2 class="counter-card_number text-title">
+                                <span class="counter-number">{{ total_foires_encours }}</span>+
+                            </h2>
+                            <p class="counter-card_text text-body">Foires en cours</p>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-6 col-lg-auto">
+                    <div class="counter-card">
+                        <div class="icon">
+                            <img src="{% static 'assets/img/icon/counter_2_3.png' %}" alt="Icon">
+                        </div>
+                        <div class="media-body">
+                            <h2 class="counter-card_number text-title">
+                                <span class="counter-number">{{ total_entreprises_accompagnees }}</span>+
+                            </h2>
+                            <p class="counter-card_text text-body">Entreprises accompagnées</p>
+                        </div>
+                    </div>
+                </div>
+            
+                <div class="col-6 col-lg-auto">
+                    <div class="counter-card">
+                        <div class="icon">
+                            <img src="{% static 'assets/img/icon/counter_2_4.png' %}" alt="Icon">
+                        </div>
+                        <div class="media-body">
+                            <h2 class="counter-card_number text-title">
+                                <span class="counter-number">{{ total_produits_vendus }}</span>+
+                            </h2>
+                            <p class="counter-card_text text-body">Produits vendus</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container mt-0 pb-0">
+                {% if foire_nationales_terminer or foire_internationales_terminer %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title-area mb-0">
+                            <span class="sub-title">
+                                <div class="icon-masking me-2"><img
+                                        src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape"></div>
+                                <span class="text-uppercase fs-20 ">
+                                    FOIRES REALISEES
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="container">
+                        <div class="tinv-wishlist woocommerce tinv-wishlist-clear">
+                            <div class="tinv-header">
+                                <!-- ONGLET NAVIGATION -->
+                                <ul class="nav nav-tabs mt-4" id="serviceTabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab" href="#foirenationale">FOIRE
+                                            NATIONALE</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab" href="#foireinternationale">FOIRE
+                                            INTERNATIONALE</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="foirenationale">
+                                    <table class="tinvwl-table-manage-list mt-2">
+                                        <thead>
+                                            <tr>
+
+                                                <th class="product-name">Foire</th>
+                                                <th class="product-price">Période</th>
+                                                <th class="product-date">pays</th>
+                                                <th class="product-stock">Lieu</th>
+                                                <th class="product-action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for fn in foire_nationales_terminer %}
+                                            <tr class="wishlist_item">
+
+                                                <td class="product-name"><a href="shop-details.html">{{fn.titre}}</a>
+                                                </td>
+                                                <td class="product-price"><span>Du {{ fn.date_debut|date:"d F" }}
+                                                        {% if fn.date_debut.year != fn.date_fin.year %}
+                                                        {{ fn.date_debut|date:"Y" }}
+                                                        {% endif %}
+                                                        au {{ fn.date_fin|date:"d F Y" }}
+                                                    </span></td>
+                                                <td class="product-date">{{fn.pays}}
+                                                </td>
+                                                <td class="product-stock">
+                                                    <p class="stock in-stock">{{fn.lieu}}</p>
+                                                </td>
+                                                <td class="product-action">
+                                                    <a href="{% url 'aguipex-foire_detail' fn.slug %}" class="button th-btn" name="tinvwl-add-to-cart" value="58">
+                                                        <i class="fal fa-eye"></i> Voir
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="tab-pane fade" id="foireinternationale">
+                                    <table class="tinvwl-table-manage-list mt-2">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-name">Foire</th>
+                                                <th class="product-price">Période</th>
+                                                <th class="product-date">pays</th>
+                                                <th class="product-stock">Lieu</th>
+                                                <th class="product-action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for fi in foire_internationales_terminer %}
+                                            <tr class="wishlist_item">
+
+                                                <td class="product-name"><a href="shop-details.html">{{fi.titre}}</a>
+                                                </td>
+                                                <td class="product-price"><span>Du {{ fi.date_debut|date:"d F" }}
+                                                        {% if fi.date_debut.year != fi.date_fin.year %}
+                                                        {{ fi.date_debut|date:"Y" }}
+                                                        {% endif %}
+                                                        au {{ fi.date_fin|date:"d F Y" }}
+                                                    </span></td>
+                                                <td class="product-date">
+                                                    {{fi.pays}}
+                                                </td>
+                                                <td class="product-stock">
+                                                    <p class="stock in-stock"> {{fi.lieu}}</p>
+                                                </td>
+                                                <td class="product-action">
+                                                    <a href="{% url 'aguipex-foire_detail' fi.slug %}" class="button th-btn" name="tinvwl-add-to-cart" value="58">
+                                                        <i class="fal fa-eye"></i> Voir
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> <!-- Fin tab-content -->
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+                {% if foire_nationales_encours or foire_internationales_encours %}
+                <div class="row">
+                    <div class="col-12">
+                        <div class="title-area mb-0">
+                            <span class="sub-title">
+                                <div class="icon-masking me-2"><img
+                                        src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape"></div>
+                                <span class="text-uppercase fs-20 ">
+                                    FOIRES ENCOURS
+
+                                </span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="">
+                    <div class="container">
+                        <div class="tinv-wishlist woocommerce tinv-wishlist-clear">
+                            <div class="tinv-header">
+                                <!-- ONGLET NAVIGATION -->
+                                <ul class="nav nav-tabs mt-4" id="serviceTabs">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-bs-toggle="tab"
+                                            href="#foirenationaleencours">FOIRE NATIONALE</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-bs-toggle="tab"
+                                            href="#foireinternationaleencours">FOIRE INTERNATIONALE</a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="foirenationaleencours">
+                                    <table class="tinvwl-table-manage-list mt-2">
+                                        <thead>
+                                            <tr>
+
+                                                <th class="product-name">Foire</th>
+                                                <th class="product-price">Période</th>
+                                                <th class="product-date">pays</th>
+                                                <th class="product-stock">Lieu</th>
+                                                <th class="product-action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for fn in foire_nationales_encours %}
+                                            <tr class="wishlist_item">
+
+                                                <td class="product-name"><a href="shop-details.html">{{fn.titre}}</a>
+                                                </td>
+                                                <td class="product-price"><span>Du {{ fn.date_debut|date:"d F" }}
+                                                        {% if fn.date_debut.year != fn.date_fin.year %}
+                                                        {{ fn.date_debut|date:"Y" }}
+                                                        {% endif %}
+                                                        au {{ fn.date_fin|date:"d F Y" }}
+                                                    </span></td>
+                                                <td class="product-date">{{fn.pays}}
+                                                </td>
+                                                <td class="product-stock">
+                                                    <p class="stock in-stock">
+                                                        {{fn.lieu}}
+                                                    </p>
+                                                </td>
+                                                <td class="product-action">
+                                                    <a href="{% url 'aguipex-foire_detail' fn.slug %}" class="button th-btn" name="tinvwl-add-to-cart" value="58">
+                                                        <i class="fal fa-eye"></i> Voir
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+
+                                <div class="tab-pane fade" id="foireinternationaleencours">
+                                    <table class="tinvwl-table-manage-list mt-2">
+                                        <thead>
+                                            <tr>
+                                                <th class="product-name">Foire</th>
+                                                <th class="product-price">Période</th>
+                                                <th class="product-date">pays</th>
+                                                <th class="product-stock">Lieu</th>
+                                                <th class="product-action">Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for fi in foire_internationales_encours %}
+                                            <tr class="wishlist_item">
+
+                                                <td class="product-name"><a href="shop-details.html">{{fi.titre}}</a>
+                                                </td>
+                                                <td class="product-price"><span>Du {{ fi.date_debut|date:"d F" }}
+                                                        {% if fi.date_debut.year != fi.date_fin.year %}
+                                                        {{ fi.date_debut|date:"Y" }}
+                                                        {% endif %}
+                                                        au {{ fi.date_fin|date:"d F Y" }}
+                                                    </span></td>
+                                                <td class="product-date">{{fi.pays}}
+                                                </td>
+                                                <td class="product-stock">
+                                                    <p class="stock in-stock"> {{fi.lieu}}
+                                                    </p>
+                                                </td>
+                                                <td class="product-action">
+                                                    <a href="{% url 'aguipex-foire_detail' fi.slug %}" class="button th-btn" name="tinvwl-add-to-cart" value="58">
+                                                        <i class="fal fa-eye"></i> Voir
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div> <!-- Fin tab-content -->
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+
+        </div>
+    </div>
+</section>
+
+
+{% endblock content %}

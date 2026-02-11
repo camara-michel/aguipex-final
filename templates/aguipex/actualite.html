@@ -1,0 +1,61 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'assets/css/actualites-custom.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">Actualités</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>actualités</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<section class="space mt-0 pt-4 mb-0" id="blog-sec">
+    <div class="container th-container4">
+        <div class="slider-area">
+            <div class="swiper th-slider has-shadow" id="blogSlider5"
+                data-slider-options='{"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"2"},"1200":{"slidesPerView":"3"}}}'>
+                <div class="swiper-wrapper">
+                    {% for actualite in actualites %}
+                    <div class="swiper-slide">
+                        <div class="blog-box2 style2">
+                            <div class="blog-img">
+                                <img src="{{actualite.image_carre.url}}" alt="{{actualite.grand_titre}}">
+                            </div>
+                            <div class="blog-box2_content">
+                                <div class="blog-meta">
+                                    <a href="#"><i class="far fa-calendar"></i>Le {{actualite.date_actualite|date:"d/m/Y" }}</a>
+                                    <span><i class="far fa-list-alt"></i>{{actualite.category.name}}</span>
+                                </div>
+                                <h3 class="box-title">
+                                    <a href="{% url 'aguipex-detail_actualite' actualite.slug %}">
+                                        {{actualite.grand_titre|truncatewords:8 }}
+                                    </a>
+                                </h3>
+                                <a href="{% url 'aguipex-detail_actualite' actualite.slug %}" class="line-btn">
+                                    Voir Plus<i class="fa-solid fa-angles-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button data-slider-prev="#blogSlider5" class="slider-arrow slider-prev">
+                <i class="far fa-arrow-left"></i>
+            </button>
+            <button data-slider-next="#blogSlider5" class="slider-arrow slider-next">
+                <i class="far fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+{% endblock content %}

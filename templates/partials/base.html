@@ -1,0 +1,1721 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="x-ua-compatible" content="ie=edge" />
+  <title>AGUIPEX - Agence Guinéenne de Promotion des Exportations</title>
+  <meta name="author" content="AGUIPEX" />
+  <meta name="description" content="AGUIPEX - Agence Guinéenne de Promotion des Exportations" />
+  <meta name="keywords" content="AGUIPEX - Agence Guinéenne de Promotion des Exportations" />
+  <meta name="robots" content="INDEX,FOLLOW" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no" />
+  <link rel="apple-touch-icon" sizes="57x57" href="{% static 'assets/img/favicons/apple-icon-57x57.png' %}" />
+  <link rel="apple-touch-icon" sizes="60x60" href="{% static 'assets/img/favicons/apple-icon-60x60.png' %}" />
+  <link rel="apple-touch-icon" sizes="72x72" href="{% static 'assets/img/favicons/apple-icon-72x72.png' %}" />
+  <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/img/favicons/apple-icon-76x76.png' %}" />
+  <link rel="apple-touch-icon" sizes="114x114" href="{% static 'assets/img/favicons/apple-icon-114x114.png' %}" />
+  <link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/img/favicons/apple-icon-120x120.png' %}" />
+  <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/img/favicons/apple-icon-144x144.png' %}" />
+  <link rel="apple-touch-icon" sizes="152x152" href="{% static 'assets/img/favicons/apple-icon-152x152.png' %}" />
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/img/favicons/apple-icon-180x180.png' %}" />
+  <link rel="icon" type="image/png" sizes="192x192"
+    href="{% static 'assets/img/favicons/android-icon-192x192.png' %}" />
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/img/favicons/favicon-32x32.png' %}" />
+  <link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/img/favicons/favicon-96x96.png' %}" />
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/img/favicons/favicon-16x16.png' %}" />
+  <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}" />
+  <meta name="msapplication-TileColor" content="#ffffff" />
+  <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/ms-icon-144x144.png' %}" />
+  <meta name="theme-color" content="#ffffff" />
+  <style>
+    /* Styles pour les menus actifs */
+    .main-menu>ul>li.active>a {
+      color: #008D3F !important;
+      font-weight: 600;
+      position: relative;
+    }
+
+    .main-menu>ul>li.active>a:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #008D3F;
+      border-radius: 1px;
+    }
+
+    .main-menu ul.sub-menu li.active>a {
+      color: #008D3F !important;
+      font-weight: 600;
+      background: rgba(0, 141, 63, 0.1);
+      border-left: 3px solid #008D3F;
+      padding-left: 15px;
+    }
+
+    .main-menu>ul>li.menu-item-has-children.active>a {
+      color: #008D3F !important;
+      font-weight: 600;
+    }
+
+    .main-menu>ul>li.menu-item-has-children.active>a:after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #008D3F;
+      border-radius: 1px;
+    }
+
+    /* Styles pour le header responsive */
+    .header-button {
+      gap: 8px;
+      flex-wrap: nowrap;
+      flex-shrink: 0;
+    }
+
+    .header-nav {
+      flex: 1;
+      margin: 0 20px;
+      min-width: 0;
+      overflow: visible;
+    }
+
+    .main-menu>ul {
+      display: flex !important;
+      flex-wrap: nowrap !important;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      margin: 0 !important;
+      padding: 0 !important;
+      list-style: none;
+      width: 100%;
+    }
+
+    .main-menu>ul>li {
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .main-menu>ul>li>a {
+      display: block;
+      padding: 10px 8px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 700 !important;
+      color: #1a1a1a;
+    }
+
+    /* S'assurer que le dernier menu (RESSOURCES) est entièrement visible */
+    .main-menu>ul>li:last-child {
+      margin-right: 0;
+    }
+
+    .main-menu>ul>li:last-child>a {
+      padding-right: 12px;
+    }
+
+    .blinking-image {
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    /* Bouton de menu mobile */
+    .mobile-menu-toggle {
+      margin-left: 15px;
+      z-index: 1000;
+    }
+
+    .th-menu-toggle {
+      background: #008D3F;
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      min-width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .th-menu-toggle:hover {
+      background: #007a35;
+      transform: scale(1.05);
+    }
+
+    .th-menu-toggle i {
+      font-size: 18px;
+    }
+
+    .th-btn.style-radius {
+      white-space: nowrap;
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+      min-width: fit-content;
+    }
+
+    .phone-number {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    /* Responsive design pour le header */
+    @media (max-width: 1199.98px) {
+      .header-nav {
+        margin: 0 15px;
+      }
+
+      .main-menu>ul {
+        gap: 12px;
+      }
+
+      .main-menu>ul>li>a {
+        padding: 8px 6px;
+        font-size: 13px;
+        font-weight: 700 !important;
+      }
+
+      .phone-number {
+        font-size: 0.85rem;
+      }
+
+      .th-btn.style-radius {
+        font-size: 0.85rem;
+        padding: 7px 12px;
+      }
+    }
+
+    @media (max-width: 991.98px) {
+      .header-nav {
+        margin: 0 10px;
+      }
+
+      .main-menu>ul {
+        gap: 10px;
+      }
+
+      .main-menu>ul>li>a {
+        padding: 7px 5px;
+        font-size: 12px;
+        font-weight: 700 !important;
+      }
+
+      .phone-number {
+        font-size: 0.8rem;
+      }
+
+      .th-btn.style-radius {
+        font-size: 0.8rem;
+        padding: 6px 10px;
+      }
+
+      .blinking-image {
+        width: 45px !important;
+        height: 45px !important;
+      }
+    }
+
+    @media (max-width: 767.98px) {
+      .header-nav {
+        margin: 0 5px;
+      }
+
+      .main-menu>ul {
+        gap: 8px;
+      }
+
+      .main-menu>ul>li>a {
+        padding: 6px 4px;
+        font-size: 11px;
+        font-weight: 700 !important;
+      }
+
+      .phone-number {
+        font-size: 0.75rem;
+      }
+
+      .th-btn.style-radius {
+        font-size: 0.75rem;
+        padding: 5px 8px;
+      }
+
+      .blinking-image {
+        width: 40px !important;
+        height: 40px !important;
+      }
+
+      /* Ajuster l'espacement mobile */
+      .header-button {
+        gap: 6px;
+      }
+
+      .mobile-menu-toggle {
+        margin-left: 10px;
+      }
+    }
+
+    @media (max-width: 575.98px) {
+      .header-nav {
+        margin: 0 2px;
+      }
+
+      .main-menu>ul {
+        gap: 6px;
+      }
+
+      .main-menu>ul>li>a {
+        padding: 5px 3px;
+        font-size: 10px;
+        font-weight: 700 !important;
+      }
+
+      .phone-number {
+        font-size: 0.7rem;
+      }
+
+      .th-btn.style-radius {
+        font-size: 0.7rem;
+        padding: 4px 6px;
+      }
+
+      .blinking-image {
+        width: 35px !important;
+        height: 35px !important;
+      }
+
+      /* Ajuster l'espacement très petit écran */
+      .header-button {
+        gap: 4px;
+      }
+
+      .mobile-menu-toggle {
+        margin-left: 8px;
+      }
+
+      .th-menu-toggle {
+        min-width: 44px;
+        height: 44px;
+        padding: 10px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .phone-number {
+        font-size: 0.65rem;
+      }
+
+      .th-btn.style-radius {
+        font-size: 0.65rem;
+        padding: 3px 5px;
+      }
+
+      .blinking-image {
+        width: 30px !important;
+        height: 30px !important;
+      }
+    }
+
+    /* Styles pour ajouter un contour noir sur les textes du slide */
+    .hero-style6 .sub-title {
+      text-shadow: 
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+      color: #fff !important;
+    }
+
+    .hero-big_text {
+      text-shadow: 
+        -3px -3px 0 #000,
+        3px -3px 0 #000,
+        -3px 3px 0 #000,
+        3px 3px 0 #000,
+        -2px -2px 0 #000,
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000,
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+      color: #fff !important;
+    }
+
+    .hero-style6 .btn {
+      text-shadow: 
+        -1px -1px 0 #000,
+        1px -1px 0 #000,
+        -1px 1px 0 #000,
+        1px 1px 0 #000;
+    }
+
+    /* ============================================
+       AMÉLIORATIONS PROFESSIONNELLES SLIDES
+       ============================================ */
+    
+    /* Container du slider - hauteur adaptative au contenu */
+    .th-hero-wrapper.hero-6 {
+      position: relative;
+      width: 100%;
+      /* min-height: 600px; */
+      /* height: 100vh; */
+      /* max-height: 900px; */
+      overflow: hidden;
+    }
+
+    /* Slide container avec positionnement absolu pour éviter la superposition */
+    .th-hero-wrapper.hero-6 .swiper-slide {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .th-hero-wrapper.hero-6 .hero-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: inherit;
+    }
+
+    /* Image de fond responsive avec transition fade propre */
+    .th-hero-wrapper.hero-6 .th-hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center center;
+      background-repeat: no-repeat;
+      will-change: opacity;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Image dans le background */
+    .th-hero-wrapper.hero-6 .th-hero-bg img {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      opacity: 1;
+      transition: opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    /* Slide non actif - complètement caché */
+    .th-hero-wrapper.hero-6 .swiper-slide:not(.swiper-slide-active) .th-hero-bg {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .th-hero-wrapper.hero-6 .swiper-slide:not(.swiper-slide-active) .th-hero-bg img {
+      opacity: 0;
+    }
+
+    /* Slide actif - visible */
+    .th-hero-wrapper.hero-6 .swiper-slide-active .th-hero-bg {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    .th-hero-wrapper.hero-6 .swiper-slide-active .th-hero-bg img {
+      opacity: 1;
+    }
+
+    /* Transition fade pour Swiper - amélioration pour éviter la superposition */
+    .th-hero-wrapper.hero-6 #heroSlide3.swiper-fade .swiper-slide {
+      opacity: 0 !important;
+      transition-property: opacity;
+      transition-duration: 0.8s;
+      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+
+    .th-hero-wrapper.hero-6 #heroSlide3.swiper-fade .swiper-slide-active {
+      opacity: 1 !important;
+      pointer-events: auto;
+      z-index: 2;
+    }
+
+    .th-hero-wrapper.hero-6 #heroSlide3.swiper-fade .swiper-slide-prev,
+    .th-hero-wrapper.hero-6 #heroSlide3.swiper-fade .swiper-slide-next {
+      opacity: 0 !important;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* S'assurer que les slides inactifs sont complètement cachés */
+    .th-hero-wrapper.hero-6 #heroSlide3 .swiper-slide:not(.swiper-slide-active) {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .th-hero-wrapper.hero-6 #heroSlide3 .swiper-slide-active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Contenu du slide au-dessus de l'image */
+    .th-hero-wrapper.hero-6 .container {
+      position: relative;
+      z-index: 10;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ============================================
+       RÉDUCTION PRÉCISE DE L'ESPACE - DESIGN EXPERT
+       ============================================ */
+    
+    /* Suppression totale de l'espace entre slide et "Qui sommes nous" */
+    .th-hero-wrapper.hero-6 {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    /* Override complet de la classe .space pour cette section spécifique */
+    #about-sec.space,
+    #about-sec.space-top,
+    #about-sec.space-bottom {
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+    }
+
+    /* Suppression de tous les espaces du container */
+    #about-sec .container,
+    #about-sec .container-fluid {
+      padding-top: 0 !important;
+      margin-top: 0 !important;
+    }
+
+    /* Suppression des marges/padding de about-area5 - override du padding de 80px */
+    #about-sec .about-area5 {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+      margin-bottom: 0 !important;
+      padding-left: 80px !important;
+      padding-right: 80px !important;
+      padding-bottom: 80px !important;
+    }
+
+    @media (max-width: 991px) {
+      #about-sec .about-area5 {
+        padding-left: 40px !important;
+        padding-right: 40px !important;
+        padding-bottom: 40px !important;
+      }
+    }
+
+    @media (max-width: 767px) {
+      #about-sec .about-area5 {
+        padding-left: 20px !important;
+        padding-right: 20px !important;
+        padding-bottom: 20px !important;
+      }
+    }
+
+    /* Premier row sans marge supérieure */
+    #about-sec .row:first-child {
+      margin-top: 0 !important;
+      padding-top: 0 !important;
+    }
+
+    /* Title area avec espacement minimal et élégant */
+    #about-sec .title-area {
+      margin-top: 2rem !important;
+      margin-bottom: 1.5rem !important;
+      padding-top: 0 !important;
+    }
+
+    /* Ajustements responsive pour une finesse parfaite */
+    @media (max-width: 1199px) {
+      #about-sec .title-area {
+        margin-top: 1.75rem !important;
+        margin-bottom: 1.25rem !important;
+      }
+    }
+
+    @media (max-width: 991px) {
+      #about-sec .title-area {
+        margin-top: 1.5rem !important;
+        margin-bottom: 1rem !important;
+      }
+    }
+
+    @media (max-width: 767px) {
+      #about-sec .title-area {
+        margin-top: 1.25rem !important;
+        margin-bottom: 0.875rem !important;
+      }
+    }
+
+    @media (max-width: 575px) {
+      #about-sec .title-area {
+        margin-top: 1rem !important;
+        margin-bottom: 0.75rem !important;
+      }
+    }
+
+    /* ============================================
+       AMÉLIORATIONS PROFESSIONNELLES IMAGES ÉQUIPES
+       ============================================ */
+
+    /* Container d'image avec hauteur fixe uniforme */
+    .team-box .team-img {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      overflow: hidden;
+      border-radius: 10px 10px 0 0;
+      background-color: #f5f5f5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @media (max-width: 1199px) {
+      .team-box .team-img {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .team-box .team-img {
+        height: 280px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .team-box .team-img {
+        height: 320px;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .team-box .team-img {
+        height: 300px;
+      }
+    }
+
+    /* Image avec object-fit pour éviter l'étirement */
+    .team-box .team-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center center;
+      display: block;
+      transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+
+    /* Hover effect amélioré */
+    .team-box:hover .team-img img {
+      transform: scale(1.05);
+    }
+
+    /* S'assurer que toutes les images d'équipe ont la même taille */
+    .th-team.team-box .team-img {
+      height: 320px;
+    }
+
+    @media (max-width: 1199px) {
+      .th-team.team-box .team-img {
+        height: 300px;
+      }
+    }
+
+    @media (max-width: 991px) {
+      .th-team.team-box .team-img {
+        height: 280px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .th-team.team-box .team-img {
+        height: 320px;
+      }
+    }
+
+    @media (max-width: 575px) {
+      .th-team.team-box .team-img {
+        height: 300px;
+      }
+    }
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com/" />
+  <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,700&amp;family=Roboto:wght@300;400;500;700;900&amp;display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/style_home.css' %}" />
+
+  {% block style %} {% endblock style %}
+</head>
+
+<body class="gray-body">
+  <div class="cursor"></div>
+  <div class="cursor2"></div>
+  <div class="color-scheme-wrap active m-0">
+    <button class="switchIcon th-btn style-radius" style="
+          font-size: 12px;
+          width: max-content;
+          border-radius: 10px 10px 10px 10px;
+        ">
+      Offres de services
+    </button>
+    <!-- <h4 class="color-scheme-wrap-title mb-0"><i class="far fa-palette me-2"></i>Offres de services</h4> -->
+    <div class="services-menu">
+      <!-- <h3 class="menu-title">Offres de services</h3> -->
+      <ul class="services-list">
+        <li>
+          <i class="fa-solid fa-chart-line"></i>
+          <a href="#">Diagnostic à l’export</a>
+        </li>
+
+        <li>
+          <i class="fa-solid fa-bullhorn"></i>
+          <a href="#">Promotion produits et services</a>
+        </li>
+        <li>
+          <i class="fa-solid fa-handshake"></i>
+          <a href="#">Appui au financement</a>
+        </li>
+        <li>
+          <i class="fa-solid fa-chart-bar"></i>
+          <a href="#">Renforcement des capacités à l’export</a>
+        </li>
+      </ul>
+      <button class="see-all-btn p-0">
+        <a href="{% url 'aguipex-offreService' %}" style="color: #ffff">Voir tout</a>
+      </button>
+    </div>
+    <!-- <a href="https://themeforest.net/user/themeholy"
+                class="th-btn text-center w-100"><i class="fa fa-shopping-cart me-2"></i> Purchase</a> -->
+  </div>
+
+  <div id="preloader" class="preloader">
+    <button class="th-btn th-radius preloaderCls">
+      Annuler le préchargement
+    </button>
+    <div id="loader" class="th-preloader">
+      <div class="animation-preloader">
+        <div class="txt-loading">
+          <span preloader-text="A" class="characters">A</span>
+          <span preloader-text="G" class="characters">G</span>
+          <span preloader-text="U" class="characters">U</span>
+          <span preloader-text="I" class="characters">I</span>
+          <span preloader-text="P" class="characters">P</span>
+          <span preloader-text="E" class="characters">E</span>
+          <span preloader-text="X" class="characters">X</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="th-menu-wrapper">
+    <div class="th-menu-area text-center">
+      <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
+      <div class="mobile-logo">
+        <a class="icon-masking" href="{% url 'aguipex-index' %}">
+          <span data-mask-src="{% static 'assets/img/logo.png' %}" class="mask-icon"></span>
+          <img src="{% static 'assets/img/logo.png' %}" alt="AGUIPEX" />
+        </a>
+      </div>
+      <div class="th-mobile-menu">
+        <ul>
+          <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+          <li class="menu-item-has-children mega-menu-wrap">
+            <a href="#">À propos de nous</a>
+            <ul class="sub-menu">
+              <li>
+                <a href="{% url 'aguipex-about' %}">Qui sommes nous ?</a>
+              </li>
+              <li>
+                <a href="{% url 'aguipex-about' %}#vision-mission">Vision et Mission</a>
+              </li>
+              <li><a href="{% url 'aguipex-equipe' %}">Équipes</a></li>
+              <li>
+                <a href="{% url 'aguipex-offreService' %}">Nos offres de services</a>
+              </li>
+              <li>
+                <a href="{% url 'aguipex-index' %}#temoignage">Temoignages</a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="menu-item-has-children mega-menu-wrap">
+            <a href="#">Exportations</a>
+            <ul class="sub-menu">
+              <li>
+                <a href="{% url 'aguipex-exportations' %}#procedure-exportation">Procédure d'exportations</a>
+              </li>
+              <li>
+                <a href="{% url 'aguipex-exportations' %}#potentiel-exportation">Potentiel d'exportations</a>
+              </li>
+              <li>
+                <a href="{% url 'aguipex-exportations' %}#infrastructure-exportation">Infrastructures liées à
+                  l'exportation</a>
+              </li>
+              <li>
+                <a href="{% url 'mapping-produit' %}">Cartographie produit Guinée</a>
+              </li>
+            </ul>
+          </li>
+          <li><a href="{% url 'aguipex-entreprises' %}">Entreprises</a></li>
+          <li><a href="{% url 'aguipex-foire' %}">Foires</a></li>
+          <li class="menu-item-has-children">
+            <a href="#">Programmes</a>
+            <ul class="sub-menu">
+              {% for programme in programmes %}
+              <li>
+                <a href="{% url 'aguipex-detailProgramme' programme.slug %}">{{programme.accronyme}}</a>
+              </li>
+              {% endfor %}
+            </ul>
+          </li>
+          <li class="menu-item-has-children">
+            <a href="#">Ressources</a>
+            <ul class="sub-menu">
+              <li><a href="{% url 'aguipex-actualite' %}">Actualité</a></li>
+              <li><a href="{% url 'aguipex-interprofessions' %}">Interprofessions</a></li>
+              <li><a href="{% url 'aguipex-projets' %}">Projets</a></li>
+              <li><a href="{% url 'aguipex-manifestations' %}">Manifestations commerciales</a></li>
+              <li>
+                <a href="{% url 'aguipex-statistiques' %}">Statistiques</a>
+              </li>
+              <li>
+                <a href="{% url 'aguipex-word-cloud' %}">Nuage de mots-clés</a>
+              </li>
+              <li class="menu-item-has-children">
+                <a href="#">Nos Outils</a>
+                <ul class="sub-menu">
+                  <li>
+                    <a target="_blank" href="https://guceg.gov.gn/">GUCEG</a>
+                  </li> 
+                  <li>
+                    <a target="_blank" href="https://commerceexterieurgn.com">DNCEC – Commerce extérieur Guinée</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://www.stat-guinee.org/">INS – Statistique Guinée</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://www.wto.org">OMC – Organisation mondiale du commerce</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://www.intracen.org/fr">CCI – Centre du commerce international</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://unctad.org/fr">CNUCED</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://icdt-cidc.org/fr/">CIDC – Centre islamique du commerce</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://www.londonstockexchange.com/">London Stock Exchange</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://www.boursedirect.fr/fr/marche/new-york">Bourse de New York</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://www.bcrg-guinee.org">BCRG – Banque centrale Guinée</a>
+                  </li>
+                  <li>
+                    <a target="_blank" href="https://cpdm.mines.gov.gn/">CPDM Mines Guinée</a>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <a href="{% url 'aguipex-espaceMedia' %}">Espace Média</a>
+              </li>
+              <li><a href="{% url 'aguipex-faq' %}">FAQ</a></li>
+              <li><a href="{% url 'aguipex-contact' %}">Contactez-nous</a></li>
+            </ul>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center justify-content-center gap-2">
+          <img src="{% static 'assets/img/branding.png' %}" alt="BrandingGuinée" class="img-fluid blinking-image"
+            style="width: 50px; height: auto" />
+          <img src="{% static 'assets/img/simandou.png' %}" alt="Simandou2040" class="img-fluid blinking-image"
+            style="width: 50px; height: auto" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <header class="th-header header-layout5">
+    <div class="sticky-wrapper">
+      <div class="menu-area">
+        <div class="container th-container4">
+          <div class="d-flex align-items-center justify-content-between">
+            <!-- Logo -->
+            <div class="header-logo mb-3">
+              <a class="icon-masking" href="{% url 'aguipex-index' %}">
+                <span data-mask-src="{% static 'assets/img/logo.png' %}" class="mask-icon"></span>
+                <img src="{% static 'assets/img/logo.png' %}" alt="AGUIPEX" width="100" height="100" />
+              </a>
+            </div>
+
+            <!-- Menu de navigation -->
+            <div class="header-nav">
+              <nav class="main-menu style2 d-none d-lg-inline-block">
+                <ul>
+                  <li class="{% if request.resolver_match.url_name == 'aguipex-index' %}active{% endif %}">
+                    <a href="{% url 'aguipex-index' %}">Accueil</a>
+                  </li>
+                  <li
+                    class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-about,aguipex-equipe,aguipex-offreService' %}active{% endif %}">
+                    <a href="#">À propos de nous</a>
+                    <ul class="sub-menu">
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-about' %}active{% endif %}">
+                        <a href="{% url 'aguipex-about' %}">Qui sommes nous ?</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-about' %}active{% endif %}">
+                        <a href="{% url 'aguipex-about' %}#vision-mission">Vision et Mission</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-equipe' %}active{% endif %}">
+                        <a href="{% url 'aguipex-equipe' %}">Équipes</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-offreService' %}active{% endif %}">
+                        <a href="{% url 'aguipex-offreService' %}">Nos offres de services</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-index' %}active{% endif %}">
+                        <a href="{% url 'aguipex-index' %}#temoignage">Temoignages</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li
+                    class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-exportations,mapping-produit' %}active{% endif %}">
+                    <a href="#">Exportations</a>
+                    <ul class="sub-menu">
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-exportations' %}active{% endif %}">
+                        <a href="{% url 'aguipex-exportations' %}#procedure-exportation">Procédure d'exportations</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-exportations' %}active{% endif %}">
+                        <a href="{% url 'aguipex-exportations' %}#potentiel-exportation">Potentiel d'exportations</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-exportations' %}active{% endif %}">
+                        <a href="{% url 'aguipex-exportations' %}#infrastructure-exportation">Infrastructures liées à
+                          l'exportation</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'mapping-produit' %}active{% endif %}">
+                        <a href="{% url 'mapping-produit' %}">Cartographie produit Guinée</a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="{% if request.resolver_match.url_name == 'aguipex-entreprises' %}active{% endif %}">
+                    <a href="{% url 'aguipex-entreprises' %}">Entreprises</a>
+                  </li>
+                  <li class="{% if request.resolver_match.url_name == 'aguipex-foire' %}active{% endif %}">
+                    <a href="{% url 'aguipex-foire' %}">Foires</a>
+                  </li>
+                  <li
+                    class="menu-item-has-children {% if request.resolver_match.url_name == 'aguipex-detailProgramme' %}active{% endif %}">
+                    <a href="#">Programmes</a>
+                    <ul class="sub-menu">
+                      {% for programme in programmes %}
+                      <li
+                        class="{% if request.resolver_match.url_name == 'aguipex-detailProgramme' and request.resolver_match.kwargs.slug == programme.slug %}active{% endif %}">
+                        <a href="{% url 'aguipex-detailProgramme' programme.slug %}">{{programme.accronyme}}</a>
+                      </li>
+                      {% endfor %}
+                    </ul>
+                  </li>
+                  <li
+                    class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-actualite,aguipex-detail_actualite,aguipex-espaceMedia,aguipex-detail_espace,aguipex-faq,aguipex-contact,aguipex-interprofessions,aguipex-interprofession-detail,aguipex-projets,aguipex-projet-detail,aguipex-statistiques,aguipex-word-cloud,aguipex-manifestations,aguipex-manifestation-detail,aguipex-manifestation-postuler' %}active{% endif %}">
+                    <a href="#">Ressources</a>
+                    <ul class="sub-menu">
+                      <li
+                        class="{% if request.resolver_match.url_name in 'aguipex-actualite,aguipex-detail_actualite' %}active{% endif %}">
+                        <a href="{% url 'aguipex-actualite' %}">Actualité</a>
+                      </li>
+                      <li
+                        class="{% if request.resolver_match.url_name in 'aguipex-interprofessions,aguipex-interprofession-detail' %}active{% endif %}">
+                        <a href="{% url 'aguipex-interprofessions' %}">Interprofessions</a>
+                      </li>
+                      <li
+                        class="{% if request.resolver_match.url_name in 'aguipex-projets,aguipex-projet-detail' %}active{% endif %}">
+                        <a href="{% url 'aguipex-projets' %}">Projets</a>
+                      </li>
+                      <li
+                        class="{% if request.resolver_match.url_name in 'aguipex-manifestations,aguipex-manifestation-detail,aguipex-manifestation-postuler' %}active{% endif %}">
+                        <a href="{% url 'aguipex-manifestations' %}">Manifestations commerciales</a>
+                      </li>
+                      <li
+                        class="{% if request.resolver_match.url_name == 'aguipex-statistiques' %}active{% endif %}">
+                        <a href="{% url 'aguipex-statistiques' %}">Statistiques</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-word-cloud' %}active{% endif %}">
+                        <a href="{% url 'aguipex-word-cloud' %}">Nuage de mots-clés</a>
+                      </li>
+                      <li class="menu-item-has-children">
+                        <a href="#">Nos Outils</a>
+                        <ul class="sub-menu">
+                          <li>
+                            <a target="_blank" href="https://guceg.gov.gn/">GUCEG</a>
+                          </li>
+                        
+                          <li>
+                            <a target="_blank" href="https://commerceexterieurgn.com">DNCEC – Commerce extérieur Guinée</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://www.stat-guinee.org/">INS – Statistique Guinée</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://www.wto.org">OMC – Organisation mondiale du commerce</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://www.intracen.org/fr">CCI – Centre du commerce international</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://unctad.org/fr">CNUCED</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://icdt-cidc.org/fr/">CIDC – Centre islamique du commerce</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://www.londonstockexchange.com/">London Stock Exchange</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://www.boursedirect.fr/fr/marche/new-york">Bourse de New York</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://www.bcrg-guinee.org">BCRG – Banque centrale Guinée</a>
+                          </li>
+                          <li>
+                            <a target="_blank" href="https://cpdm.mines.gov.gn/">CPDM Mines Guinée</a>
+                          </li>
+                        </ul>
+                      </li>
+
+                      <li
+                        class="{% if request.resolver_match.url_name in 'aguipex-espaceMedia,aguipex-detail_espace' %}active{% endif %}">
+                        <a href="{% url 'aguipex-espaceMedia' %}">Espace Média</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-faq' %}active{% endif %}">
+                        <a href="{% url 'aguipex-faq' %}">FAQ</a>
+                      </li>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-contact' %}active{% endif %}">
+                        <a href="{% url 'aguipex-contact' %}">Contactez-nous</a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </nav>
+            </div>
+
+            <!-- Bouton de contact et logos -->
+            <div class="header-button d-flex align-items-center">
+              <img src="{% static 'assets/img/branding.png' %}" alt="BrandingGuinée" width="50" height="50"
+                class="blinking-image me-2 d-none d-lg-block" />
+              <img src="{% static 'assets/img/simandou.png' %}" alt="Simandou2040" width="50" height="50"
+                class="blinking-image me-2 d-none d-lg-block" />
+              <a href="tel:+224611756552" class="th-btn style-radius">
+                <i class="fa fa-phone me-1"></i>
+                <span class="phone-number">(+224) 611 75 65 52</span>
+              </a>
+            </div>
+
+            <!-- Bouton de menu mobile - séparé pour éviter la superposition -->
+            <div class="mobile-menu-toggle d-lg-none">
+              <button type="button" class="th-menu-toggle">
+                <i class="far fa-bars"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  {% block content %} {% endblock content %}
+  <div class="brand-area space mt-0 pt-0 mb-0 pb-4" style="background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%); padding: 4rem 0;">
+    <div class="container">
+      <div class="row">
+        <div class="col-12">
+          <div class="title-area mb-4 text-center">
+            <span class="sub-title mb-2">
+              <div class="icon-masking me-2">
+                <img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape" />
+              </div>
+              <span class="text-capitalize fs-20" style="font-size: 1.75rem; font-weight: 700; background: linear-gradient(135deg, #008d3f, #00a854); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">NOS PARTENAIRES</span>
+            </span>
+          </div>
+          <p class="text-center mb-4" style="font-size: 1.1rem; color: #6c757d; max-width: 600px; margin: 0 auto;">Retrouvez nos partenaires qui nous font confiance</p>
+        </div>
+      </div>
+      <div class="partners-slider-wrapper" style="position: relative; padding: 2rem 0;">
+        <div class="swiper th-slider" id="brandSlider1"
+          data-slider-options='{"loop":true,"autoplay":{"delay":3000,"disableOnInteraction":false},"breakpoints":{"0":{"slidesPerView":2,"spaceBetween":20},"576":{"slidesPerView":3,"spaceBetween":25},"768":{"slidesPerView":4,"spaceBetween":30},"992":{"slidesPerView":4,"spaceBetween":35},"1200":{"slidesPerView":5,"spaceBetween":40},"1400":{"slidesPerView":6,"spaceBetween":45}}}'>
+          <div class="swiper-wrapper">
+            {% for partenaire in partenaires %}
+            <div class="swiper-slide">
+              <div class="partner-card-modern">
+                <div class="partner-card-inner">
+                  <div class="partner-logo-wrapper">
+                    <img src="{{partenaire.logo.url}}" alt="{{partenaire.nom|default:'Partenaire Logo'}}" class="partner-logo" />
+                  </div>
+                  <div class="partner-overlay"></div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+      .partner-card-modern {
+        position: relative;
+        height: 140px;
+        background: #fff;
+        border-radius: 16px;
+        padding: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        border: 1px solid rgba(0,0,0,0.06);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .partner-card-modern::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, #008d3f, #00a854);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2;
+      }
+
+      .partner-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1;
+      }
+
+      .partner-logo-wrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        filter: brightness(1) contrast(1) saturate(1);
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2;
+      }
+
+      .partner-logo {
+        max-width: 90%;
+        max-height: 90px;
+        width: auto;
+        height: auto;
+        object-fit: contain;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        filter: brightness(1) contrast(1.05) saturate(1.1);
+        display: block;
+      }
+
+      .partner-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(135deg, rgba(0,141,63,0.08), rgba(0,168,84,0.08));
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        border-radius: 16px;
+        z-index: 1;
+      }
+
+      .partner-card-modern:hover {
+        transform: translateY(-10px) scale(1.08);
+        box-shadow: 0 16px 48px rgba(0,141,63,0.2);
+        border-color: rgba(0,141,63,0.3);
+        background: linear-gradient(135deg, rgba(255,255,255,1), rgba(248,249,250,1));
+      }
+
+      .partner-card-modern:hover::before {
+        transform: scaleX(1);
+        height: 4px;
+      }
+
+      .partner-card-modern:hover .partner-logo-wrapper {
+        filter: brightness(1.1) contrast(1.1) saturate(1.2);
+        transform: scale(1.15);
+      }
+
+      .partner-card-modern:hover .partner-logo {
+        filter: brightness(1.15) contrast(1.15) saturate(1.25);
+        transform: scale(1.1);
+      }
+
+      .partner-card-modern:hover .partner-overlay {
+        opacity: 1;
+      }
+
+      /* Effet de brillance sur les logos */
+      .partner-card-modern::after {
+        content: '';
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.4) 50%, transparent 70%);
+        transform: rotate(45deg);
+        transition: all 0.6s ease;
+        opacity: 0;
+        z-index: 3;
+        pointer-events: none;
+      }
+
+      .partner-card-modern:hover::after {
+        opacity: 1;
+        animation: partnerShine 1.2s ease-in-out;
+      }
+
+      @keyframes partnerShine {
+        0% {
+          transform: translateX(-100%) translateY(-100%) rotate(45deg);
+        }
+        100% {
+          transform: translateX(100%) translateY(100%) rotate(45deg);
+        }
+      }
+
+      .partners-slider-wrapper::before,
+      .partners-slider-wrapper::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        width: 100px;
+        z-index: 10;
+        pointer-events: none;
+      }
+
+      .partners-slider-wrapper::before {
+        left: 0;
+        background: linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0));
+      }
+
+      .partners-slider-wrapper::after {
+        right: 0;
+        background: linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0));
+      }
+
+      @media (max-width: 767px) {
+        .partner-card-modern {
+          height: 130px;
+          padding: 1.25rem;
+        }
+        .partner-logo {
+          max-height: 70px;
+          max-width: 85%;
+        }
+        .partners-slider-wrapper::before,
+        .partners-slider-wrapper::after {
+          width: 50px;
+        }
+      }
+    </style>
+  </div>
+  <footer class="footer-wrapper footer-layout2" data-bg-src="{% static 'assets/img/bg/footer_bg_1.jpg' %}">
+    <div class="widget-area">
+      <div class="container">
+        <div class="row justify-content-between">
+          <div class="col-md-6 col-xxl-3 col-xl-4">
+            <div class="widget footer-widget">
+              <div class="th-widget-about">
+                <div class="about-logo">
+                  <a href="{% url 'aguipex-index' %}"><img src="{% static 'assets/img/logo-small.png' %}" alt="AGUIPEX"
+                      width="150" height="150" /></a>
+                </div>
+                <p class="about-text">
+                  AGUIPEX Agence Guinéenne de Promotion des Exportations est
+                  un Etablissement public à caractère Administratif (EPA),
+                  doté de personnalité morale, d’autonomie financière et de
+                  gestion.
+                </p>
+                <div class="th-social">
+                  <a href="https://www.facebook.com/"><i class="fab fa-facebook-f"></i></a>
+                  <a href="https://www.twitter.com/"><i class="fab fa-twitter"></i></a>
+                  <a href="https://www.linkedin.com/"><i class="fab fa-linkedin-in"></i></a>
+                  <a href="https://www.whatsapp.com/"><i class="fab fa-whatsapp"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-auto">
+            <div class="widget widget_nav_menu footer-widget">
+              <h3 class="widget_title">NAVIGATION</h3>
+              <div class="menu-all-pages-container">
+                <ul class="menu">
+                  <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                  <li>
+                    <a href="{% url 'aguipex-about' %}">À propos de nous</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'aguipex-exportations' %}">Potentiel d'exportation</a>
+                  </li>
+                  <li>
+                    <a href="{% url 'aguipex-offreService' %}">Offres de services</a>
+                  </li>
+                  <li><a href="{% url 'aguipex-faq' %}">FAQ</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-auto">
+            <div class="widget footer-widget">
+              <h3 class="widget_title">Contactez-nous</h3>
+              <div class="th-widget-contact">
+                <div class="contact-feature">
+                  <div class="icon-btn">
+                    <i class="fa-solid fa-phone"></i>
+                  </div>
+                  <div class="media-body">
+                    <p class="contact-feature_label">Numéro de téléphone</p>
+                    <a href="tel:+19088000393" class="contact-feature_link">( +224) 611 75 65 52</a>
+                  </div>
+                </div>
+                <div class="contact-feature">
+                  <div class="icon-btn">
+                    <i class="fa-solid fa-envelope"></i>
+                  </div>
+                  <div class="media-body">
+                    <p class="contact-feature_label">Adresse email</p>
+                    <a href="mailto:info@webteck.com" class="contact-feature_link">contact@aguipex.gov.gn</a>
+                  </div>
+                </div>
+                <div class="contact-feature">
+                  <div class="icon-btn">
+                    <i class="fa-solid fa-location-dot"></i>
+                  </div>
+                  <div class="media-body">
+                    <p class="contact-feature_label">Emplacement du bureau</p>
+                    <a href="https://www.google.com/maps" class="contact-feature_link" style="font-size: 12px">Immeuble
+                      Horizon, 3ème étage, 5ème Avenue Sandervalia
+                      Commune de Kaloum</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-xl-3">
+            <div class="widget footer-widget">
+              <h3 class="widget_title">NEWSLETTER</h3>
+              <div class="newsletter-widget">
+                <p class="footer-text">
+                  Abonnez-vous à notre newsletter pour suivre notre actualité
+                </p>
+                <form id="newsletterForm" class="newsletter-form">
+                  <div class="form-group">
+                    <input class="form-control" type="email" id="newsletter-email" placeholder="Entrez l'adresse e-mail"
+                      required />
+                  </div>
+                  <button type="submit" class="icon-btn" id="newsletter-submit">
+                    <i class="fa-solid fa-paper-plane"></i>
+                  </button>
+                </form>
+                <div id="newsletter-message" class="mt-2" style="display: none;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="copyright-wrap bg-theme">
+      <div class="container">
+        <div class="row justify-content-between align-items-center">
+          <div class="col-lg-6">
+            <p class="copyright-text">
+              Copyright <i class="fal fa-copyright"></i> {% now 'Y' %}
+              <a href="https://themeforest.net/user/themeholy">AGUIPEX</a>.
+              Tous droits reservés.
+            </p>
+          </div>
+          <div class="col-lg-6 text-end d-none d-lg-block">
+            <div class="footer-links">
+              <ul>
+                <li><a href="{% url 'aguipex-conditions-generales' %}">Conditions générales</a></li>
+                <li><a href="{% url 'aguipex-carrieres' %}">Carrières</a></li>
+                <li><a href="{% url 'aguipex-politique-confidentialite' %}">Politique de confidentialité</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <div class="scroll-top">
+    <svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
+      <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" style="
+            transition: stroke-dashoffset 10ms linear 0s;
+            stroke-dasharray: 307.919, 307.919;
+            stroke-dashoffset: 307.919;
+          "></path>
+    </svg>
+  </div>
+  <script src="{% static 'assets/js/vendor/jquery-3.7.1.min.js' %}"></script>
+  <script src="{% static 'assets/js/swiper-bundle.min.js' %}"></script>
+  <script src="{% static 'assets/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.magnific-popup.min.js' %}"></script>
+  <script src="{% static 'assets/js/jquery.counterup.min.js' %}"></script>
+  <script src="{% static 'assets/js/circle-progress.js' %}"></script>
+  <script src="{% static 'assets/js/jquery-ui.min.js' %}"></script>
+  <script src="{% static 'assets/js/imagesloaded.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/js/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'assets/js/tilt.jquery.min.js' %}"></script>
+  <script src="{% static 'assets/js/gsap.min.js' %}"></script>
+  <script src="{% static 'assets/js/ScrollTrigger.min.js' %}"></script>
+  <script src="{% static 'assets/js/smooth-scroll.js' %}"></script>
+  <script src="{% static 'assets/js/particles.min.js' %}"></script>
+  <script src="{% static 'assets/js/particles-config.js' %}"></script>
+  <script src="{% static 'assets/js/main.js' %}"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Script pour la newsletter -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const newsletterForm = document.getElementById('newsletterForm');
+      const newsletterEmail = document.getElementById('newsletter-email');
+      const newsletterSubmit = document.getElementById('newsletter-submit');
+      const newsletterMessage = document.getElementById('newsletter-message');
+
+      if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function (e) {
+          e.preventDefault();
+
+          const email = newsletterEmail.value.trim();
+          if (!email) {
+            showNewsletterMessage('Veuillez entrer une adresse e-mail valide.', 'error');
+            return;
+          }
+
+          // Désactiver le bouton pendant l'envoi
+          newsletterSubmit.disabled = true;
+          newsletterSubmit.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i>';
+
+          // Envoyer la requête AJAX
+          fetch('{% url "aguipex-inscription-newsletter" %}', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: 'email=' + encodeURIComponent(email)
+          })
+            .then(response => response.json())
+            .then(data => {
+              if (data.success) {
+                showNewsletterMessage(data.message, 'success');
+                newsletterForm.reset();
+              } else {
+                showNewsletterMessage(data.message, 'error');
+              }
+            })
+            .catch(error => {
+              console.error('Erreur:', error);
+              showNewsletterMessage('Une erreur s\'est produite. Veuillez réessayer.', 'error');
+            })
+            .finally(() => {
+              // Réactiver le bouton
+              newsletterSubmit.disabled = false;
+              newsletterSubmit.innerHTML = '<i class="fa-solid fa-paper-plane"></i>';
+            });
+        });
+      }
+
+      function showNewsletterMessage(message, type) {
+        newsletterMessage.textContent = message;
+        newsletterMessage.className = 'mt-2 p-2 rounded text-center';
+
+        if (type === 'success') {
+          newsletterMessage.classList.add('bg-success', 'text-white');
+        } else {
+          newsletterMessage.classList.add('bg-danger', 'text-white');
+        }
+
+        newsletterMessage.style.display = 'block';
+
+        // Masquer le message après 5 secondes
+        setTimeout(() => {
+          newsletterMessage.style.display = 'none';
+        }, 5000);
+      }
+
+      function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+          const cookies = document.cookie.split(';');
+          for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+              cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+    });
+  </script>
+
+  <!-- Chatbot AGUIPEX -->
+  <div id="aguipex-chatbot-toggle" class="aguipex-chatbot-toggle" title="Assistant AGUIPEX">
+    <i class="far fa-comments"></i>
+  </div>
+  <div id="aguipex-chatbot-panel" class="aguipex-chatbot-panel">
+    <div class="aguipex-chatbot-header">
+      <span><i class="far fa-robot"></i> Assistant AGUIPEX</span>
+      <button type="button" class="aguipex-chatbot-close" aria-label="Fermer"><i class="far fa-times"></i></button>
+    </div>
+    <div class="aguipex-chatbot-messages"></div>
+    <div class="aguipex-chatbot-understood" id="aguipex-chatbot-understood"></div>
+    <div class="aguipex-chatbot-input-wrap">
+      <input type="text" id="aguipex-chatbot-input" placeholder="Posez votre question..." maxlength="500" />
+      <button type="button" id="aguipex-chatbot-send" aria-label="Envoyer"><i class="far fa-paper-plane"></i></button>
+    </div>
+  </div>
+  <style>
+    .aguipex-chatbot-toggle {
+      position: fixed; bottom: 90px; right: 24px; width: 56px; height: 56px;
+      background: linear-gradient(135deg, #008d3f, #00a854); color: #fff;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,141,63,0.4);
+      z-index: 9998; transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .aguipex-chatbot-toggle:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,141,63,0.5); }
+    .aguipex-chatbot-panel {
+      position: fixed; bottom: 156px; right: 24px; width: 380px; max-width: calc(100vw - 48px);
+      height: 480px; max-height: 70vh; background: #fff; border-radius: 16px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.12); display: none; flex-direction: column;
+      z-index: 9999; border: 1px solid rgba(0,0,0,0.06); overflow: hidden;
+    }
+    .aguipex-chatbot-panel.open { display: flex; }
+    .aguipex-chatbot-header {
+      background: linear-gradient(135deg, #008d3f, #00a854); color: #fff; padding: 14px 16px;
+      display: flex; align-items: center; justify-content: space-between; font-weight: 700;
+    }
+    .aguipex-chatbot-close { background: none; border: none; color: #fff; cursor: pointer; font-size: 1.2rem; padding: 0 4px; }
+    .aguipex-chatbot-messages {
+      flex: 1; overflow-y: auto; padding: 12px; display: flex; flex-direction: column; gap: 10px;
+      font-size: 0.9rem; line-height: 1.5;
+    }
+    .aguipex-chatbot-messages .msg { max-width: 88%; padding: 10px 12px; border-radius: 12px; }
+    .aguipex-chatbot-messages .msg.user { align-self: flex-end; background: #e8f5e9; color: #1a1a1a; }
+    .aguipex-chatbot-messages .msg.bot { align-self: flex-start; background: #f5f5f5; color: #1a1a1a; white-space: pre-wrap; }
+    .aguipex-chatbot-messages .msg.bot strong { color: #008d3f; }
+    .aguipex-chatbot-messages .msg.bot.loading { color: #666; }
+    .aguipex-chatbot-messages .msg.bot.loading .chatbot-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #008d3f; border-top-color: transparent; border-radius: 50%; animation: chatbot-spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+    @keyframes chatbot-spin { to { transform: rotate(360deg); } }
+    .aguipex-chatbot-understood {
+      padding: 6px 12px; font-size: 0.8rem; color: #6c757d; background: #f8f9fa; border-top: 1px solid #eee;
+      display: none;
+    }
+    .aguipex-chatbot-understood.visible { display: block; }
+    .aguipex-chatbot-input-wrap {
+      display: flex; padding: 10px 12px; gap: 8px; border-top: 1px solid #eee; background: #fff;
+    }
+    .aguipex-chatbot-input-wrap input {
+      flex: 1; padding: 10px 12px; border: 1px solid #dee2e6; border-radius: 8px; font-size: 0.9rem;
+    }
+    .aguipex-chatbot-input-wrap input:focus { outline: none; border-color: #008d3f; box-shadow: 0 0 0 2px rgba(0,141,63,0.15); }
+    .aguipex-chatbot-input-wrap button {
+      width: 44px; height: 44px; border: none; background: #008d3f; color: #fff; border-radius: 8px;
+      cursor: pointer; font-size: 1.1rem; transition: background 0.2s;
+    }
+    .aguipex-chatbot-input-wrap button:hover { background: #00a854; }
+    .aguipex-chatbot-input-wrap button:disabled { opacity: 0.6; cursor: not-allowed; }
+  </style>
+  <script>
+  (function() {
+    var toggle = document.getElementById('aguipex-chatbot-toggle');
+    var panel = document.getElementById('aguipex-chatbot-panel');
+    var closeBtn = panel.querySelector('.aguipex-chatbot-close');
+    var messagesEl = panel.querySelector('.aguipex-chatbot-messages');
+    var understoodEl = document.getElementById('aguipex-chatbot-understood');
+    var inputEl = document.getElementById('aguipex-chatbot-input');
+    var sendBtn = document.getElementById('aguipex-chatbot-send');
+    var sessionId = localStorage.getItem('aguipex_chat_session') || '';
+
+    function getCookie(n) {
+      var c = document.cookie ? document.cookie.split(';') : [];
+      for (var i = 0; i < c.length; i++) {
+        var p = c[i].trim();
+        if (p.substring(0, n.length + 1) === (n + '=')) return decodeURIComponent(p.substring(n.length + 1));
+      }
+      return null;
+    }
+    function addMessage(role, text) {
+      var div = document.createElement('div');
+      div.className = 'msg ' + role;
+      if (role === 'bot' && text) {
+        messagesEl.appendChild(div);
+        typewriterEffect(div, text);
+      } else {
+        div.innerHTML = (text || '').replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        messagesEl.appendChild(div);
+        messagesEl.scrollTop = messagesEl.scrollHeight;
+      }
+    }
+    function parseBoldSegments(s) {
+      var tokens = [];
+      var re = /\*\*(.*?)\*\*/g;
+      var lastEnd = 0;
+      var m;
+      while ((m = re.exec(s)) !== null) {
+        if (m.index > lastEnd) tokens.push({ bold: false, text: s.slice(lastEnd, m.index) });
+        tokens.push({ bold: true, text: m[1] });
+        lastEnd = re.lastIndex;
+      }
+      if (lastEnd < s.length) tokens.push({ bold: false, text: s.slice(lastEnd) });
+      return tokens;
+    }
+    function typewriterEffect(container, reply) {
+      var tokens = parseBoldSegments(reply);
+      if (!tokens.length) { messagesEl.scrollTop = messagesEl.scrollHeight; return; }
+      var nodes = [];
+      tokens.forEach(function(t) {
+        if (t.bold) {
+          var strong = document.createElement('strong');
+          var tn = document.createTextNode('');
+          strong.appendChild(tn);
+          container.appendChild(strong);
+          nodes.push(tn);
+        } else {
+          var tn = document.createTextNode('');
+          container.appendChild(tn);
+          nodes.push(tn);
+        }
+      });
+      var segmentIndex = 0;
+      var charIndex = 0;
+      var delayMs = 18;
+      function tick() {
+        if (segmentIndex >= tokens.length) {
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+          return;
+        }
+        var seg = tokens[segmentIndex];
+        if (charIndex < seg.text.length) {
+          nodes[segmentIndex].appendData(seg.text.charAt(charIndex));
+          charIndex++;
+          messagesEl.scrollTop = messagesEl.scrollHeight;
+          setTimeout(tick, delayMs);
+        } else {
+          segmentIndex++;
+          charIndex = 0;
+          setTimeout(tick, 0);
+        }
+      }
+      setTimeout(tick, delayMs);
+    }
+    function addLoadingMessage() {
+      var div = document.createElement('div');
+      div.className = 'msg bot loading';
+      div.setAttribute('data-chatbot-loading', '1');
+      div.innerHTML = '<span class="chatbot-spinner"></span> Réflexion...';
+      messagesEl.appendChild(div);
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+      return div;
+    }
+    function removeLoadingMessage() {
+      var el = messagesEl.querySelector('[data-chatbot-loading="1"]');
+      if (el) el.remove();
+    }
+    function setUnderstood(text) {
+      understoodEl.textContent = text || '';
+      understoodEl.classList.toggle('visible', !!text);
+    }
+    toggle.addEventListener('click', function() { panel.classList.toggle('open'); if (panel.classList.contains('open')) inputEl.focus(); });
+    closeBtn.addEventListener('click', function() { panel.classList.remove('open'); });
+    function send() {
+      var msg = (inputEl.value || '').trim();
+      if (!msg) return;
+      inputEl.value = '';
+      addMessage('user', msg);
+      setUnderstood('');
+      sendBtn.disabled = true;
+      addLoadingMessage();
+      var body = JSON.stringify({ message: msg, session_id: sessionId });
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', '{% url "aguipex-chatbot-api" %}');
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.setRequestHeader('X-CSRFToken', getCookie('csrftoken') || '');
+      xhr.onload = function() {
+        removeLoadingMessage();
+        sendBtn.disabled = false;
+        try {
+          if (xhr.status !== 200) {
+            addMessage('bot', 'Le serveur a renvoyé une erreur. Réessayez ou consultez les pages **À propos** et **Contact** du site.');
+            return;
+          }
+          var data = JSON.parse(xhr.responseText);
+          if (data.session_id) { sessionId = data.session_id; localStorage.setItem('aguipex_chat_session', sessionId); }
+          var reply = (data && data.reply != null && data.reply !== '') ? data.reply : 'Je n\'ai pas pu formuler de réponse. Consultez les pages **À propos**, **Contact** ou **Ressources** du menu.';
+          addMessage('bot', reply);
+        } catch (e) {
+          addMessage('bot', 'Réponse invalide du serveur. Réessayez ou consultez directement les pages du site.');
+        }
+      };
+      xhr.onerror = function() {
+        removeLoadingMessage();
+        sendBtn.disabled = false;
+        addMessage('bot', 'Impossible de joindre le serveur. Réessayez plus tard.');
+      };
+      xhr.send(body);
+    }
+    sendBtn.addEventListener('click', send);
+    inputEl.addEventListener('keydown', function(e) { if (e.key === 'Enter') send(); });
+  })();
+  </script>
+
+  {% block script %} {% endblock script %}
+</body>
+
+</html>

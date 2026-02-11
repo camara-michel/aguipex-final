@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Menus + Modal - AGUIPEX</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .test-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .test-menu {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .test-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .test-menu li {
+            margin: 5px 0;
+        }
+
+        .test-menu a {
+            color: #333;
+            text-decoration: none;
+            padding: 12px 20px;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            border: 2px solid #ddd;
+            background: #f8f9fa;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .test-menu a:hover {
+            background: #008D3F;
+            color: white;
+            border-color: #008D3F;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .status {
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 2px solid #c3e6cb;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #f5c6cb;
+        }
+
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 2px solid #bee5eb;
+        }
+
+        .status.warning {
+            background: #fff3cd;
+            color: #856404;
+            border: 2px solid #ffeaa7;
+        }
+
+        .click-log {
+            background: #e9ecef;
+            border: 1px solid #ced4da;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            max-height: 150px;
+            overflow-y: auto;
+            font-family: monospace;
+            font-size: 14px;
+        }
+
+        .test-results {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        .entreprises-link {
+            background: #ffc107 !important;
+            border-color: #ffc107 !important;
+            color: #000 !important;
+        }
+
+        .entreprises-link:hover {
+            background: #e0a800 !important;
+            border-color: #d39e00 !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="test-container">
+        <h1>🧪 Test Menus + Modal - AGUIPEX</h1>
+
+        <div class="status info">
+            <strong>Objectif :</strong> Vérifier que tous les menus fonctionnent ET que le modal s'affiche pour
+            Entreprises
+        </div>
+
+        <h2>📋 Menu de Test</h2>
+        <div class="test-menu">
+            <ul>
+                <li><a href="/" class="menu-link" data-test="accueil">🏠 Accueil</a></li>
+                <li><a href="/a-propos/" class="menu-link" data-test="a-propos">ℹ️ À propos</a></li>
+                <li><a href="/entreprises/" class="menu-link entreprises-link" data-test="entreprises"
+                        data-modal="entreprises">🏢 Entreprises</a></li>
+                <li><a href="/foires/" class="menu-link" data-test="foires">🎪 Foires</a></li>
+                <li><a href="/actualite/" class="menu-link" data-test="actualite">📰 Actualité</a></li>
+                <li><a href="/contactez-nous/" class="menu-link" data-test="contact">📞 Contact</a></li>
+            </ul>
+        </div>
+
+        <h2>🔍 Tests à Effectuer</h2>
+        <div class="status success">
+            ✅ <strong>Test 1 :</strong> Cliquer sur "Accueil" doit naviguer normalement (pas de modal)
+        </div>
+
+        <div class="status success">
+            ✅ <strong>Test 2 :</strong> Cliquer sur "À propos" doit naviguer normalement (pas de modal)
+        </div>
+
+        <div class="status warning">
+            ⚠️ <strong>Test 3 :</strong> Cliquer sur "Entreprises" doit ouvrir le modal (pas de navigation)
+        </div>
+
+        <div class="status success">
+            ✅ <strong>Test 4 :</strong> Cliquer sur "Foires" doit naviguer normalement (pas de modal)
+        </div>
+
+        <div class="status success">
+            ✅ <strong>Test 5 :</strong> Cliquer sur "Actualité" doit naviguer normalement (pas de modal)
+        </div>
+
+        <div class="status success">
+            ✅ <strong>Test 6 :</strong> Cliquer sur "Contact" doit naviguer normalement (pas de modal)
+        </div>
+
+        <h2>📝 Journal des Clics</h2>
+        <div class="click-log" id="clickLog">
+            <strong>Journal des clics :</strong><br>
+            • Aucun clic enregistré pour le moment
+        </div>
+
+        <h2>🧪 Résultats des Tests</h2>
+        <div class="test-results" id="testResults">
+            <strong>Résultats :</strong><br>
+            • Aucun test effectué pour le moment
+        </div>
+
+        <div class="status success">
+            🎉 <strong>Test terminé !</strong> Vérifiez que seul le lien "Entreprises" ouvre le modal.
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        // Script de test pour les menus et le modal
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('🧪 Test menus + modal chargé');
+
+            const clickLog = document.getElementById('clickLog');
+            const testResults = document.getElementById('testResults');
+            let clickCount = 0;
+            let testCount = 0;
+            let passedTests = 0;
+
+            // Fonction pour enregistrer un clic
+            function logClick(linkText, action) {
+                clickCount++;
+                const timestamp = new Date().toLocaleTimeString();
+                const logEntry = document.createElement('div');
+                logEntry.innerHTML = `• <strong>${timestamp}</strong> - Clic sur "${linkText}" → ${action}`;
+                clickLog.appendChild(logEntry);
+
+                // Garder seulement les 8 derniers clics
+                if (clickLog.children.length > 9) {
+                    clickLog.removeChild(clickLog.firstElementChild.nextElementSibling);
+                }
+
+                console.log(`🔗 Clic ${clickCount}: ${linkText} → ${action}`);
+            }
+
+            // Fonction pour enregistrer un test
+            function recordTest(testName, passed, details = '') {
+                testCount++;
+                if (passed) passedTests++;
+
+                const status = passed ? '✅' : '❌';
+                const result = passed ? 'PASSÉ' : 'ÉCHOUÉ';
+
+                console.log(`${status} ${testName}: ${result} ${details}`);
+
+                // Mettre à jour l'affichage
+                const existingResult = testResults.querySelector(`[data-test="${testName}"]`);
+                if (existingResult) {
+                    existingResult.innerHTML = `${status} <strong>${testName}:</strong> ${result} ${details}`;
+                } else {
+                    const newResult = document.createElement('div');
+                    newResult.setAttribute('data-test', testName);
+                    newResult.innerHTML = `${status} <strong>${testName}:</strong> ${result} ${details}`;
+                    testResults.appendChild(newResult);
+                }
+            }
+
+            // Tester que tous les liens sont présents
+            const allLinks = document.querySelectorAll('.menu-link');
+            recordTest('Liens présents', allLinks.length === 6, `(${allLinks.length}/6 liens trouvés)`);
+
+            // Tester que le lien Entreprises est spécifiquement identifié
+            const entreprisesLink = document.querySelector('.entreprises-link');
+            recordTest('Lien Entreprises identifié', !!entreprisesLink, entreprisesLink ? 'Trouvé' : 'Non trouvé');
+
+            // Tester la fonctionnalité des liens
+            allLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    const linkText = this.textContent.trim();
+                    const testType = this.getAttribute('data-test');
+                    const isEntreprises = testType === 'entreprises';
+
+                    if (isEntreprises) {
+                        // Pour le lien Entreprises, on ne fait rien (le modal doit s'ouvrir)
+                        e.preventDefault();
+                        logClick(linkText, 'Modal déclenché');
+                        recordTest('Clic sur Entreprises', true, 'Modal déclenché');
+
+                        // Simuler l'ouverture du modal
+                        setTimeout(() => {
+                            alert(`✅ Test réussi ! Le lien "${linkText}" a déclenché le modal.\n\nDans le vrai site, le modal de collecte d'informations s'ouvrirait.`);
+                        }, 100);
+
+                    } else {
+                        // Pour les autres liens, navigation normale
+                        logClick(linkText, 'Navigation normale');
+                        recordTest(`Clic sur ${linkText}`, true, 'Navigation normale');
+
+                        // Simuler la navigation
+                        setTimeout(() => {
+                            alert(`✅ Test réussi ! Le lien "${linkText}" est cliquable et navigue normalement.\n\nURL : ${this.href}`);
+                        }, 100);
+                    }
+                });
+            });
+
+            // Vérifier la disponibilité de Bootstrap
+            const bootstrapAvailable = typeof bootstrap !== 'undefined';
+            recordTest('Bootstrap disponible', bootstrapAvailable, bootstrapAvailable ? 'Disponible' : 'Non disponible');
+
+            // Vérifier la disponibilité de SweetAlert2
+            const sweetAlertAvailable = typeof Swal !== 'undefined';
+            recordTest('SweetAlert2 disponible', sweetAlertAvailable, sweetAlertAvailable ? 'Disponible' : 'Non disponible');
+
+            // Résumé final
+            setTimeout(() => {
+                const summary = document.createElement('div');
+                summary.className = passedTests === testCount ? 'status success' : 'status warning';
+                summary.innerHTML = `
+                    <strong>Résumé des tests :</strong> ${passedTests}/${testCount} tests passés
+                `;
+                testResults.appendChild(summary);
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

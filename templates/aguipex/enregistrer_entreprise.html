@@ -1,0 +1,1713 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% load html_filters %}
+
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #333;
+    --muted: #6c757d;
+    --surface: #ffffff;
+    --surface-2: #f8f9fa;
+    --border: #dee2e6;
+    --shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --radius: 12px;
+    --radius-lg: 16px;
+    --font-small: 0.875rem;
+    --font-medium: 1rem;
+    --font-large: 1.25rem;
+  }
+
+  /* HERO SECTION */
+  .hero-section {
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    padding: 60px 0;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  .hero-subtitle {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .breadcrumb-nav {
+    margin-top: 20px;
+  }
+
+  .breadcrumb-nav a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .breadcrumb-nav a:hover {
+    color: white;
+  }
+
+  /* FORM SECTION */
+  .form-container {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    margin: -30px auto 60px;
+    max-width: 800px;
+    padding: 40px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .form-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .form-header-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    color: white;
+    font-size: 2rem;
+  }
+
+  .form-title {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .form-subtitle {
+    color: var(--muted);
+    font-size: var(--font-medium);
+  }
+
+  /* ALERTS */
+  .alert {
+    padding: 12px 16px;
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    font-size: var(--font-small);
+    border: 1px solid transparent;
+  }
+
+  /* Message de succès après enregistrement : vert, design soigné */
+  .alert.alert-success,
+  .alert-registration-success {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 18px 20px;
+    border-radius: var(--radius);
+    margin-bottom: 24px;
+    font-size: 1rem;
+    line-height: 1.5;
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%) !important;
+    color: #1b5e20 !important;
+    border: 1px solid #81c784 !important;
+    box-shadow: 0 2px 12px rgba(39, 174, 96, 0.15);
+  }
+  .alert.alert-success i,
+  .alert-registration-success i {
+    flex-shrink: 0;
+    margin-top: 2px;
+    color: #2e7d32 !important;
+    font-size: 1.35rem;
+  }
+
+  .alert-error {
+    background: #f8d7da;
+    color: #721c24;
+    border-color: #f5c2c7;
+  }
+
+  .alert-info {
+    background: #cff4fc;
+    color: #055160;
+    border-color: #b6effb;
+  }
+
+  .alert-warning {
+    background: #fff3cd;
+    color: #856404;
+    border-color: #ffeaa7;
+  }
+
+  /* WIZARD PROGRESS */
+  .wizard-progress {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 40px;
+    position: relative;
+  }
+
+  .wizard-progress::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--border);
+    z-index: 1;
+  }
+
+  .wizard-step {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .wizard-step-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 2px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .wizard-step.active .wizard-step-circle {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: white;
+  }
+
+  .wizard-step.completed .wizard-step-circle {
+    background: var(--brand-2);
+    border-color: var(--brand-2);
+    color: white;
+  }
+
+  .wizard-step-label {
+    font-size: var(--font-small);
+    color: var(--muted);
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .wizard-step.active .wizard-step-label {
+    color: var(--brand);
+    font-weight: 600;
+  }
+
+  .wizard-step.completed .wizard-step-label {
+    color: var(--brand-2);
+  }
+
+  /* FORM STEPS */
+  .form-step {
+    display: none;
+    animation: fadeInUp 0.4s ease-out;
+  }
+
+  .form-step.active {
+    display: block !important;
+  }
+
+  .form-step-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .form-step-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .form-step-subtitle {
+    color: var(--muted);
+    font-size: var(--font-medium);
+  }
+
+  /* FORM GROUPS */
+  .form-group {
+    margin-bottom: 24px;
+  }
+
+  .form-label {
+    display: block;
+    font-weight: 600;
+    color: var(--text);
+    margin-bottom: 8px;
+    font-size: var(--font-medium);
+  }
+
+  .form-label.required::after {
+    content: ' *';
+    color: #dc3545;
+  }
+
+  .form-label.optional::after {
+    content: ' (optionnel)';
+    color: var(--muted);
+    font-weight: 400;
+    font-size: var(--font-small);
+  }
+
+  .form-control {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid var(--border);
+    border-radius: var(--radius);
+    font-size: var(--font-medium);
+    transition: all 0.3s ease;
+    background: var(--surface);
+  }
+
+  .form-control:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+  }
+
+  .form-control.is-invalid {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+  }
+
+  .form-control.is-valid {
+    border-color: #198754;
+    box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+  }
+
+  .form-text {
+    font-size: var(--font-small);
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .invalid-feedback {
+    display: block;
+    color: #dc3545;
+    font-size: var(--font-small);
+    margin-top: 4px;
+  }
+
+  .valid-feedback {
+    display: block;
+    color: #198754;
+    font-size: var(--font-small);
+    margin-top: 4px;
+  }
+
+  /* FILE UPLOAD */
+  .file-upload {
+    position: relative;
+    display: block;
+    cursor: pointer;
+  }
+
+  .file-upload input[type="file"] {
+    position: absolute;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .file-upload-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    color: var(--muted);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    min-height: 100px;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .file-upload:hover .file-upload-label {
+    border-color: var(--brand);
+    background: rgba(0, 141, 63, 0.05);
+    color: var(--brand);
+  }
+
+  .file-upload input[type="file"]:focus + .file-upload-label {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+  }
+
+  .file-icon {
+    font-size: 1.5rem;
+    margin-bottom: 4px;
+  }
+
+  .file-text {
+    font-size: var(--font-small);
+  }
+
+  /* PRODUITS ENTREPRISE - DESIGN MODERNE */
+  .produits-entreprise-container {
+    margin-top: 2rem;
+  }
+
+  .produit-form-card {
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    transition: all 0.3s ease;
+  }
+
+  .produit-form-card:hover {
+    border-color: var(--brand);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.1);
+  }
+
+  .produit-form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #f8f9fa;
+  }
+
+  .produit-form-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .btn-remove-product {
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+  }
+
+  .btn-remove-product:hover {
+    background: #c82333;
+    transform: translateY(-1px);
+  }
+
+  .btn-add-product {
+    width: 100%;
+    padding: 16px;
+    margin-top: 20px;
+    border: 2px dashed var(--brand);
+    background: rgba(0, 141, 63, 0.05);
+    color: var(--brand);
+    font-weight: 600;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+
+  .btn-add-product:hover {
+    background: rgba(0, 141, 63, 0.1);
+    border-color: var(--brand-2);
+  }
+
+  .type-produit-select-wrapper {
+    position: relative;
+  }
+
+  /* Custom Select - Design Moderne et Recherchable */
+  .custom-select-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .custom-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+    background: white;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 48px;
+  }
+
+  .custom-select:hover {
+    border-color: var(--brand);
+  }
+
+  .custom-select.active {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+  }
+
+  .custom-select-value {
+    color: var(--text);
+    flex: 1;
+  }
+
+  .custom-select-value.placeholder {
+    color: #6c757d;
+  }
+
+  .custom-select-arrow {
+    color: #6c757d;
+    transition: transform 0.2s ease;
+    font-size: 0.85rem;
+  }
+
+  .custom-select.active .custom-select-arrow {
+    transform: rotate(180deg);
+  }
+
+  .custom-select-dropdown {
+    position: absolute;
+    top: calc(100% + 4px);
+    left: 0;
+    right: 0;
+    background: white;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+    z-index: 1000;
+    display: none;
+    max-height: 300px;
+    overflow: hidden;
+    flex-direction: column;
+  }
+
+  .custom-select-dropdown.active {
+    display: flex;
+  }
+
+  .custom-select-search {
+    position: relative;
+    padding: 12px;
+    border-bottom: 1px solid #e9ecef;
+  }
+
+  .custom-select-search-input {
+    width: 100%;
+    padding: 8px 32px 8px 12px;
+    border: 1px solid #dee2e6;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .custom-select-search i {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 0.85rem;
+  }
+
+  .custom-select-options {
+    overflow-y: auto;
+    max-height: 200px;
+  }
+
+  .custom-select-option {
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.95rem;
+    color: var(--text);
+    border-bottom: 1px solid #f8f9fa;
+  }
+
+  .custom-select-option:hover {
+    background: rgba(0, 141, 63, 0.05);
+    color: var(--brand);
+  }
+
+  .custom-select-option.selected {
+    background: rgba(0, 141, 63, 0.1);
+    color: var(--brand);
+    font-weight: 600;
+  }
+
+  .custom-select-option-new {
+    color: var(--brand);
+    font-weight: 600;
+    border-top: 2px solid #e9ecef;
+    background: rgba(0, 141, 63, 0.03);
+  }
+
+  .custom-select-option-new:hover {
+    background: rgba(0, 141, 63, 0.1);
+  }
+
+  .custom-select-option.hidden {
+    display: none;
+  }
+
+  .new-type-input-wrapper {
+    animation: slideDown 0.3s ease;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .btn-create-type {
+    margin-top: 8px;
+    padding: 8px 16px;
+    background: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    color: var(--text);
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .btn-create-type:hover {
+    background: #e9ecef;
+    border-color: var(--brand);
+  }
+
+  .produit-image-upload {
+    border: 2px dashed #dee2e6;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    background: #f8f9fa;
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .produit-image-upload:hover {
+    border-color: var(--brand);
+    background: rgba(0, 141, 63, 0.05);
+  }
+
+  .produit-image-preview {
+    max-width: 100%;
+    max-height: 200px;
+    border-radius: 8px;
+    margin-top: 12px;
+    object-fit: cover;
+  }
+
+  /* WIZARD NAVIGATION */
+  .wizard-navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  .wizard-nav-left {
+    display: flex;
+    gap: 12px;
+  }
+
+  .wizard-nav-right {
+    display: flex;
+    gap: 12px;
+  }
+
+  /* BUTTONS */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px;
+    border: none;
+    border-radius: var(--radius);
+    font-weight: 600;
+    font-size: var(--font-medium);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    gap: 8px;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    color: white;
+  }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    color: white;
+    text-decoration: none;
+  }
+
+  .btn-secondary {
+    background: var(--surface-2);
+    color: var(--text);
+    border: 2px solid var(--border);
+  }
+
+  .btn-secondary:hover {
+    background: var(--border);
+    color: var(--text);
+    text-decoration: none;
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--brand);
+    border: 2px solid var(--brand);
+  }
+
+  .btn-outline:hover {
+    background: var(--brand);
+    color: white;
+    text-decoration: none;
+  }
+
+  .btn-lg {
+    padding: 16px 32px;
+    font-size: var(--font-large);
+  }
+
+  /* GRID LAYOUT */
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2rem;
+    }
+    
+    .form-container {
+      margin: -20px 16px 40px;
+      padding: 24px;
+    }
+    
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+    
+    .product-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .form-container {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  /* LOADING STATE */
+  .btn-loading {
+    position: relative;
+    pointer-events: none;
+  }
+
+  .btn-loading::after {
+    content: '';
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    border: 2px solid transparent;
+    border-top: 2px solid currentColor;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<!-- HERO SECTION -->
+
+  <div
+  class="breadcumb-wrapper"
+  data-bg-src="{% static 'assets/img/bg/allpage.png' %}"
+>
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">
+        Enregistrer votre entreprise
+      </h1>
+      <p class="hero-subtitle">
+        Rejoignez notre réseau d'entreprises en base de donnée et bénéficiez de notre accompagnement pour développer vos exportations
+      </p>
+      <ul class="breadcumb-menu">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li><a href="{% url 'aguipex-entreprises' %}">Entreprises</a></li>
+        <li>Enregistrement</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- FORM SECTION -->
+<div class="container">
+  <div class="form-container">
+    <!-- WIZARD PROGRESS -->
+    <div class="wizard-progress">
+      <div class="wizard-step active" data-step="1">
+        <div class="wizard-step-circle">1</div>
+        <div class="wizard-step-label">Informations de base</div>
+      </div>
+      <div class="wizard-step" data-step="2">
+        <div class="wizard-step-circle">2</div>
+        <div class="wizard-step-label">Contact</div>
+      </div>
+      <div class="wizard-step" data-step="3">
+        <div class="wizard-step-circle">3</div>
+        <div class="wizard-step-label">Complémentaires</div>
+      </div>
+      <div class="wizard-step" data-step="4">
+        <div class="wizard-step-circle">4</div>
+        <div class="wizard-step-label">Images</div>
+      </div>
+      <div class="wizard-step" data-step="5">
+        <div class="wizard-step-circle">5</div>
+        <div class="wizard-step-label">Produits</div>
+      </div>
+    </div>
+
+    <!-- ALERTS -->
+    {% if messages %}
+      {% for message in messages %}
+        {% if message.tags == 'success' or 'success' in message.tags %}
+        <div class="alert alert-success alert-registration-success" role="alert">
+          <i class="fas fa-check-circle"></i>
+          <span>{{ message }}</span>
+        </div>
+        {% else %}
+        <div class="alert alert-{% if message.tags == 'error' or message.tags == 'danger' %}error{% elif message.tags == 'warning' %}warning{% else %}info{% endif %}">
+          <i class="fas fa-{% if message.tags == 'error' or message.tags == 'danger' %}exclamation-triangle{% elif message.tags == 'warning' %}exclamation-circle{% else %}info-circle{% endif %} me-2"></i>
+          {{ message }}
+        </div>
+        {% endif %}
+      {% endfor %}
+    {% endif %}
+
+    <!-- REGISTRATION FORM -->
+    <form method="POST" enctype="multipart/form-data" id="entrepriseForm">
+      {% csrf_token %}
+      
+      <!-- STEP 1: BASIC INFORMATION -->
+      <div class="form-step active" data-step="1">
+        <div class="form-step-header">
+          <h3 class="form-step-title">Informations de base</h3>
+          <p class="form-step-subtitle">Commencez par les informations essentielles de votre entreprise</p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nom" class="form-label required">Nom de l'entreprise</label>
+            <input type="text" class="form-control" id="nom" name="nom" value="{{ form.nom.value|default:'' }}" required>
+            <div class="form-text">Le nom officiel de votre entreprise</div>
+          </div>
+
+          <div class="form-group">
+            <label for="type_activite" class="form-label required">Type d'activité</label>
+            <input type="text" class="form-control" id="type_activite" name="type_activite" value="{{ form.type_activite.value|default:'' }}" required>
+            <div class="form-text">Ex: Commerce, Industrie, Services, etc.</div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="secteur_activite" class="form-label optional">Secteur d'activité</label>
+            <input type="text" class="form-control" id="secteur_activite" name="secteur_activite" value="{{ form.secteur_activite.value|default:'' }}">
+            <div class="form-text">Ex: Agroalimentaire, Textile, Technologies, etc.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="ville" class="form-label required">Ville</label>
+            <input type="text" class="form-control" id="ville" name="ville" value="{{ form.ville.value|default:'' }}" required>
+            <div class="form-text">Ville principale d'implantation</div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description" class="form-label optional">Description de l'entreprise</label>
+          <textarea class="form-control ckeditor-textarea" id="description" name="description" rows="8" placeholder="Décrivez brièvement votre entreprise, ses activités principales, ses valeurs... Vous pouvez utiliser des emojis et formater le texte.">{{ form.description.value|default:'' }}</textarea>
+          <div class="form-text">Une description détaillée de votre entreprise (optionnel). Vous pouvez utiliser des emojis et formater le texte.</div>
+        </div>
+
+        <div class="wizard-navigation">
+          <div class="wizard-nav-left">
+            <a href="{% url 'aguipex-entreprises' %}" class="btn btn-outline">
+              <i class="fas fa-arrow-left"></i>Retour
+            </a>
+          </div>
+          <div class="wizard-nav-right">
+            <button type="button" class="btn btn-primary" onclick="nextStep()">
+              Suivant<i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2: CONTACT INFORMATION -->
+      <div class="form-step" data-step="2">
+        <div class="form-step-header">
+          <h3 class="form-step-title">Informations de contact</h3>
+          <p class="form-step-subtitle">Comment les clients peuvent-ils vous contacter ?</p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="adresse" class="form-label optional">Adresse complète</label>
+            <textarea class="form-control ckeditor-textarea" id="adresse" name="adresse" rows="4" placeholder="Adresse complète de l'entreprise. Vous pouvez utiliser des emojis et formater le texte.">{{ form.adresse.value|default:'' }}</textarea>
+            <div class="form-text">Vous pouvez utiliser des emojis et formater le texte.</div>
+          </div>
+
+          <div class="form-group">
+            <label for="telephone" class="form-label optional">Téléphone</label>
+            <input type="tel" class="form-control" id="telephone" name="telephone" value="{{ form.telephone.value|default:'' }}" placeholder="+224 XXX XXX XXX">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email" class="form-label optional">Adresse email</label>
+            <input type="email" class="form-control" id="email" name="email" value="{{ form.email.value|default:'' }}" placeholder="contact@entreprise.com">
+          </div>
+
+          <div class="form-group">
+            <label for="site_web" class="form-label optional">Site web</label>
+            <input type="text" class="form-control" id="site_web" name="site_web" value="{{ form.site_web.value|default:'' }}" placeholder="www.entreprise.com ou tout autre texte">
+          </div>
+        </div>
+
+        <div class="wizard-navigation">
+          <div class="wizard-nav-left">
+            <button type="button" class="btn btn-outline" onclick="prevStep()">
+              <i class="fas fa-arrow-left"></i>Précédent
+            </button>
+          </div>
+          <div class="wizard-nav-right">
+            <button type="button" class="btn btn-primary" onclick="nextStep()">
+              Suivant<i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3: ADDITIONAL INFORMATION -->
+      <div class="form-step" data-step="3">
+        <div class="form-step-header">
+          <h3 class="form-step-title">Informations complémentaires</h3>
+          <p class="form-step-subtitle">En savoir plus sur votre entreprise</p>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="date_creation" class="form-label optional">Date de création</label>
+            <input type="date" class="form-control" id="date_creation" name="date_creation" value="{{ form.date_creation.value|default:'' }}">
+          </div>
+
+          <div class="form-group">
+            <label for="nombre_employes" class="form-label optional">Nombre d'employés</label>
+            <select class="form-control" id="nombre_employes" name="nombre_employes">
+              <option value="">Sélectionnez...</option>
+              <option value="1-10" {% if form.nombre_employes.value == '1-10' %}selected{% endif %}>1-10 employés</option>
+              <option value="11-50" {% if form.nombre_employes.value == '11-50' %}selected{% endif %}>11-50 employés</option>
+              <option value="51-200" {% if form.nombre_employes.value == '51-200' %}selected{% endif %}>51-200 employés</option>
+              <option value="201-500" {% if form.nombre_employes.value == '201-500' %}selected{% endif %}>201-500 employés</option>
+              <option value="500+" {% if form.nombre_employes.value == '500+' %}selected{% endif %}>Plus de 500 employés</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="certifications" class="form-label optional">Certifications obtenues</label>
+          <textarea class="form-control ckeditor-textarea" id="certifications" name="certifications" rows="5" placeholder="Listez vos certifications, normes qualité, etc. Vous pouvez utiliser des emojis et formater le texte.">{{ form.certifications.value|default:'' }}</textarea>
+          <div class="form-text">Ex: ISO 9001, HACCP, Bio, etc. Vous pouvez utiliser des emojis et formater le texte.</div>
+        </div>
+
+        <div class="wizard-navigation">
+          <div class="wizard-nav-left">
+            <button type="button" class="btn btn-outline" onclick="prevStep()">
+              <i class="fas fa-arrow-left"></i>Précédent
+            </button>
+          </div>
+          <div class="wizard-nav-right">
+            <button type="button" class="btn btn-primary" onclick="nextStep()">
+              Suivant<i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 4: MEDIA UPLOAD -->
+      <div class="form-step" data-step="4">
+        <div class="form-step-header">
+          <h3 class="form-step-title">Images de l'entreprise</h3>
+          <p class="form-step-subtitle">Ajoutez des visuels pour présenter votre entreprise</p>
+        </div>
+
+        <div class="form-group">
+          <label for="logo" class="form-label optional">Logo de l'entreprise</label>
+          <div class="file-upload">
+            <input type="file" id="logo" name="logo" accept="image/*">
+            <label for="logo" class="file-upload-label">
+              <i class="fas fa-upload file-icon"></i>
+              <span class="file-text">Cliquez pour sélectionner le logo</span>
+              <small>Format: JPG, PNG - Max: 2MB</small>
+            </label>
+          </div>
+        </div>
+
+        <div class="wizard-navigation">
+          <div class="wizard-nav-left">
+            <button type="button" class="btn btn-outline" onclick="prevStep()">
+              <i class="fas fa-arrow-left"></i>Précédent
+            </button>
+          </div>
+          <div class="wizard-nav-right">
+            <button type="button" class="btn btn-primary" onclick="nextStep()">
+              Suivant<i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 5: PRODUCT CREATION -->
+      <div class="form-step" data-step="5">
+        <div class="form-step-header">
+          <h3 class="form-step-title">Produits de l'entreprise</h3>
+          <p class="form-step-subtitle">Ajoutez les produits que votre entreprise commercialise (optionnel)</p>
+        </div>
+
+        <div class="produits-entreprise-container">
+          <div id="produits-list">
+            <!-- Les produits seront ajoutés dynamiquement ici -->
+          </div>
+          
+          <button type="button" class="btn btn-outline btn-add-product" onclick="addProductForm()">
+            <i class="fas fa-plus"></i> Ajouter un produit
+          </button>
+        </div>
+
+        <div class="wizard-navigation">
+          <div class="wizard-nav-left">
+            <button type="button" class="btn btn-outline" onclick="prevStep()">
+              <i class="fas fa-arrow-left"></i>Précédent
+            </button>
+          </div>
+          <div class="wizard-nav-right">
+            <button type="submit" class="btn btn-primary btn-lg" id="submitBtn">
+              <i class="fas fa-paper-plane"></i>Enregistrer mon entreprise
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+{{ block.super }}
+<script src="{% static 'ckeditor/ckeditor/ckeditor.js' %}"></script>
+<script>
+let currentStep = 1;
+let produitIndex = 0;
+const typesProduits = [
+  {% for type in types_produits %}
+  {id: {{ type.id }}, nom: "{{ type.nom|escapejs }}", slug: "{{ type.slug|escapejs }}"}{% if not forloop.last %},{% endif %}
+  {% endfor %}
+];
+const totalSteps = 5;
+
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.getElementById('entrepriseForm');
+  const submitBtn = document.getElementById('submitBtn');
+  
+  // Initialize wizard
+  showStep(1);
+  updateProgress();
+  
+  // File upload preview
+  function setupFileUpload(inputId, labelSelector) {
+    const input = document.getElementById(inputId);
+    const label = document.querySelector(labelSelector);
+    
+    input.addEventListener('change', function(e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          label.innerHTML = `
+            <img src="${e.target.result}" style="max-width: 100px; max-height: 60px; object-fit: contain; border-radius: 4px;">
+            <span class="file-text">${file.name}</span>
+            <small>${(file.size / 1024 / 1024).toFixed(2)} MB</small>
+          `;
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
+  
+  setupFileUpload('logo', 'label[for="logo"]');
+  
+  // Form validation
+  form.addEventListener('submit', function(e) {
+    if (!validateCurrentStep()) {
+      e.preventDefault();
+      return;
+    }
+    
+    const requiredFields = form.querySelectorAll('[required]');
+    let isValid = true;
+    
+    // Remove previous validation states
+    form.querySelectorAll('.form-control').forEach(field => {
+      field.classList.remove('is-invalid', 'is-valid');
+    });
+    
+    form.querySelectorAll('.invalid-feedback').forEach(feedback => {
+      feedback.remove();
+    });
+    
+    // Check required fields
+    requiredFields.forEach(field => {
+      if (!field.value.trim()) {
+        field.classList.add('is-invalid');
+        const feedback = document.createElement('div');
+        feedback.className = 'invalid-feedback';
+        feedback.textContent = 'Ce champ est obligatoire';
+        field.parentNode.appendChild(feedback);
+        isValid = false;
+      } else {
+        field.classList.add('is-valid');
+      }
+    });
+    
+    // Email validation
+    const emailField = document.getElementById('email');
+    if (emailField.value && !isValidEmail(emailField.value)) {
+      emailField.classList.add('is-invalid');
+      const feedback = document.createElement('div');
+      feedback.className = 'invalid-feedback';
+      feedback.textContent = 'Veuillez entrer une adresse email valide';
+      emailField.parentNode.appendChild(feedback);
+      isValid = false;
+    }
+    
+    if (!isValid) {
+      e.preventDefault();
+      // Scroll to first error
+      const firstError = form.querySelector('.is-invalid');
+      if (firstError) {
+        firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    } else {
+      // Show loading state
+      submitBtn.classList.add('btn-loading');
+      submitBtn.disabled = true;
+      submitBtn.innerHTML = '<span>Enregistrement en cours...</span>';
+    }
+  });
+  
+  // Validation helpers
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  }
+  
+  // Real-time validation
+  const inputs = form.querySelectorAll('.form-control');
+  inputs.forEach(input => {
+    input.addEventListener('blur', function() {
+      validateField(this);
+    });
+    
+    input.addEventListener('input', function() {
+      if (this.classList.contains('is-invalid')) {
+        validateField(this);
+      }
+    });
+  });
+  
+  function validateField(field) {
+    const value = field.value.trim();
+    
+    // Remove previous validation
+    field.classList.remove('is-invalid', 'is-valid');
+    const existingFeedback = field.parentNode.querySelector('.invalid-feedback');
+    if (existingFeedback) {
+      existingFeedback.remove();
+    }
+    
+    // Required field validation
+    if (field.hasAttribute('required') && !value) {
+      field.classList.add('is-invalid');
+      const feedback = document.createElement('div');
+      feedback.className = 'invalid-feedback';
+      feedback.textContent = 'Ce champ est obligatoire';
+      field.parentNode.appendChild(feedback);
+      return;
+    }
+    
+    // Email validation
+    if (field.type === 'email' && value && !isValidEmail(value)) {
+      field.classList.add('is-invalid');
+      const feedback = document.createElement('div');
+      feedback.className = 'invalid-feedback';
+      feedback.textContent = 'Veuillez entrer une adresse email valide';
+      field.parentNode.appendChild(feedback);
+      return;
+    }
+    
+    // Valid field
+    if (value) {
+      field.classList.add('is-valid');
+    }
+  }
+});
+
+// Wizard navigation functions
+function nextStep() {
+  if (validateCurrentStep()) {
+    if (currentStep < totalSteps) {
+      currentStep++;
+      showStep(currentStep);
+      updateProgress();
+    }
+  }
+}
+
+function prevStep() {
+  if (currentStep > 1) {
+    currentStep--;
+    showStep(currentStep);
+    updateProgress();
+  }
+}
+
+function showStep(step) {
+  // Hide all steps
+  document.querySelectorAll('.form-step').forEach(stepEl => {
+    stepEl.classList.remove('active');
+  });
+  
+  // Show current step
+  const currentStepEl = document.querySelector(`.form-step[data-step="${step}"]`);
+  if (currentStepEl) {
+    currentStepEl.classList.add('active');
+  }
+}
+
+function updateProgress() {
+  // Update progress indicators
+  document.querySelectorAll('.wizard-step').forEach((stepEl, index) => {
+    const stepNumber = index + 1;
+    stepEl.classList.remove('active', 'completed');
+    
+    if (stepNumber === currentStep) {
+      stepEl.classList.add('active');
+    } else if (stepNumber < currentStep) {
+      stepEl.classList.add('completed');
+    }
+  });
+}
+
+function validateCurrentStep() {
+  const currentStepEl = document.querySelector(`.form-step[data-step="${currentStep}"]`);
+  
+  if (!currentStepEl) {
+    return false;
+  }
+  
+  const requiredFields = currentStepEl.querySelectorAll('[required]');
+  let isValid = true;
+  
+  // Remove previous validation states
+  currentStepEl.querySelectorAll('.form-control').forEach(field => {
+    field.classList.remove('is-invalid', 'is-valid');
+  });
+  
+  currentStepEl.querySelectorAll('.invalid-feedback').forEach(feedback => {
+    feedback.remove();
+  });
+  
+  // Check required fields in current step
+  requiredFields.forEach(field => {
+    if (!field.value.trim()) {
+      field.classList.add('is-invalid');
+      const feedback = document.createElement('div');
+      feedback.className = 'invalid-feedback';
+      feedback.textContent = 'Ce champ est obligatoire';
+      field.parentNode.appendChild(feedback);
+      isValid = false;
+    } else {
+      field.classList.add('is-valid');
+    }
+  });
+  
+  // Email validation for current step
+  const emailField = currentStepEl.querySelector('#email');
+  if (emailField && emailField.value && !isValidEmail(emailField.value)) {
+    emailField.classList.add('is-invalid');
+    const feedback = document.createElement('div');
+    feedback.className = 'invalid-feedback';
+    feedback.textContent = 'Veuillez entrer une adresse email valide';
+    emailField.parentNode.appendChild(feedback);
+    isValid = false;
+  }
+  
+  if (!isValid) {
+    // Scroll to first error in current step
+    const firstError = currentStepEl.querySelector('.is-invalid');
+    if (firstError) {
+      firstError.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+  
+  return isValid;
+}
+
+function isValidEmail(email) {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+}
+
+function isValidWebsite(website) {
+  const websiteRegex = /^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9]\.[a-zA-Z]{2,}$/;
+  return websiteRegex.test(website.replace(/^https?:\/\//, ''));
+}
+
+// Configuration CKEditor commune pour tous les champs RichTextField
+var ckeditorConfig = {
+  language: 'fr',
+  uiColor: '#f5f5f5',
+  font_defaultLabel: 'Century Gothic',
+  fontSize_defaultLabel: '16',
+  font_names: 'Century Gothic/Century Gothic;Arial/Arial;Times New Roman/Times New Roman;Courier New/Courier New',
+  contentsCss: '/static/ckeditor/ckeditor/contents.css',
+  toolbar: [
+    { name: 'basicstyles', items: ['Bold', 'Italic', 'Underline', 'Strike'] },
+    { name: 'paragraph', items: ['NumberedList', 'BulletedList', '-', 'Blockquote'] },
+    { name: 'links', items: ['Link', 'Unlink'] },
+    { name: 'insert', items: ['Image'] },
+    { name: 'styles', items: ['Format', 'Font', 'FontSize'] },
+    { name: 'colors', items: ['TextColor', 'BGColor'] },
+    { name: 'tools', items: ['Source', 'Maximize'] }
+  ],
+  allowedContent: true, // Permettre les emojis et autres contenus
+  enterMode: CKEDITOR.ENTER_BR,
+  shiftEnterMode: CKEDITOR.ENTER_P
+};
+
+// Configuration simplifiée pour l'adresse
+var ckeditorConfigSimple = {
+  language: 'fr',
+  uiColor: '#f5f5f5',
+  font_defaultLabel: 'Century Gothic',
+  fontSize_defaultLabel: '16',
+  font_names: 'Century Gothic/Century Gothic;Arial/Arial;Times New Roman/Times New Roman;Courier New/Courier New',
+  contentsCss: '/static/ckeditor/ckeditor/contents.css',
+  toolbar: [
+    { name: 'basicstyles', items: ['Bold', 'Italic'] },
+    { name: 'paragraph', items: ['NumberedList', 'BulletedList'] },
+    { name: 'tools', items: ['Source'] }
+  ],
+  allowedContent: true,
+  enterMode: CKEDITOR.ENTER_BR,
+  shiftEnterMode: CKEDITOR.ENTER_P
+};
+
+// Initialiser CKEditor pour tous les champs RichTextField
+document.addEventListener('DOMContentLoaded', function() {
+  // Champ description (config complète)
+  if (document.getElementById('description')) {
+    CKEDITOR.replace('description', ckeditorConfig);
+  }
+  
+  // Champ adresse (config simplifiée)
+  if (document.getElementById('adresse')) {
+    CKEDITOR.replace('adresse', ckeditorConfigSimple);
+  }
+  
+  // Champ certifications (config complète)
+  if (document.getElementById('certifications')) {
+    CKEDITOR.replace('certifications', ckeditorConfig);
+  }
+});
+
+// Gestion des produits_entreprise
+function addProductForm() {
+  const produitsList = document.getElementById('produits-list');
+  const index = produitIndex++;
+  
+  const produitCard = document.createElement('div');
+  produitCard.className = 'produit-form-card';
+  produitCard.dataset.index = index;
+  
+  produitCard.innerHTML = `
+    <div class="produit-form-header">
+      <div class="produit-form-title">Produit #${index + 1}</div>
+      <button type="button" class="btn-remove-product" onclick="removeProductForm(${index})">
+        <i class="fas fa-times"></i> Supprimer
+      </button>
+    </div>
+    
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label">Nom du produit *</label>
+        <input type="text" class="form-control" name="produits_entreprise[${index}][nom]" required placeholder="Ex: Fonio bio premium">
+      </div>
+      
+      <div class="form-group">
+        <label class="form-label">Type de produit *</label>
+        <div class="type-produit-select-wrapper">
+          <div class="custom-select-container">
+            <div class="custom-select" id="custom-select-${index}" onclick="toggleSelect(${index})">
+              <span class="custom-select-value" id="select-value-${index}">Sélectionnez un type...</span>
+              <i class="fas fa-chevron-down custom-select-arrow"></i>
+            </div>
+            <div class="custom-select-dropdown" id="select-dropdown-${index}">
+              <div class="custom-select-search">
+                <input type="text" class="custom-select-search-input" placeholder="Rechercher un type..." onkeyup="filterSelectOptions(${index}, this.value)">
+                <i class="fas fa-search"></i>
+              </div>
+              <div class="custom-select-options" id="select-options-${index}">
+                ${typesProduits.map(t => `
+                  <div class="custom-select-option" data-value="${t.id}" onclick="selectTypeProduit(${index}, ${t.id}, '${t.nom.replace(/'/g, "\\'")}')">
+                    ${t.nom}
+                  </div>
+                `).join('')}
+                <div class="custom-select-option custom-select-option-new" data-value="new" onclick="showNewTypeInput(${index})">
+                  <i class="fas fa-plus"></i> Créer un nouveau type
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="produits_entreprise[${index}][type_produit_id]" id="type-produit-input-${index}" required>
+          </div>
+          <div id="new-type-${index}" class="new-type-input-wrapper" style="display: none; margin-top: 12px;">
+            <div class="form-row">
+              <div class="form-group" style="flex: 1;">
+                <input type="text" class="form-control" name="produits_entreprise[${index}][type_produit_new]" id="type-produit-new-${index}" placeholder="Nom du nouveau type de produit">
+              </div>
+              <div class="form-group">
+                <button type="button" class="btn btn-primary btn-create-type" onclick="createTypeProduit(${index})">
+                  <i class="fas fa-check"></i> Créer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Description courte (max 500 caractères)</label>
+      <textarea class="form-control" name="produits_entreprise[${index}][description_courte]" rows="3" maxlength="500" placeholder="Décrivez brièvement votre produit..."></textarea>
+      <div class="form-text">Caractères restants : <span id="char-count-${index}">500</span></div>
+    </div>
+    
+    <div class="form-group">
+      <label class="form-label">Image du produit *</label>
+      <div class="produit-image-upload" onclick="document.getElementById('produit-image-${index}').click()">
+        <i class="fas fa-cloud-upload-alt" style="font-size: 2rem; color: var(--brand); margin-bottom: 8px;"></i>
+        <div>Cliquez pour sélectionner une image</div>
+        <small>Format: JPG, PNG - Max: 5MB</small>
+        <img id="preview-${index}" class="produit-image-preview" style="display: none;">
+      </div>
+      <input type="file" id="produit-image-${index}" name="produits_entreprise[${index}][image]" accept="image/*" required style="display: none;" onchange="previewImage(${index}, this)">
+    </div>
+  `;
+  
+  produitsList.appendChild(produitCard);
+  
+  // Gestion du compteur de caractères
+  const textarea = produitCard.querySelector('textarea');
+  const charCount = produitCard.querySelector('#char-count-' + index);
+  if (textarea && charCount) {
+    textarea.addEventListener('input', function() {
+      const remaining = 500 - this.value.length;
+      charCount.textContent = remaining;
+      charCount.style.color = remaining < 50 ? '#dc3545' : 'inherit';
+    });
+  }
+}
+
+function removeProductForm(index) {
+  const card = document.querySelector(`.produit-form-card[data-index="${index}"]`);
+  if (card) {
+    card.remove();
+  }
+}
+
+// Fonctions pour le sélecteur recherchable moderne
+function toggleSelect(index) {
+  const select = document.getElementById('custom-select-' + index);
+  const dropdown = document.getElementById('select-dropdown-' + index);
+  const isActive = select.classList.contains('active');
+  
+  // Fermer tous les autres sélecteurs
+  document.querySelectorAll('.custom-select').forEach(s => {
+    if (s.id !== `custom-select-${index}`) {
+      s.classList.remove('active');
+      const d = s.nextElementSibling;
+      if (d && d.classList.contains('custom-select-dropdown')) {
+        d.classList.remove('active');
+      }
+    }
+  });
+  
+  // Toggle ce sélecteur
+  if (isActive) {
+    select.classList.remove('active');
+    dropdown.classList.remove('active');
+  } else {
+    select.classList.add('active');
+    dropdown.classList.add('active');
+    // Focus sur le champ de recherche
+    const searchInput = dropdown.querySelector('.custom-select-search-input');
+    if (searchInput) {
+      setTimeout(() => searchInput.focus(), 100);
+    }
+  }
+}
+
+function filterSelectOptions(index, searchTerm) {
+  const options = document.querySelectorAll(`#select-options-${index} .custom-select-option`);
+  const term = searchTerm.toLowerCase().trim();
+  
+  options.forEach(option => {
+    const text = option.textContent.toLowerCase();
+    if (text.includes(term) || option.classList.contains('custom-select-option-new')) {
+      option.classList.remove('hidden');
+    } else {
+      option.classList.add('hidden');
+    }
+  });
+}
+
+function selectTypeProduit(index, typeId, typeNom) {
+  const select = document.getElementById('custom-select-' + index);
+  const dropdown = document.getElementById('select-dropdown-' + index);
+  const valueSpan = document.getElementById('select-value-' + index);
+  const hiddenInput = document.getElementById('type-produit-input-' + index);
+  const newTypeDiv = document.getElementById('new-type-' + index);
+  
+  // Mettre à jour l'affichage
+  valueSpan.textContent = typeNom;
+  valueSpan.classList.remove('placeholder');
+  hiddenInput.value = typeId;
+  hiddenInput.setAttribute('required', 'required');
+  
+  // Marquer l'option comme sélectionnée
+  const options = dropdown.querySelectorAll('.custom-select-option');
+  options.forEach(opt => {
+    opt.classList.remove('selected');
+    if (opt.dataset.value == typeId) {
+      opt.classList.add('selected');
+    }
+  });
+  
+  // Fermer le dropdown
+  select.classList.remove('active');
+  dropdown.classList.remove('active');
+  
+  // Masquer le champ de création
+  newTypeDiv.style.display = 'none';
+}
+
+function showNewTypeInput(index) {
+  const select = document.getElementById('custom-select-' + index);
+  const dropdown = document.getElementById('select-dropdown-' + index);
+  const newTypeDiv = document.getElementById('new-type-' + index);
+  const hiddenInput = document.getElementById('type-produit-input-' + index);
+  
+  // Fermer le dropdown
+  select.classList.remove('active');
+  dropdown.classList.remove('active');
+  
+  // Afficher le champ de création
+  newTypeDiv.style.display = 'block';
+  hiddenInput.removeAttribute('required');
+  
+  // Focus sur le champ de saisie
+  const newInput = document.getElementById('type-produit-new-' + index);
+  if (newInput) {
+    setTimeout(() => newInput.focus(), 100);
+  }
+}
+
+// Fermer les sélecteurs quand on clique ailleurs
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.custom-select-container')) {
+    document.querySelectorAll('.custom-select').forEach(s => {
+      s.classList.remove('active');
+      const d = s.nextElementSibling;
+      if (d && d.classList.contains('custom-select-dropdown')) {
+        d.classList.remove('active');
+      }
+    });
+  }
+});
+
+function handleTypeProduitChange(index, select) {
+  const newTypeDiv = document.getElementById('new-type-' + index);
+  if (select.value === 'new') {
+    newTypeDiv.style.display = 'block';
+    select.removeAttribute('required');
+  } else {
+    newTypeDiv.style.display = 'none';
+    select.setAttribute('required', 'required');
+  }
+}
+
+function createTypeProduit(index) {
+  const input = document.getElementById('type-produit-new-' + index);
+  const nom = input.value.trim();
+  
+  if (!nom) {
+    alert('Veuillez entrer un nom pour le type de produit');
+    return;
+  }
+  
+  // Récupérer le CSRF token
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+  
+  // Appel AJAX pour créer le type_produit
+  fetch('{% url "aguipex-create-type-produit" %}', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': csrftoken
+    },
+    body: JSON.stringify({ nom: nom })
+  })
+  .then(response => response.json())
+  .then(data => {
+    if (data.success) {
+      // Ajouter le nouveau type à la liste globale
+      typesProduits.push(data.type_produit);
+      
+      // Sélectionner automatiquement le nouveau type
+      selectTypeProduit(index, data.type_produit.id, data.type_produit.nom);
+      
+      // Masquer le champ de création
+      document.getElementById('new-type-' + index).style.display = 'none';
+      input.value = '';
+      
+      // Mettre à jour tous les autres sélecteurs
+      updateAllTypeSelects(data.type_produit);
+    } else {
+      alert('Erreur : ' + (data.error || 'Impossible de créer le type de produit'));
+    }
+  })
+  .catch(error => {
+    console.error('Error:', error);
+    alert('Une erreur est survenue lors de la création du type de produit');
+  });
+}
+
+function updateAllTypeSelects(newType) {
+  document.querySelectorAll('.type-produit-select').forEach(select => {
+    if (select.value !== 'new') {
+      const exists = Array.from(select.options).some(opt => opt.value == newType.id);
+      if (!exists) {
+        const option = document.createElement('option');
+        option.value = newType.id;
+        option.textContent = newType.nom;
+        select.insertBefore(option, select.lastElementChild);
+      }
+    }
+  });
+}
+
+function previewImage(index, input) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const preview = document.getElementById('preview-' + index);
+      if (preview) {
+        preview.src = e.target.result;
+        preview.style.display = 'block';
+      }
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+</script>
+{% endblock script %}

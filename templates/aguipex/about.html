@@ -1,0 +1,497 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">A propos</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>A propos</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="overflow-hidden space pt-0 pb-0 mt-5" id="about-sec">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title-area mb-0">
+                    <span class="sub-title pt-2">
+                        <div class="icon-masking me-2"><img
+                                src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape"></div>
+                        <span class="fs-20 text-uppercase">
+                            {{mot_directeur.titre}}
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-6 mb-30 mb-xl-0">
+                <div class="img-box1">
+                    <div class="img1">
+                        {% if mot_directeur.image  %}
+                        <img src="{{mot_directeur.image.url}}" alt="{{mot_directeur.nomDG}}">
+                        {% endif %}
+                    </div>
+                    <div class="shape1"><img src="{% static 'assets/img/normal/about_shape_1.png' %}" alt="shape"></div>
+                    <div class="year-counter">
+                        <h3 class="year-counter_number"><span class="counter-number">25</span></h3>
+                        <p class="year-counter_text">Années d'expérience</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="ps-xxl-4 ms-xl-3">
+                   
+                    <p class="mt-n2 mb-25">
+                        {{mot_directeur.contenu}}
+                    </p>
+                    <div class="about-feature-wrap">
+                    </div>
+                    <div class="elementor-widget-container">
+                        <div class="elementor-icon-box-wrapper">
+                            <div class="elementor-icon-box-content">
+                                <h3 class="elementor-icon-box-title">
+                                    <span>
+                                        {{mot_directeur.nomDG}}
+                                    </span>
+                                </h3>
+                                <p class="elementor-icon-box-description">
+                                    {{mot_directeur.poste}}
+                                </p>
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- <div class="btn-group"><a href="about.html" class="th-btn">DISCOVER MORE<i
+                                class="fa-regular fa-arrow-right ms-2"></i></a>
+                        <div class="call-btn">
+                            <div class="play-btn"><i class="fas fa-phone"></i></div>
+                            <div class="media-body"><span class="btn-text">Call Us On:</span> <a
+                                    href="tel:+19088000393" class="btn-title">+190-8800-0393</a></div>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="service-sec space pt-0 mt-5 pb-0" id="vision-mission"
+    data-bg-src="{% static 'assets/img/bg/service_bg_1.png' %}">
+    <div class="container">
+        <div class="row gy-4">
+            <div class="col-md-6 col-xl-6">
+                <div class="service-card">
+                    <div class="shape-icon"><img src="{% static 'assets/img/icon/vision.png' %}" alt="Icon"> <span
+                            class="dots"></span></div>
+                    <h3 class="box-title">VISION</h3>
+                    <p class="service-card_text">{{vision_mission.texte_vision}}</p>
+                    <!-- <a href="service-details.html" class="th-btn">Read More<i class="fa-regular fa-arrow-right ms-2"></i></a> -->
+                    <div class="bg-shape"><img src="{% static 'assets/img/bg/service_card_bg.png' %}" alt="bg"></div>
+                </div>
+            </div>
+            <div class="col-md-6 col-xl-6">
+                <div class="service-card">
+                    <div class="shape-icon"><img src="{% static 'assets/img/icon/mission.png' %}" alt="Icon"> <span
+                            class="dots"></span></div>
+                    <h3 class="box-title">MISSION</h3>
+                    <p class="service-card_text">{{vision_mission.texte_mission}}</p>
+                    <!-- <a href="service-details.html" class="th-btn">Read More<i class="fa-regular fa-arrow-right ms-2"></i></a> -->
+                    <div class="bg-shape"><img src="{% static 'assets/img/bg/service_card_bg.png' %}" alt="bg"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="service-sec space pt-0 pb-0" id="service-sec"
+    data-bg-src="{% static 'assets/img/bg/service_bg_1.png' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title-area mb-0">
+                    <span class="sub-title">
+                        <div class="icon-masking me-2"><img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}"
+                                alt="shape"></div>
+                        <span class="text-capitalize fs-20">
+                            VALEURS
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row gy-4">
+            {% for valeur in valeurs %}
+            <div class="col-md-6 col-xl-4">
+                <div class="service-card">
+                    <div class="service-card_number" style="opacity:1 !important;">{{valeur.numero}}</div>
+                    <div class="shape-icon">
+                        {% if valeur.image  %}
+                            <img src="{{valeur.image.url}}" alt="Icon"> 
+                        {% endif %}
+                        <span class="dots"></span>
+                    </div>
+                    <h3 class="box-title">{{valeur.titre}}</h3>
+                    <p class="service-card_text">{{valeur.contenu|safe}}</p>
+                    <!-- <a href="service-details.html" class="th-btn">Read More<i class="fa-regular fa-arrow-right ms-2"></i></a> -->
+                    <div class="bg-shape"><img src="{% static 'assets/img/bg/service_card_bg.png' %}" alt="bg"></div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <section class="testi-area1 space pt-0 pb-0">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="title-area mb-4" style="text-align: left;">
+                        <span class="sub-title">
+                            <div class="icon-masking me-2"><img
+                                    src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape"></div>
+                            <span class="text-capitalize fs-20" style="font-size: 1.5rem; font-weight: 700; color: #008d3f;">
+                                DIRECTION GENERALE
+                            </span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-area direction-generale-slider">
+                <div class="swiper th-slider" id="testiSlider14"
+                    data-slider-options='{"loop":true,"autoplay":{"delay":5000,"disableOnInteraction":false},"breakpoints":{"0":{"slidesPerView":1,"spaceBetween":20},"576":{"slidesPerView":1,"spaceBetween":25},"768":{"slidesPerView":1,"spaceBetween":30},"992":{"slidesPerView":2,"spaceBetween":35},"1200":{"slidesPerView":2,"spaceBetween":40}}}'>
+                    <div class="swiper-wrapper">
+                        {% for gouvernance in gouvernances %}
+                        <div class="swiper-slide">
+                            <div class="dg-card-modern">
+                                <div class="dg-card-content">
+                                    <div class="dg-image-wrapper">
+                                        {% if gouvernance.image %}
+                                        <div class="dg-image-container">
+                                            <img src="{{gouvernance.image.url}}" alt="{{gouvernance.nom}}" class="dg-image" />
+                                            <div class="dg-image-overlay"></div>
+                                            <div class="dg-badge">
+                                                <i class="fas fa-user-tie"></i>
+                                            </div>
+                                        </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="dg-info-wrapper">
+                                        <div class="dg-info-content">
+                                            <h3 class="dg-name">{{gouvernance.nom}}</h3>
+                                            <p class="dg-poste">{{gouvernance.poste}}</p>
+                                            <div class="dg-description">
+                                                {{gouvernance.contenu|safe}}
+                                            </div>
+                                            <div class="dg-divider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="dg-slider-controls">
+                    <button data-slider-prev="#testiSlider14" class="dg-slider-btn dg-slider-prev">
+                        <i class="far fa-arrow-left"></i>
+                    </button>
+                    <button data-slider-next="#testiSlider14" class="dg-slider-btn dg-slider-next">
+                        <i class="far fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+            <style>
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(30px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+
+              .direction-generale-slider {
+                position: relative;
+                padding: 2rem 0;
+              }
+
+              .dg-card-modern {
+                background: #fff;
+                border-radius: 16px;
+                overflow: hidden;
+                box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+                border: 1px solid rgba(0,0,0,0.08);
+                transition: all 0.3s ease;
+                animation: fadeInUp 0.6s ease-out;
+                height: 100%;
+                min-height: 400px;
+                display: flex;
+                flex-direction: row;
+              }
+
+              .dg-card-modern:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+              }
+
+              .dg-card-content {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                height: 100%;
+                gap: 0;
+              }
+
+              .dg-image-wrapper {
+                position: relative;
+                width: 40%;
+                min-width: 250px;
+                height: 100%;
+                overflow: hidden;
+                background: #f8f9fa;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 1.5rem;
+              }
+
+              .dg-image-container {
+                position: relative;
+                width: 100%;
+                height: 100%;
+                max-height: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 12px;
+                overflow: hidden;
+                background: #fff;
+                padding: 0.5rem;
+              }
+
+              .dg-image {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center center;
+                border-radius: 8px;
+                transition: all 0.4s ease;
+                display: block;
+              }
+
+              .dg-card-modern:hover .dg-image {
+                transform: scale(1.02);
+              }
+
+              .dg-image-overlay {
+                display: none;
+              }
+
+              .dg-badge {
+                position: absolute;
+                top: 1rem;
+                right: 1rem;
+                width: 50px;
+                height: 50px;
+                background: #008d3f;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+                z-index: 3;
+                border: 2px solid #fff;
+              }
+
+              .dg-badge i {
+                color: #fff;
+                font-size: 1.25rem;
+              }
+
+              .dg-info-wrapper {
+                flex: 1;
+                width: 60%;
+                padding: 2rem 2.5rem;
+                display: flex;
+                flex-direction: column;
+                background: #fff;
+                justify-content: center;
+              }
+
+              .dg-info-content {
+                display: flex;
+                flex-direction: column;
+                gap: 0.75rem;
+              }
+
+              .dg-name {
+                font-size: 1.25rem;
+                font-weight: 700;
+                color: #008d3f;
+                margin: 0;
+                line-height: 1.3;
+              }
+
+              .dg-poste {
+                font-size: 0.875rem;
+                font-weight: 500;
+                color: #1a1a1a;
+                margin: 0;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+              }
+
+              .dg-description {
+                margin: 0.75rem 0 0 0;
+              }
+
+              .dg-description p {
+                font-size: 0.9rem;
+                line-height: 1.65;
+                color: #6c757d;
+                margin: 0 0 0.5rem 0;
+                position: relative;
+                padding-left: 1.5rem;
+              }
+
+              .dg-description p:last-child {
+                margin-bottom: 0;
+              }
+
+              .dg-description p::before {
+                content: '"';
+                position: absolute;
+                left: 0;
+                top: -0.25rem;
+                font-size: 2rem;
+                color: #008d3f;
+                opacity: 0.4;
+                font-family: Georgia, serif;
+              }
+
+              .dg-divider {
+                display: none;
+              }
+
+              .dg-slider-controls {
+                display: flex;
+                justify-content: center;
+                gap: 1rem;
+                margin-top: 2rem;
+              }
+
+              .dg-slider-btn {
+                width: 56px;
+                height: 56px;
+                border-radius: 50%;
+                background: linear-gradient(135deg, #008d3f, #00a854);
+                border: none;
+                color: #fff;
+                font-size: 1.25rem;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: 0 4px 12px rgba(0,141,63,0.2);
+              }
+
+              .dg-slider-btn:hover {
+                transform: translateY(-2px) scale(1.1);
+                box-shadow: 0 6px 20px rgba(0,141,63,0.3);
+              }
+
+              .dg-slider-btn:active {
+                transform: translateY(0) scale(1);
+              }
+
+              @media (max-width: 991px) {
+                .dg-card-modern {
+                  flex-direction: column;
+                  min-height: auto;
+                }
+                .dg-card-content {
+                  flex-direction: column;
+                }
+                .dg-image-wrapper {
+                  width: 100%;
+                  min-width: auto;
+                  height: 350px;
+                  padding: 1.5rem;
+                }
+                .dg-image-container {
+                  max-height: 320px;
+                }
+                .dg-info-wrapper {
+                  width: 100%;
+                  padding: 1.5rem;
+                }
+                .dg-name {
+                  font-size: 1.15rem;
+                }
+                .dg-badge {
+                  width: 45px;
+                  height: 45px;
+                  top: 1rem;
+                  right: 1rem;
+                }
+                .dg-badge i {
+                  font-size: 1.1rem;
+                }
+              }
+
+              @media (max-width: 767px) {
+                .dg-image-wrapper {
+                  height: 400px;
+                }
+                .dg-image-container {
+                  max-width: 280px;
+                  padding: 0.4rem;
+                }
+                .dg-info-wrapper {
+                  padding: 1rem 1.25rem 1.25rem;
+                }
+                .dg-name {
+                  font-size: 1.1rem;
+                }
+                .dg-poste {
+                  font-size: 0.85rem;
+                  margin-bottom: 0.75rem;
+                }
+                .dg-description p {
+                  font-size: 0.9rem;
+                  padding-left: 1rem;
+                }
+                .dg-badge {
+                  width: 50px;
+                  height: 50px;
+                  top: 0.5rem;
+                  right: 0.5rem;
+                }
+                .dg-badge i {
+                  font-size: 1.4rem;
+                }
+              }
+
+              @media (max-width: 575px) {
+                .dg-image-wrapper {
+                  height: 380px;
+                }
+                .dg-image-container {
+                  max-width: 240px;
+                }
+                .dg-info-wrapper {
+                  padding: 0.875rem 1rem 1rem;
+                }
+              }
+            </style>
+        </div>
+    </section>
+</section>
+{% endblock content %}

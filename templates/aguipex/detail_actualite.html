@@ -1,0 +1,76 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block style %}
+<link rel="stylesheet" href="{% static 'assets/css/actualites-detail.css' %}">
+{% endblock style %}
+
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container text-center py-5">
+        <h1 class="breadcumb-title text-uppercase text-white fw-bold">Actualités</h1>
+        <ul class="breadcumb-menu d-flex justify-content-center gap-3 mt-2">
+            <li><a href="{% url 'aguipex-index' %}" class="text-white">Accueil</a></li>
+            <li class="text-white">Actualités</li>
+            <li class="text-white">Détails</li>
+        </ul>
+    </div>
+</div>
+
+<section class="py-5 bg-light" id="blog-details">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="blog-detail shadow-lg p-4 bg-white rounded-3">
+                    <div class="blog-img mb-4 text-center">
+                        <img src="{{ actualite.image_banner.url }}" alt="{{ actualite.grand_titre }}" class="img-fluid rounded-3 shadow ">
+                    </div>
+                    
+                    <!-- Section des images de l'actualité -->
+                    <!-- <div class="actualite-images mb-4">
+                        <div class="row">
+                            <h6 class="text-muted mb-2"><i class="fas fa-image me-2"></i>Medias</h6>
+                            <div class="col-md-6">
+                                <div class="image-item text-center">
+                                    <h6 class="text-muted mb-2"><i class="fas fa-image me-2"></i>Images</h6>
+                                    <img src="{{ actualite.image_banner.url }}" alt="{{ actualite.grand_titre }}" class="img-fluid rounded-2 shadow-sm" style="max-height: 200px; width: auto;">
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="image-item text-center">
+                                    <h6 class="text-muted mb-2"><i class="fas fa-image me-2"></i>Image Carrée</h6>
+                                    <img src="{{ actualite.image_carre.url }}" alt="{{ actualite.grand_titre }}" class="img-fluid rounded-2 shadow-sm" style="max-height: 200px; width: auto;">
+                                </div>
+                            </div>
+                        </div>
+                    </div> -->
+                    
+                    <div class="blog-meta d-flex justify-content-between align-items-center text-muted small mb-3">
+                        <span><i class="far fa-calendar-alt me-2"></i>Le {{ actualite.date_actualite|date:"d/m/Y" }}</span>
+                        <span><i class="far fa-folder-open me-2"></i>{{ actualite.category.name }}</span>
+                    </div>
+                    <h6 class="fw-bold text-dark mb-3">{{ actualite.grand_titre }}</h6>
+                    <div class="blog-content text-muted lead">
+                        {{ actualite.detail|safe }}
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="bg-white p-4 rounded-3 shadow-lg">
+                    <h4 class="fw-bold text-dark mb-4">Autres Actualités</h4>
+                    <ul class="list-group list-group-flush">
+                        {% for act in autres_actualites %}
+                            {% if act.slug != actualite.slug %}
+                            <li class="list-group-item d-flex align-items-center gap-3 border-0">
+                                <img src="{{ act.image_carre.url }}" alt="{{ act.grand_titre }}" class="rounded-2" width="60">
+                                <a href="{% url 'aguipex-detail_actualite' slug=act.slug %}" class="text-dark fw-semibold">{{ act.grand_titre|truncatewords:10 }}</a>
+                            </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}

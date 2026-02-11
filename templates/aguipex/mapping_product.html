@@ -1,0 +1,361 @@
+{% extends "partials/base.html" %} {% load static %} {% block style %}
+<style>
+  .mapping-section {
+    padding: 3rem 0 4rem;
+    background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+  }
+
+  .mapping-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .mapping-header .sub-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 1.75rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #008d3f, #00a854);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 1rem;
+  }
+
+  .mapping-filters {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.06);
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+  }
+
+  .mapping-filter-group {
+    display: flex;
+    gap: 1.5rem;
+    align-items: end;
+  }
+
+  .mapping-filter-item {
+    flex: 1;
+  }
+
+  .mapping-filter-item label {
+    display: block;
+    font-weight: 600;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    font-size: 0.95rem;
+  }
+
+  .mapping-filter-select {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    border: 2px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    font-size: 1rem;
+    background: #fff;
+    color: #1a1a1a;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23008d3f' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    padding-right: 3rem;
+  }
+
+  .mapping-filter-select:focus {
+    outline: none;
+    border-color: #008d3f;
+    box-shadow: 0 0 0 3px rgba(0,141,63,0.1);
+  }
+
+  .mapping-filter-select:hover {
+    border-color: #00a854;
+  }
+
+  .mapping-container {
+    position: relative;
+    background: #fff;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+    border: 1px solid rgba(0,0,0,0.06);
+    animation: fadeInUp 0.6s ease-out 0.4s backwards;
+  }
+
+  #map {
+    height: 650px;
+    width: 100%;
+    border-radius: 20px;
+    z-index: 1;
+  }
+
+  .leaflet-container {
+    background: #f8f9fa;
+    font-family: inherit;
+  }
+
+  .leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .leaflet-popup-content {
+    margin: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .leaflet-popup-content b {
+    color: #008d3f;
+    font-weight: 700;
+    font-size: 1.1rem;
+  }
+
+  .custom-div-icon {
+    background: transparent !important;
+    border: none !important;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .custom-div-icon div {
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    border: 2px solid #fff !important;
+    transition: transform 0.3s ease;
+  }
+
+  .custom-div-icon:hover div {
+    transform: scale(1.2);
+  }
+
+  .info.legend {
+    background: #fff;
+    padding: 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    border: 1px solid rgba(0,0,0,0.06);
+    font-family: inherit;
+  }
+
+  .info.legend h4 {
+    margin: 0 0 1rem 0;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #008d3f;
+  }
+
+  .info.legend i {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 8px;
+    vertical-align: middle;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: 2px solid #fff;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .mapping-filter-group {
+      flex-direction: column;
+      gap: 1rem;
+    }
+    .mapping-filters {
+      padding: 1.5rem;
+    }
+    #map {
+      height: 500px;
+    }
+  }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">Cartographie</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li>Cartographie</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="mapping-section">
+  <div class="container">
+    <div class="mapping-header">
+      <span class="sub-title">
+        <div class="icon-masking me-2">
+          <img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape" />
+        </div>
+        <span class="fs-20 text-uppercase">Découvrez nos produits</span>
+      </span>
+    </div>
+    <div class="mapping-filters">
+      <div class="mapping-filter-group">
+        <div class="mapping-filter-item">
+          <label for="villeSelect">
+            <i class="fas fa-map-marker-alt me-2" style="color: #008d3f;"></i>Ville
+          </label>
+          <select id="villeSelect" class="mapping-filter-select">
+            <option value="">-- Sélectionner une ville --</option>
+          </select>
+        </div>
+        <div class="mapping-filter-item">
+          <label for="produitSelect">
+            <i class="fas fa-seedling me-2" style="color: #008d3f;"></i>Produit
+          </label>
+          <select id="produitSelect" class="mapping-filter-select">
+            <option value="">-- Sélectionner un produit --</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="mapping-container">
+      <div id="map"></div>
+    </div>
+  </div>
+</section>
+
+{% endblock content %} {% block script %}
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+<script>
+  var map = L.map('map').setView([9.9456, -9.6966], 7);
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 18,
+    attribution: '&copy; OpenStreetMap',
+  }).addTo(map);
+
+  // Données dynamiques depuis Django
+  var villes = {{ villes_data| safe }};
+  var produitColors = {{ produit_colors| safe }};
+
+  var markers = [];
+
+  // Ajouter options dans les filtres
+  var villeSelect = document.getElementById('villeSelect');
+  var produitSelect = document.getElementById('produitSelect');
+
+  // Liste produits unique
+  var produitsSet = new Set();
+
+  villes.forEach(function (ville) {
+    // Ville
+    var opt = document.createElement('option');
+    opt.value = ville.name;
+    opt.textContent = ville.name;
+    villeSelect.appendChild(opt);
+
+    // Produits
+    ville.produits.forEach(p => produitsSet.add(p));
+  });
+
+  produitsSet.forEach(function (prod) {
+    var opt = document.createElement('option');
+    opt.value = prod;
+    opt.textContent = prod;
+    produitSelect.appendChild(opt);
+  });
+
+  // Fonction pour afficher les marqueurs
+  function afficherMarqueurs(filtreVille = "", filtreProduit = "") {
+    // Supprimer les anciens
+    markers.forEach(m => map.removeLayer(m));
+    markers = [];
+
+    villes.forEach(function (ville) {
+      if (filtreVille && ville.name !== filtreVille) return;
+      if (filtreProduit && !ville.produits.includes(filtreProduit)) return;
+
+      // Produits à afficher : soit tous, soit uniquement celui filtré
+      var produitsAAfficher = filtreProduit
+        ? ville.produits.filter(p => p === filtreProduit)
+        : ville.produits;
+
+      var htmlCircles = produitsAAfficher.map(p =>
+        '<div style="background-color:' + (produitColors[p] || 'gray') +
+        '; width: 15px; height: 15px; border-radius: 50%; display:inline-block; margin-right:2px; border:1px solid #fff;"></div>'
+      ).join('');
+
+      var icon = L.divIcon({
+        className: 'custom-div-icon',
+        html: htmlCircles,
+        iconSize: [produitsAAfficher.length * 17, 20],
+        iconAnchor: [(produitsAAfficher.length * 17) / 2, 10],
+      });
+
+      var marker = L.marker([ville.lat, ville.lng], { icon: icon })
+        .bindPopup('<b>' + ville.name + '</b><br>Produits: ' + produitsAAfficher.join(', '));
+
+      marker.addTo(map);
+      markers.push(marker);
+    });
+  }
+
+
+  // Initialisation
+  afficherMarqueurs();
+
+  // Filtre par ville
+  villeSelect.addEventListener('change', function () {
+    var villeName = this.value;
+    afficherMarqueurs(villeName, produitSelect.value);
+
+    // Zoom sur la ville si sélectionnée
+    if (villeName) {
+      var v = villes.find(v => v.name === villeName);
+      map.setView([v.lat, v.lng], 12);
+    } else {
+      map.setView([9.9456, -9.6966], 7);
+    }
+  });
+
+  // Filtre par produit
+  produitSelect.addEventListener('change', function () {
+    afficherMarqueurs(villeSelect.value, this.value);
+  });
+
+  // Légende dynamique améliorée
+  var legend = L.control({ position: 'bottomright' });
+  legend.onAdd = function (map) {
+    var div = L.DomUtil.create('div', 'info legend');
+    div.innerHTML = '<h4>Produits</h4>';
+    for (var produit in produitColors) {
+      div.innerHTML +=
+        '<i style="background:' + produitColors[produit] + '; width: 18px; height: 18px; border-radius: 50%; display: inline-block; margin-right: 8px; vertical-align: middle; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 2px solid #fff;"></i> ' +
+        '<span style="font-size: 0.9rem; color: #1a1a1a;">' + produit + '</span><br>';
+    }
+    return div;
+  };
+  legend.addTo(map);
+</script>
+
+{% endblock script %}

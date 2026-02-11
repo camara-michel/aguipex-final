@@ -1,0 +1,451 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% load html_filters %}
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --surface: #fff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-lg: 16px;
+  }
+  .breadcumb-wrapper { background: linear-gradient(135deg, var(--brand), var(--brand-2)); padding: 50px 0; color: #fff; }
+  .breadcumb-title { font-weight: 800; font-size: 1.5rem; margin: 0 0 6px; }
+  .breadcumb-menu { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+  .breadcumb-menu a { color: #fff; text-decoration: none; }
+  .breadcumb-menu li + li::before { content: '›'; margin: 0 6px; opacity: 0.8; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--brand); font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+  .back-link:hover { color: var(--brand-2); }
+  .manifest-hero {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .manifest-badge {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    margin-bottom: 1rem;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .manifest-badge.bientot_prevu { 
+    background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); 
+    color: #1565c0; 
+    border: 1px solid rgba(33, 150, 243, 0.2);
+  }
+  .manifest-badge.a_postuler { 
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); 
+    color: #2e7d32; 
+    border: 1px solid rgba(76, 175, 80, 0.2);
+  }
+  .manifest-badge.selection_terminee { 
+    background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%); 
+    color: #e65100; 
+    border: 1px solid rgba(255, 152, 0, 0.2);
+  }
+  /* Badge SUCCÈS pour manifestation terminée - Mise en valeur progressive */
+  .manifest-badge.manifestation_terminee { 
+    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 50%, #81C784 100%);
+    color: #ffffff;
+    border: 2px solid #2e7d32;
+    box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4), 0 0 20px rgba(76, 175, 80, 0.2);
+    font-weight: 700;
+    padding: 0.45rem 1rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    position: relative;
+    overflow: hidden;
+  }
+  .manifest-badge.manifestation_terminee::before {
+    content: '✓';
+    display: inline-block;
+    margin-right: 0.4rem;
+    font-size: 0.9rem;
+    font-weight: 800;
+  }
+  .manifest-badge.manifestation_terminee::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.3) 50%, transparent 70%);
+    animation: shine 3s infinite;
+  }
+  @keyframes shine {
+    0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+    100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+  }
+  .manifest-badge.manifestation_terminee:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(76, 175, 80, 0.5), 0 0 25px rgba(76, 175, 80, 0.3);
+  }
+  .manifest-hero h1 { font-size: 1.75rem; font-weight: 800; color: var(--text); margin: 0 0 1rem; }
+  .manifest-meta { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+  .manifest-meta span { display: flex; align-items: center; gap: 0.4rem; }
+  .manifest-meta i { color: var(--brand); }
+  .btn-postuler {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--brand);
+    color: #fff !important;
+    padding: 0.6rem 1.25rem;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-postuler:hover { background: var(--brand-2); color: #fff; }
+  .section-title { font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 0 0 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
+  .section-title i { color: var(--brand); }
+  /* Wizard 4 étapes — 2 blocs par ligne */
+  .wizard-steps {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-bottom: 2rem;
+    counter-reset: step;
+  }
+  @media (max-width: 768px) {
+    .wizard-steps { grid-template-columns: 1fr; }
+  }
+  .wizard-step {
+    position: relative;
+    background: var(--surface);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 1.25rem 1.5rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    border-left: 4px solid var(--brand);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .wizard-step:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+  }
+  /* Couleurs spécifiques pour chaque étape - Progression du succès */
+  /* Étape 1 : Début - Couleur neutre/attente */
+  .wizard-step.etape-1 {
+    border-left-color: #90CAF9;
+    background: linear-gradient(135deg, #ffffff 0%, #e3f2fd 100%);
+  }
+  .wizard-step.etape-1::before {
+    background: linear-gradient(135deg, #90CAF9 0%, #64B5F6 100%);
+    box-shadow: 0 2px 8px rgba(33, 150, 243, 0.3);
+  }
+  .wizard-step.etape-1 .wizard-step-footer .etape-count-puce {
+    background: linear-gradient(135deg, #90CAF9 0%, #64B5F6 100%);
+  }
+  
+  /* Étape 2 : En cours - Couleur verte douce */
+  .wizard-step.etape-2 {
+    border-left-color: #81C784;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+  }
+  .wizard-step.etape-2::before {
+    background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+  }
+  .wizard-step.etape-2 .wizard-step-footer .etape-count-puce {
+    background: linear-gradient(135deg, #81C784 0%, #66BB6A 100%);
+  }
+  
+  /* Étape 3 : Progression - Couleur orange/ambrée */
+  .wizard-step.etape-3 {
+    border-left-color: #FFB74D;
+    background: linear-gradient(135deg, #ffffff 0%, #fff3e0 100%);
+  }
+  .wizard-step.etape-3::before {
+    background: linear-gradient(135deg, #FFB74D 0%, #FFA726 100%);
+    box-shadow: 0 2px 8px rgba(255, 152, 0, 0.4);
+  }
+  .wizard-step.etape-3 .wizard-step-footer .etape-count-puce {
+    background: linear-gradient(135deg, #FFB74D 0%, #FFA726 100%);
+  }
+  
+  /* Étape 4 : SUCCÈS - Couleur verte vibrante pour montrer le succès */
+  .wizard-step.etape-4 {
+    border-left-color: #4CAF50;
+    background: linear-gradient(135deg, #ffffff 0%, #e8f5e9 100%);
+    border-left-width: 5px;
+    box-shadow: 0 4px 16px rgba(76, 175, 80, 0.25);
+    position: relative;
+    overflow: visible;
+    transform: scale(1.02);
+  }
+  .wizard-step.etape-4:hover {
+    transform: scale(1.03) translateY(-3px);
+    box-shadow: 0 6px 20px rgba(76, 175, 80, 0.35);
+  }
+  .wizard-step.etape-4::before {
+    counter-increment: step;
+    content: '✓';
+    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+    box-shadow: 0 3px 12px rgba(76, 175, 80, 0.5);
+    width: 32px;
+    height: 32px;
+    font-size: 1rem;
+    font-weight: 700;
+  }
+  .wizard-step.etape-4 .wizard-step-title {
+    color: #2e7d32;
+    font-weight: 800;
+    font-size: 1.1rem;
+  }
+  .wizard-step.etape-4 .wizard-step-footer .etape-count-puce {
+    background: linear-gradient(135deg, #4CAF50 0%, #66BB6A 100%);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.4);
+  }
+  .wizard-step.etape-4 .success-message {
+    background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+    border-left: 3px solid #4CAF50;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: #2e7d32;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .wizard-step.etape-4 .success-message i {
+    color: #4CAF50;
+    font-size: 1.1rem;
+  }
+  /* Quand la manifestation est terminée, toutes les étapes prennent une couleur grisée */
+  .manifestation-terminee .wizard-step {
+    border-left-color: #757575;
+    background: linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%);
+    opacity: 0.85;
+  }
+  .manifestation-terminee .wizard-step::before {
+    background: #757575;
+  }
+  .manifestation-terminee .wizard-step .wizard-step-footer .etape-count-puce {
+    background: #757575;
+  }
+  .manifestation-terminee .wizard-step .wizard-step-dates i {
+    color: #757575;
+  }
+  .manifestation-terminee .wizard-step .wizard-step-title {
+    color: #616161;
+  }
+  .wizard-step::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 28px;
+    height: 28px;
+    background: var(--brand);
+    color: #fff;
+    border-radius: 50%;
+    font-size: 0.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  }
+  /* Pour l'étape 4, remplacer le numéro par un checkmark de succès */
+  .wizard-step.etape-4::before {
+    content: '✓';
+    font-size: 1rem;
+  }
+  .wizard-step-title { font-size: 1rem; font-weight: 700; color: var(--text); margin: 0 0 0.35rem; }
+  .wizard-step-dates { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.35rem; }
+  .wizard-step-dates i { color: var(--brand); }
+  .wizard-step.etape-1 .wizard-step-dates i { color: #64B5F6; }
+  .wizard-step.etape-2 .wizard-step-dates i { color: #66BB6A; }
+  .wizard-step.etape-3 .wizard-step-dates i { color: #FFA726; }
+  .wizard-step.etape-4 .wizard-step-dates i { color: #4CAF50; }
+  .wizard-step-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.5; margin: 0; }
+  .wizard-step-desc p:last-child { margin-bottom: 0; }
+  .wizard-step-footer { margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--surface-2); font-size: 0.85rem; }
+  .wizard-step-footer .etape-count { margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .wizard-step-footer .etape-count-puce {
+    display: inline-flex; align-items: center; justify-content: center;
+    min-width: 28px; height: 28px; padding: 0 0.5rem;
+    background: var(--brand); color: #fff; border-radius: 999px;
+    font-weight: 700; font-size: 0.9rem;
+  }
+  .wizard-step-footer .etape-count-puce + span { color: var(--muted); font-size: 0.85rem; }
+  .wizard-step-footer .link-entreprises { color: var(--brand); font-weight: 600; text-decoration: none; display: inline-flex; align-items: center; gap: 0.35rem; transition: color 0.2s; }
+  .wizard-step-footer .link-entreprises:hover { color: var(--brand-2); text-decoration: underline; }
+  .wizard-step.etape-1 .wizard-step-footer .link-entreprises { color: #64B5F6; }
+  .wizard-step.etape-1 .wizard-step-footer .link-entreprises:hover { color: #42A5F5; }
+  .wizard-step.etape-2 .wizard-step-footer .link-entreprises { color: #66BB6A; }
+  .wizard-step.etape-2 .wizard-step-footer .link-entreprises:hover { color: #4CAF50; }
+  .wizard-step.etape-3 .wizard-step-footer .link-entreprises { color: #FFA726; }
+  .wizard-step.etape-3 .wizard-step-footer .link-entreprises:hover { color: #FF9800; }
+  .wizard-step.etape-4 .wizard-step-footer .link-entreprises { color: #4CAF50; font-weight: 700; }
+  .wizard-step.etape-4 .wizard-step-footer .link-entreprises:hover { color: #388E3C; }
+  .manifest-description { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 1.5rem 2rem; margin-bottom: 2rem; border: 1px solid rgba(0,0,0,0.06); }
+  .manifest-description h2 { font-size: 1.25rem; font-weight: 700; color: var(--text); margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--brand); }
+  .manifest-description .content { 
+    color: #444; 
+    line-height: 1.65; 
+    font-family: inherit;
+    font-size: inherit;
+  }
+  .manifest-description .content p,
+  .manifest-description .content li,
+  .manifest-description .content span,
+  .manifest-description .content div {
+    font-family: inherit;
+    font-size: inherit;
+  }
+  .manifest-conditions { background: var(--surface); border-radius: var(--radius-lg); box-shadow: var(--shadow); padding: 1.5rem 2rem; margin-bottom: 2rem; border: 1px solid rgba(0,0,0,0.06); border-left: 4px solid var(--brand); }
+  .manifest-conditions h2 { font-size: 1.25rem; font-weight: 700; color: var(--text); margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--brand); }
+  .manifest-conditions .content { 
+    color: #444; 
+    line-height: 1.65; 
+    font-family: inherit;
+    font-size: inherit;
+  }
+  .manifest-conditions .content p,
+  .manifest-conditions .content li,
+  .manifest-conditions .content span,
+  .manifest-conditions .content div {
+    font-family: inherit;
+    font-size: inherit;
+  }
+  /* Modale notification postulation */
+  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 1rem; }
+  .modal-postule { background: var(--surface); border-radius: var(--radius-lg); box-shadow: 0 8px 32px rgba(0,0,0,0.2); max-width: 420px; width: 100%; padding: 1.5rem; text-align: center; }
+  .modal-postule .modal-icon { width: 56px; height: 56px; background: #e8f5e9; color: #2e7d32; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem; font-size: 1.5rem; }
+  .modal-postule h3 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0 0 0.5rem; }
+  .modal-postule p { color: var(--muted); margin: 0 0 1.25rem; font-size: 0.95rem; }
+  .modal-postule .btn-close-modal { background: var(--brand); color: #fff; border: none; padding: 0.5rem 1.25rem; border-radius: 8px; font-weight: 600; cursor: pointer; }
+  .modal-postule .btn-close-modal:hover { background: var(--brand-2); }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">{{ manifestation.titre|unescape_html }}</h1>
+      <ul class="breadcumb-menu d-flex flex-wrap align-items-center gap-1">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li><a href="{% url 'aguipex-manifestations' %}">Manifestations commerciales</a></li>
+        <li>{{ manifestation.titre|unescape_html }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="space pt-4 pb-5">
+  <div class="container">
+    <a href="{% url 'aguipex-manifestations' %}" class="back-link"><i class="far fa-arrow-left"></i> Retour aux manifestations</a>
+
+    <div class="manifest-hero">
+      <span class="manifest-badge {{ manifestation.statut_global }}">{{ manifestation.get_statut_global_display }}</span>
+      <h1>{{ manifestation.titre|unescape_html }}</h1>
+      <div class="manifest-meta">
+        {% if manifestation.date_debut %}
+        <span><i class="far fa-calendar-alt"></i> Début : {{ manifestation.date_debut|date:"d/m/Y" }}</span>
+        {% endif %}
+        {% if manifestation.date_fin %}
+        <span><i class="far fa-calendar-check"></i> Fin : {{ manifestation.date_fin|date:"d/m/Y" }}</span>
+        {% endif %}
+        {% if manifestation.lieu or manifestation.pays %}
+        <span><i class="far fa-map-marker-alt"></i> {{ manifestation.lieu|default:""|unescape_html }}{% if manifestation.pays %}{% if manifestation.lieu %}, {% endif %}{{ manifestation.pays|unescape_html }}{% endif %}</span>
+        {% endif %}
+      </div>
+      {% if peut_postuler %}
+      <a href="{% url 'aguipex-manifestation-postuler' manifestation.slug %}" class="btn-postuler">
+        <i class="far fa-paper-plane"></i> Postuler à cette manifestation
+      </a>
+      {% endif %}
+    </div>
+
+    {% if manifestation.description %}
+    <div class="manifest-description">
+      <h2>Présentation</h2>
+      <div class="content">{{ manifestation.description|unescape_html|safe }}</div>
+    </div>
+    {% endif %}
+
+    {% if manifestation.conditions_de_participation %}
+    <div class="manifest-conditions">
+      <h2><i class="far fa-clipboard-list"></i> Conditions de participation</h2>
+      <div class="content">{{ manifestation.conditions_de_participation|unescape_html|safe }}</div>
+    </div>
+    {% endif %}
+
+    <h2 class="section-title"><i class="far fa-list-alt"></i> Étapes du processus</h2>
+    {% if etapes_avec_candidatures %}
+    <div class="wizard-steps {% if manifestation.statut_global == 'manifestation_terminee' %}manifestation-terminee{% endif %}">
+      {% for item in etapes_avec_candidatures %}
+      <div class="wizard-step etape-{{ item.etape.ordre }}">
+        <h3 class="wizard-step-title">{{ item.etape.titre|unescape_html }}</h3>
+        {% if item.etape.date_debut or item.etape.date_fin %}
+        <div class="wizard-step-dates">
+          <i class="far fa-calendar-alt"></i>
+          {% if item.etape.date_debut %}<span>Du {{ item.etape.date_debut|date:"d/m/Y" }}</span>{% endif %}
+          {% if item.etape.date_debut and item.etape.date_fin %} — {% endif %}
+          {% if item.etape.date_fin %}<span>au {{ item.etape.date_fin|date:"d/m/Y" }}</span>{% endif %}
+        </div>
+        {% endif %}
+        {% if item.etape.description %}
+        <div class="wizard-step-desc">{{ item.etape.description|unescape_html|safe }}</div>
+        {% endif %}
+        {% if item.etape.ordre != 1 %}
+        <div class="wizard-step-footer">
+          <div class="etape-count">
+            <span class="etape-count-puce">{{ item.candidatures|length }}</span>
+            <span>entreprise{{ item.candidatures|length|pluralize }} pour cette étape</span>
+          </div>
+          <a href="{% url 'aguipex-manifestation-etape-entreprises' manifestation.slug item.etape.id %}" class="link-entreprises">Voir le détail des entreprises <i class="far fa-arrow-right"></i></a>
+        </div>
+        {% endif %}
+        {% if item.etape.ordre == 4 and item.candidatures|length > 0 %}
+        <div class="success-message">
+          <i class="far fa-trophy"></i>
+          <span>Félicitations ! Ces entreprises ont réussi leur parcours complet. Un véritable succès pour l'exportation guinéenne !</span>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="manifest-description">
+      <p class="text-muted mb-0">Les étapes de cette manifestation seront précisées prochainement.</p>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% if request.GET.postule %}
+<div id="modal-postule" class="modal-overlay" role="dialog" aria-labelledby="modal-postule-title">
+  <div class="modal-postule">
+    <div class="modal-icon"><i class="far fa-check"></i></div>
+    <h3 id="modal-postule-title">Candidature enregistrée</h3>
+    <p>Votre entreprise a bien postulé à cette manifestation. Vous serez recontacté par l'équipe AGUIPEX.</p>
+    <button type="button" class="btn-close-modal" onclick="document.getElementById('modal-postule').remove();">Fermer</button>
+  </div>
+</div>
+<script>
+  document.getElementById('modal-postule').addEventListener('click', function(e) {
+    if (e.target === this) this.remove();
+  });
+</script>
+{% endif %}
+{% endblock content %}

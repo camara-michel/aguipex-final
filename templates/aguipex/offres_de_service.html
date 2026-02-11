@@ -1,0 +1,66 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">Offres de services</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>Offres de services</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="position-relative overflow-hidden space pt-5 pb-0">
+    <div class="container th-container4">
+        <div class="row justify-content-center">
+            <div class="col-lg-9">
+                <div class="title-area text-center">
+                    <h3 class="sec-title" style="font-size: 20px;">Nos offres d’accompagnement personnalisées
+                        pour accroître votre performance et compétitivité à l’export!</h3>
+                </div>
+            </div>
+        </div>
+        <div class="row gy-4 justify-content-center">
+            {% for service in services %}
+            <div class="col-md-6 col-lg-6">
+                <div class="feature-card style3">
+                    <div class="box-icon">
+                        {% if service.image %}
+                        <img src="{{service.image.url}}" alt="{{service.title}}">
+                        {% endif %}
+                    </div>
+                    <h3 class="box-title"><a href="service-details.html">{{service.title}}</a></h3>
+                    <div class="price-card_content">
+                        <div class="checklist">
+                            <ul>
+                                <li><i class="fas fa-circle-check"></i> {{service.axe1}}</li>
+                                <li><i class="fas fa-circle-check"></i> {{service.axe2}}</li>
+                                <li><i class="fas fa-circle-check"></i> {{service.axe3}}</li>
+                                <li><i class="fas fa-circle-check"></i> {{service.axe4}}</li>
+                                <li><i class="fas fa-circle-check"></i> {{service.axe5}}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+        <div class="row justify-content-lg-between justify-content-center align-items-center">
+            <div class="col-lg-6 col-sm-9 pe-xl-5">
+                <div class="title-area text-center text-lg-start">
+
+                </div>
+            </div>
+            <div class="col-auto mt-4">
+                <div class="sec-btn"><a href="{% url 'aguipex-contact' %}" class="th-btn style3">Pour plus d’informations<i
+                            class="fa-regular fa-arrow-right ms-2"></i></a></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

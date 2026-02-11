@@ -1,0 +1,945 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}Collecte d'informations - AGUIPEX{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <!-- En-tête de la page -->
+            <div class="text-center mb-5">
+                <div class="mb-4">
+                    <i class="fas fa-user-plus fa-3x text-primary"></i>
+                </div>
+                <h1 class="display-5 fw-bold text-primary mb-3">
+                    Accès aux Entreprises
+                </h1>
+                <p class="lead text-muted">
+                    Pour accéder à notre base de données des entreprises, nous avons besoin de quelques informations de
+                    base.
+                </p>
+                <div class="alert alert-info border-0 bg-light">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Information importante :</strong> Ces informations nous aident à mieux comprendre nos
+                    visiteurs et à améliorer nos services.
+                </div>
+            </div>
+
+            <!-- Formulaire de collecte -->
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <form id="visitorInfoForm" method="POST" action="{% url 'soumettre-info-visiteur' %}">
+                        {% csrf_token %}
+
+                        <!-- Informations personnelles -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <label for="nom_complet" class="form-label fw-bold">
+                                    <i class="fas fa-user me-2 text-primary"></i>Nom complet <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control form-control-lg" id="nom_complet"
+                                    name="nom_complet" required placeholder="Votre nom complet">
+                                <div class="form-text">Ex: Jean Dupont</div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="email" class="form-label fw-bold">
+                                    <i class="fas fa-envelope me-2 text-primary"></i>Adresse e-mail <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <input type="email" class="form-control form-control-lg" id="email" name="email"
+                                    required placeholder="votre.email@exemple.com">
+                                <div class="form-text">Ex: jean.dupont@email.com</div>
+                            </div>
+                        </div>
+
+                        <!-- Localisation -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <label for="pays" class="form-label fw-bold">
+                                    <i class="fas fa-globe me-2 text-primary"></i>Pays <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="position-relative">
+                                    <div class="custom-select-container">
+                                        <input type="text" class="form-control form-control-lg" id="pays-search"
+                                            placeholder="🔍 Tapez pour rechercher votre pays..." autocomplete="off">
+                                        <input type="hidden" id="pays" name="pays" required>
+                                        <div class="custom-select-dropdown" id="pays-dropdown">
+                                            <div class="custom-select-option" data-value="Afghanistan" data-flag="🇦🇫"
+                                                data-code="+93">🇦🇫 Afghanistan (+93)</div>
+                                            <div class="custom-select-option" data-value="Afrique du Sud"
+                                                data-flag="🇿🇦" data-code="+27">🇿🇦 Afrique du Sud (+27)</div>
+                                            <div class="custom-select-option" data-value="Albanie" data-flag="🇦🇱"
+                                                data-code="+355">🇦🇱 Albanie (+355)</div>
+                                            <div class="custom-select-option" data-value="Algérie" data-flag="🇩🇿"
+                                                data-code="+213">🇩🇿 Algérie (+213)</div>
+                                            <div class="custom-select-option" data-value="Allemagne" data-flag="🇩🇪"
+                                                data-code="+49">🇩🇪 Allemagne (+49)</div>
+                                            <div class="custom-select-option" data-value="Andorre" data-flag="🇦🇩"
+                                                data-code="+376">🇦🇩 Andorre (+376)</div>
+                                            <div class="custom-select-option" data-value="Angola" data-flag="🇦🇴"
+                                                data-code="+244">🇦🇴 Angola (+244)</div>
+                                            <div class="custom-select-option" data-value="Arabie Saoudite"
+                                                data-flag="🇸🇦" data-code="+966">🇸🇦 Arabie Saoudite (+966)</div>
+                                            <div class="custom-select-option" data-value="Argentine" data-flag="🇦🇷"
+                                                data-code="+54">🇦🇷 Argentine (+54)</div>
+                                            <div class="custom-select-option" data-value="Arménie" data-flag="🇦🇲"
+                                                data-code="+374">🇦🇲 Arménie (+374)</div>
+                                            <div class="custom-select-option" data-value="Australie" data-flag="🇦🇺"
+                                                data-code="+61">🇦🇺 Australie (+61)</div>
+                                            <div class="custom-select-option" data-value="Autriche" data-flag="🇦🇹"
+                                                data-code="+43">🇦🇹 Autriche (+43)</div>
+                                            <div class="custom-select-option" data-value="Azerbaïdjan" data-flag="🇦🇿"
+                                                data-code="+994">🇦🇿 Azerbaïdjan (+994)</div>
+                                            <div class="custom-select-option" data-value="Bahamas" data-flag="🇧🇸"
+                                                data-code="+1242">🇧🇸 Bahamas (+1242)</div>
+                                            <div class="custom-select-option" data-value="Bahreïn" data-flag="🇧🇭"
+                                                data-code="+973">🇧🇭 Bahreïn (+973)</div>
+                                            <div class="custom-select-option" data-value="Bangladesh" data-flag="🇧🇩"
+                                                data-code="+880">🇧🇩 Bangladesh (+880)</div>
+                                            <div class="custom-select-option" data-value="Barbade" data-flag="🇧🇧"
+                                                data-code="+1246">🇧🇧 Barbade (+1246)</div>
+                                            <div class="custom-select-option" data-value="Belgique" data-flag="🇧🇪"
+                                                data-code="+32">🇧🇪 Belgique (+32)</div>
+                                            <div class="custom-select-option" data-value="Bénin" data-flag="🇧🇯"
+                                                data-code="+229">🇧🇯 Bénin (+229)</div>
+                                            <div class="custom-select-option" data-value="Bhoutan" data-flag="🇧🇹"
+                                                data-code="+975">🇧🇹 Bhoutan (+975)</div>
+                                            <div class="custom-select-option" data-value="Biélorussie" data-flag="🇧🇾"
+                                                data-code="+375">🇧🇾 Biélorussie (+375)</div>
+                                            <div class="custom-select-option" data-value="Birmanie" data-flag="🇲🇲"
+                                                data-code="+95">🇲🇲 Birmanie (+95)</div>
+                                            <div class="custom-select-option" data-value="Bolivie" data-flag="🇧🇴"
+                                                data-code="+591">🇧🇴 Bolivie (+591)</div>
+                                            <div class="custom-select-option" data-value="Bosnie-Herzégovine"
+                                                data-flag="🇧🇦" data-code="+387">🇧🇦 Bosnie-Herzégovine (+387)</div>
+                                            <div class="custom-select-option" data-value="Botswana" data-flag="🇧🇼"
+                                                data-code="+267">🇧🇼 Botswana (+267)</div>
+                                            <div class="custom-select-option" data-value="Brésil" data-flag="🇧🇷"
+                                                data-code="+55">🇧🇷 Brésil (+55)</div>
+                                            <div class="custom-select-option" data-value="Brunei" data-flag="🇧🇳"
+                                                data-code="+673">🇧🇳 Brunei (+673)</div>
+                                            <div class="custom-select-option" data-value="Bulgarie" data-flag="🇧🇬"
+                                                data-code="+359">🇧🇬 Bulgarie (+359)</div>
+                                            <div class="custom-select-option" data-value="Burkina Faso" data-flag="🇧🇫"
+                                                data-code="+226">🇧🇫 Burkina Faso (+226)</div>
+                                            <div class="custom-select-option" data-value="Burundi" data-flag="🇧🇮"
+                                                data-code="+257">🇧🇮 Burundi (+257)</div>
+                                            <div class="custom-select-option" data-value="Cambodge" data-flag="🇰🇭"
+                                                data-code="+855">🇰🇭 Cambodge (+855)</div>
+                                            <div class="custom-select-option" data-value="Cameroun" data-flag="🇨🇲"
+                                                data-code="+237">🇨🇲 Cameroun (+237)</div>
+                                            <div class="custom-select-option" data-value="Canada" data-flag="🇨🇦"
+                                                data-code="+1">🇨🇦 Canada (+1)</div>
+                                            <div class="custom-select-option" data-value="Cap-Vert" data-flag="🇨🇻"
+                                                data-code="+238">🇨🇻 Cap-Vert (+238)</div>
+                                            <div class="custom-select-option" data-value="Chili" data-flag="🇨🇱"
+                                                data-code="+56">🇨🇱 Chili (+56)</div>
+                                            <div class="custom-select-option" data-value="Chine" data-flag="🇨🇳"
+                                                data-code="+86">🇨🇳 Chine (+86)</div>
+                                            <div class="custom-select-option" data-value="Chypre" data-flag="🇨🇾"
+                                                data-code="+357">🇨🇾 Chypre (+357)</div>
+                                            <div class="custom-select-option" data-value="Colombie" data-flag="🇨🇴"
+                                                data-code="+57">🇨🇴 Colombie (+57)</div>
+                                            <div class="custom-select-option" data-value="Comores" data-flag="🇰🇲"
+                                                data-code="+269">🇰🇲 Comores (+269)</div>
+                                            <div class="custom-select-option" data-value="Congo" data-flag="🇨🇬"
+                                                data-code="+242">🇨🇬 Congo (+242)</div>
+                                            <div class="custom-select-option" data-value="Corée du Nord"
+                                                data-flag="🇰🇵" data-code="+850">🇰🇵 Corée du Nord (+850)</div>
+                                            <div class="custom-select-option" data-value="Corée du Sud" data-flag="🇰🇷"
+                                                data-code="+82">🇰🇷 Corée du Sud (+82)</div>
+                                            <div class="custom-select-option" data-value="Costa Rica" data-flag="🇨🇷"
+                                                data-code="+506">🇨🇷 Costa Rica (+506)</div>
+                                            <div class="custom-select-option" data-value="Côte d'Ivoire"
+                                                data-flag="🇨🇮" data-code="+225">🇨🇮 Côte d'Ivoire (+225)</div>
+                                            <div class="custom-select-option" data-value="Croatie" data-flag="🇭🇷"
+                                                data-code="+385">🇭🇷 Croatie (+385)</div>
+                                            <div class="custom-select-option" data-value="Cuba" data-flag="🇨🇺"
+                                                data-code="+53">🇨🇺 Cuba (+53)</div>
+                                            <div class="custom-select-option" data-value="Danemark" data-flag="🇩🇰"
+                                                data-code="+45">🇩🇰 Danemark (+45)</div>
+                                            <div class="custom-select-option" data-value="Djibouti" data-flag="🇩🇯"
+                                                data-code="+253">🇩🇯 Djibouti (+253)</div>
+                                            <div class="custom-select-option" data-value="Égypte" data-flag="🇪🇬"
+                                                data-code="+20">🇪🇬 Égypte (+20)</div>
+                                            <div class="custom-select-option" data-value="Émirats arabes unis"
+                                                data-flag="🇦🇪" data-code="+971">🇦🇪 Émirats arabes unis (+971)</div>
+                                            <div class="custom-select-option" data-value="Équateur" data-flag="🇪🇨"
+                                                data-code="+593">🇪🇨 Équateur (+593)</div>
+                                            <div class="custom-select-option" data-value="Érythrée" data-flag="🇪🇷"
+                                                data-code="+291">🇪🇷 Érythrée (+291)</div>
+                                            <div class="custom-select-option" data-value="Espagne" data-flag="🇪🇸"
+                                                data-code="+34">🇪🇸 Espagne (+34)</div>
+                                            <div class="custom-select-option" data-value="Estonie" data-flag="🇪🇪"
+                                                data-code="+372">🇪🇪 Estonie (+372)</div>
+                                            <div class="custom-select-option" data-value="États-Unis" data-flag="🇺🇸"
+                                                data-code="+1">🇺🇸 États-Unis (+1)</div>
+                                            <div class="custom-select-option" data-value="Éthiopie" data-flag="🇪🇹"
+                                                data-code="+251">🇪🇹 Éthiopie (+251)</div>
+                                            <div class="custom-select-option" data-value="Fidji" data-flag="🇫🇯"
+                                                data-code="+679">🇫🇯 Fidji (+679)</div>
+                                            <div class="custom-select-option" data-value="Finlande" data-flag="🇫🇮"
+                                                data-code="+358">🇫🇮 Finlande (+358)</div>
+                                            <div class="custom-select-option" data-value="France" data-flag="🇫🇷"
+                                                data-code="+33">🇫🇷 France (+33)</div>
+                                            <div class="custom-select-option" data-value="Gabon" data-flag="🇬🇦"
+                                                data-code="+241">🇬🇦 Gabon (+241)</div>
+                                            <div class="custom-select-option" data-value="Gambie" data-flag="🇬🇲"
+                                                data-code="+220">🇬🇲 Gambie (+220)</div>
+                                            <div class="custom-select-option" data-value="Géorgie" data-flag="🇬🇪"
+                                                data-code="+995">🇬🇪 Géorgie (+995)</div>
+                                            <div class="custom-select-option" data-value="Ghana" data-flag="🇬🇭"
+                                                data-code="+233">🇬🇭 Ghana (+233)</div>
+                                            <div class="custom-select-option" data-value="Grèce" data-flag="🇬🇷"
+                                                data-code="+30">🇬🇷 Grèce (+30)</div>
+                                            <div class="custom-select-option" data-value="Guinée" data-flag="🇬🇳"
+                                                data-code="+224">🇬🇳 Guinée (+224)</div>
+                                            <div class="custom-select-option" data-value="Guinée-Bissau"
+                                                data-flag="🇬🇼" data-code="+245">🇬🇼 Guinée-Bissau (+245)</div>
+                                            <div class="custom-select-option" data-value="Guinée équatoriale"
+                                                data-flag="🇬🇶" data-code="+240">🇬🇶 Guinée équatoriale (+240)</div>
+                                            <div class="custom-select-option" data-value="Guyana" data-flag="🇬🇾"
+                                                data-code="+592">🇬🇾 Guyana (+592)</div>
+                                            <div class="custom-select-option" data-value="Haïti" data-flag="🇭🇹"
+                                                data-code="+509">🇭🇹 Haïti (+509)</div>
+                                            <div class="custom-select-option" data-value="Honduras" data-flag="🇭🇳"
+                                                data-code="+504">🇭🇳 Honduras (+504)</div>
+                                            <div class="custom-select-option" data-value="Hongrie" data-flag="🇭🇺"
+                                                data-code="+36">🇭🇺 Hongrie (+36)</div>
+                                            <div class="custom-select-option" data-value="Inde" data-flag="🇮🇳"
+                                                data-code="+91">🇮🇳 Inde (+91)</div>
+                                            <div class="custom-select-option" data-value="Indonésie" data-flag="🇮🇩"
+                                                data-code="+62">🇮🇩 Indonésie (+62)</div>
+                                            <div class="custom-select-option" data-value="Irak" data-flag="🇮🇶"
+                                                data-code="+964">🇮🇶 Irak (+964)</div>
+                                            <div class="custom-select-option" data-value="Iran" data-flag="🇮🇷"
+                                                data-code="+98">🇮🇷 Iran (+98)</div>
+                                            <div class="custom-select-option" data-value="Irlande" data-flag="🇮🇪"
+                                                data-code="+353">🇮🇪 Irlande (+353)</div>
+                                            <div class="custom-select-option" data-value="Islande" data-flag="🇮🇸"
+                                                data-code="+354">🇮🇸 Islande (+354)</div>
+                                            <div class="custom-select-option" data-value="Israël" data-flag="🇮🇱"
+                                                data-code="+972">🇮🇱 Israël (+972)</div>
+                                            <div class="custom-select-option" data-value="Italie" data-flag="🇮🇹"
+                                                data-code="+39">🇮🇹 Italie (+39)</div>
+                                            <div class="custom-select-option" data-value="Jamaïque" data-flag="🇯🇲"
+                                                data-code="+1876">🇯🇲 Jamaïque (+1876)</div>
+                                            <div class="custom-select-option" data-value="Japon" data-flag="🇯🇵"
+                                                data-code="+81">🇯🇵 Japon (+81)</div>
+                                            <div class="custom-select-option" data-value="Jordanie" data-flag="🇯🇴"
+                                                data-code="+962">🇯🇴 Jordanie (+962)</div>
+                                            <div class="custom-select-option" data-value="Kazakhstan" data-flag="🇰🇿"
+                                                data-code="+7">🇰🇿 Kazakhstan (+7)</div>
+                                            <div class="custom-select-option" data-value="Kenya" data-flag="🇰🇪"
+                                                data-code="+254">🇰🇪 Kenya (+254)</div>
+                                            <div class="custom-select-option" data-value="Kirghizistan" data-flag="🇰🇬"
+                                                data-code="+996">🇰🇬 Kirghizistan (+996)</div>
+                                            <div class="custom-select-option" data-value="Kiribati" data-flag="🇰🇮"
+                                                data-code="+686">🇰🇮 Kiribati (+686)</div>
+                                            <div class="custom-select-option" data-value="Koweït" data-flag="🇰🇼"
+                                                data-code="+965">🇰🇼 Koweït (+965)</div>
+                                            <div class="custom-select-option" data-value="Laos" data-flag="🇱🇦"
+                                                data-code="+856">🇱🇦 Laos (+856)</div>
+                                            <div class="custom-select-option" data-value="Lesotho" data-flag="🇱🇸"
+                                                data-code="+266">🇱🇸 Lesotho (+266)</div>
+                                            <div class="custom-select-option" data-value="Lettonie" data-flag="🇱🇻"
+                                                data-code="+371">🇱🇻 Lettonie (+371)</div>
+                                            <div class="custom-select-option" data-value="Liban" data-flag="🇱🇧"
+                                                data-code="+961">🇱🇧 Liban (+961)</div>
+                                            <div class="custom-select-option" data-value="Libéria" data-flag="🇱🇷"
+                                                data-code="+231">🇱🇷 Libéria (+231)</div>
+                                            <div class="custom-select-option" data-value="Libye" data-flag="🇱🇾"
+                                                data-code="+218">🇱🇾 Libye (+218)</div>
+                                            <div class="custom-select-option" data-value="Lituanie" data-flag="🇱🇹"
+                                                data-code="+370">🇱🇹 Lituanie (+370)</div>
+                                            <div class="custom-select-option" data-value="Luxembourg" data-flag="🇱🇺"
+                                                data-code="+352">🇱🇺 Luxembourg (+352)</div>
+                                            <div class="custom-select-option" data-value="Macédoine" data-flag="🇲🇰"
+                                                data-code="+389">🇲🇰 Macédoine (+389)</div>
+                                            <div class="custom-select-option" data-value="Madagascar" data-flag="🇲🇬"
+                                                data-code="+261">🇲🇬 Madagascar (+261)</div>
+                                            <div class="custom-select-option" data-value="Malaisie" data-flag="🇲🇾"
+                                                data-code="+60">🇲🇾 Malaisie (+60)</div>
+                                            <div class="custom-select-option" data-value="Malawi" data-flag="🇲🇼"
+                                                data-code="+265">🇲🇼 Malawi (+265)</div>
+                                            <div class="custom-select-option" data-value="Maldives" data-flag="🇲🇻"
+                                                data-code="+960">🇲🇻 Maldives (+960)</div>
+                                            <div class="custom-select-option" data-value="Mali" data-flag="🇲🇱"
+                                                data-code="+223">🇲🇱 Mali (+223)</div>
+                                            <div class="custom-select-option" data-value="Malte" data-flag="🇲🇹"
+                                                data-code="+356">🇲🇹 Malte (+356)</div>
+                                            <div class="custom-select-option" data-value="Maroc" data-flag="🇲🇦"
+                                                data-code="+212">🇲🇦 Maroc (+212)</div>
+                                            <div class="custom-select-option" data-value="Maurice" data-flag="🇲🇺"
+                                                data-code="+230">🇲🇺 Maurice (+230)</div>
+                                            <div class="custom-select-option" data-value="Mauritanie" data-flag="🇲🇷"
+                                                data-code="+222">🇲🇷 Mauritanie (+222)</div>
+                                            <div class="custom-select-option" data-value="Mexique" data-flag="🇲🇽"
+                                                data-code="+52">🇲🇽 Mexique (+52)</div>
+                                            <div class="custom-select-option" data-value="Moldavie" data-flag="🇲🇩"
+                                                data-code="+373">🇲🇩 Moldavie (+373)</div>
+                                            <div class="custom-select-option" data-value="Monaco" data-flag="🇲🇨"
+                                                data-code="+377">🇲🇨 Monaco (+377)</div>
+                                            <div class="custom-select-option" data-value="Mongolie" data-flag="🇲🇳"
+                                                data-code="+976">🇲🇳 Mongolie (+976)</div>
+                                            <div class="custom-select-option" data-value="Monténégro" data-flag="🇲🇪"
+                                                data-code="+382">🇲🇪 Monténégro (+382)</div>
+                                            <div class="custom-select-option" data-value="Mozambique" data-flag="🇲🇿"
+                                                data-code="+258">🇲🇿 Mozambique (+258)</div>
+                                            <div class="custom-select-option" data-value="Namibie" data-flag="🇳🇦"
+                                                data-code="+264">🇳🇦 Namibie (+264)</div>
+                                            <div class="custom-select-option" data-value="Népal" data-flag="🇳🇵"
+                                                data-code="+977">🇳🇵 Népal (+977)</div>
+                                            <div class="custom-select-option" data-value="Nicaragua" data-flag="🇳🇮"
+                                                data-code="+505">🇳🇮 Nicaragua (+505)</div>
+                                            <div class="custom-select-option" data-value="Niger" data-flag="🇳🇪"
+                                                data-code="+227">🇳🇪 Niger (+227)</div>
+                                            <div class="custom-select-option" data-value="Nigeria" data-flag="🇳🇬"
+                                                data-code="+234">🇳🇬 Nigeria (+234)</div>
+                                            <div class="custom-select-option" data-value="Norvège" data-flag="🇳🇴"
+                                                data-code="+47">🇳🇴 Norvège (+47)</div>
+                                            <div class="custom-select-option" data-value="Nouvelle-Zélande"
+                                                data-flag="🇳🇿" data-code="+64">🇳🇿 Nouvelle-Zélande (+64)</div>
+                                            <div class="custom-select-option" data-value="Oman" data-flag="🇴🇲"
+                                                data-code="+968">🇴🇲 Oman (+968)</div>
+                                            <div class="custom-select-option" data-value="Ouganda" data-flag="🇺🇬"
+                                                data-code="+256">🇺🇬 Ouganda (+256)</div>
+                                            <div class="custom-select-option" data-value="Ouzbékistan" data-flag="🇺🇿"
+                                                data-code="+998">🇺🇿 Ouzbékistan (+998)</div>
+                                            <div class="custom-select-option" data-value="Pakistan" data-flag="🇵🇰"
+                                                data-code="+92">🇵🇰 Pakistan (+92)</div>
+                                            <div class="custom-select-option" data-value="Panama" data-flag="🇵🇦"
+                                                data-code="+507">🇵🇦 Panama (+507)</div>
+                                            <div class="custom-select-option" data-value="Papouasie-Nouvelle-Guinée"
+                                                data-flag="🇵🇬" data-code="+675">🇵🇬 Papouasie-Nouvelle-Guinée (+675)
+                                            </div>
+                                            <div class="custom-select-option" data-value="Paraguay" data-flag="🇵🇾"
+                                                data-code="+595">🇵🇾 Paraguay (+595)</div>
+                                            <div class="custom-select-option" data-value="Pays-Bas" data-flag="🇳🇱"
+                                                data-code="+31">🇳🇱 Pays-Bas (+31)</div>
+                                            <div class="custom-select-option" data-value="Pérou" data-flag="🇵🇪"
+                                                data-code="+51">🇵🇪 Pérou (+51)</div>
+                                            <div class="custom-select-option" data-value="Philippines" data-flag="🇵🇭"
+                                                data-code="+63">🇵🇭 Philippines (+63)</div>
+                                            <div class="custom-select-option" data-value="Pologne" data-flag="🇵🇱"
+                                                data-code="+48">🇵🇱 Pologne (+48)</div>
+                                            <div class="custom-select-option" data-value="Portugal" data-flag="🇵🇹"
+                                                data-code="+351">🇵🇹 Portugal (+351)</div>
+                                            <div class="custom-select-option" data-value="Qatar" data-flag="🇶🇦"
+                                                data-code="+974">🇶🇦 Qatar (+974)</div>
+                                            <div class="custom-select-option" data-value="RCA" data-flag="🇨🇫"
+                                                data-code="+236">🇨🇫 RCA (+236)</div>
+                                            <div class="custom-select-option" data-value="RDC" data-flag="🇨🇩"
+                                                data-code="+243">🇨🇩 RDC (+243)</div>
+                                            <div class="custom-select-option" data-value="République tchèque"
+                                                data-flag="🇨🇿" data-code="+420">🇨🇿 République tchèque (+420)</div>
+                                            <div class="custom-select-option" data-value="Roumanie" data-flag="🇷🇴"
+                                                data-code="+40">🇷🇴 Roumanie (+40)</div>
+                                            <div class="custom-select-option" data-value="Royaume-Uni" data-flag="🇬🇧"
+                                                data-code="+44">🇬🇧 Royaume-Uni (+44)</div>
+                                            <div class="custom-select-option" data-value="Russie" data-flag="🇷🇺"
+                                                data-code="+7">🇷🇺 Russie (+7)</div>
+                                            <div class="custom-select-option" data-value="Rwanda" data-flag="🇷🇼"
+                                                data-code="+250">🇷🇼 Rwanda (+250)</div>
+                                            <div class="custom-select-option" data-value="Sénégal" data-flag="🇸🇳"
+                                                data-code="+221">🇸🇳 Sénégal (+221)</div>
+                                            <div class="custom-select-option" data-value="Serbie" data-flag="🇷🇸"
+                                                data-code="+381">🇷🇸 Serbie (+381)</div>
+                                            <div class="custom-select-option" data-value="Seychelles" data-flag="🇸🇨"
+                                                data-code="+248">🇸🇨 Seychelles (+248)</div>
+                                            <div class="custom-select-option" data-value="Sierra Leone" data-flag="🇸🇱"
+                                                data-code="+232">🇸🇱 Sierra Leone (+232)</div>
+                                            <div class="custom-select-option" data-value="Singapour" data-flag="🇸🇬"
+                                                data-code="+51">🇸🇬 Singapour (+51)</div>
+                                            <div class="custom-select-option" data-value="Slovaquie" data-flag="🇸🇰"
+                                                data-code="+421">🇸🇰 Slovaquie (+421)</div>
+                                            <div class="custom-select-option" data-value="Slovénie" data-flag="🇸🇮"
+                                                data-code="+386">🇸🇮 Slovénie (+386)</div>
+                                            <div class="custom-select-option" data-value="Somalie" data-flag="🇸🇴"
+                                                data-code="+252">🇸🇴 Somalie (+252)</div>
+                                            <div class="custom-select-option" data-value="Soudan" data-flag="🇸🇩"
+                                                data-code="+249">🇸🇩 Soudan (+249)</div>
+                                            <div class="custom-select-option" data-value="Sri Lanka" data-flag="🇱🇰"
+                                                data-code="+965">🇱🇰 Sri Lanka (+965)</div>
+                                            <div class="custom-select-option" data-value="Suède" data-flag="🇸🇪"
+                                                data-code="+46">🇸🇪 Suède (+46)</div>
+                                            <div class="custom-select-option" data-value="Suisse" data-flag="🇨🇭"
+                                                data-code="+41">🇨🇭 Suisse (+41)</div>
+                                            <div class="custom-select-option" data-value="Suriname" data-flag="🇸🇷"
+                                                data-code="+597">🇸🇷 Suriname (+597)</div>
+                                            <div class="custom-select-option" data-value="Swaziland" data-flag="🇸🇿"
+                                                data-code="+268">🇸🇿 Swaziland (+268)</div>
+                                            <div class="custom-select-option" data-value="Syrie" data-flag="🇸🇾"
+                                                data-code="+963">🇸🇾 Syrie (+963)</div>
+                                            <div class="custom-select-option" data-value="Tanzanie" data-flag="🇹🇿"
+                                                data-code="+255">🇹🇿 Tanzanie (+255)</div>
+                                            <div class="custom-select-option" data-value="Tchad" data-flag="🇹🇩"
+                                                data-code="+235">🇹🇩 Tchad (+235)</div>
+                                            <div class="custom-select-option" data-value="Thaïlande" data-flag="🇹🇭"
+                                                data-code="+51">🇹🇭 Thaïlande (+51)</div>
+                                            <div class="custom-select-option" data-value="Togo" data-flag="🇹🇬"
+                                                data-code="+228">🇹🇬 Togo (+228)</div>
+                                            <div class="custom-select-option" data-value="Tunisie" data-flag="🇹🇳"
+                                                data-code="+216">🇹🇳 Tunisie (+216)</div>
+                                            <div class="custom-select-option" data-value="Turquie" data-flag="🇹🇷"
+                                                data-code="+90">🇹🇷 Turquie (+90)</div>
+                                            <div class="custom-select-option" data-value="Ukraine" data-flag="🇺🇦"
+                                                data-code="+380">🇺🇦 Ukraine (+380)</div>
+                                            <div class="custom-select-option" data-value="Uruguay" data-flag="🇺🇾"
+                                                data-code="+598">🇺🇾 Uruguay (+598)</div>
+                                            <div class="custom-select-option" data-value="Venezuela" data-flag="🇻🇪"
+                                                data-code="+58">🇻🇪 Venezuela (+58)</div>
+                                            <div class="custom-select-option" data-value="Vietnam" data-flag="🇻🇳"
+                                                data-code="+84">🇻🇳 Vietnam (+84)</div>
+                                            <div class="custom-select-option" data-value="Yémen" data-flag="🇾🇪"
+                                                data-code="+967">🇾🇪 Yémen (+967)</div>
+                                            <div class="custom-select-option" data-value="Zambie" data-flag="🇿🇲"
+                                                data-code="+260">🇿🇲 Zambie (+260)</div>
+                                            <div class="custom-select-option" data-value="Zimbabwe" data-flag="🇿🇼"
+                                                data-code="+263">🇿🇼 Zimbabwe (+263)</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="ville_residence" class="form-label fw-bold">
+                                    <i class="fas fa-city me-2 text-primary"></i>Ville de résidence <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <input type="text" class="form-control form-control-lg" id="ville_residence"
+                                    name="ville_residence" required placeholder="Votre ville de résidence">
+                                <div class="form-text">Ex: Conakry, Dakar, Bamako</div>
+                            </div>
+                        </div>
+
+                        <!-- Contact -->
+                        <div class="row mb-4">
+                            <div class="col-md-6 mb-3">
+                                <label for="telephone" class="form-label fw-bold">
+                                    <i class="fas fa-phone me-2 text-primary"></i>Numéro de téléphone <span
+                                        class="text-danger">*</span>
+                                </label>
+                                <div class="input-group input-group-lg">
+                                    <span class="input-group-text" id="phone-prefix">
+                                        <span id="country-flag">🇬🇳</span>
+                                        <span id="country-code" class="ms-2 fw-bold">+224</span>
+                                    </span>
+                                    <input type="tel" class="form-control" id="telephone" name="telephone" required
+                                        placeholder="123 456 789">
+                                </div>
+                                <div class="form-text">Le code pays sera automatiquement ajouté selon votre sélection
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bouton de soumission -->
+                        <div class="text-center mt-5">
+                            <button type="submit" class="btn btn-primary btn-lg px-5 py-3 fw-bold">
+                                <i class="fas fa-check me-3"></i>
+                                Accéder aux Entreprises
+                            </button>
+                        </div>
+
+                        <!-- Informations de confidentialité -->
+                        <div class="text-center mt-4">
+                            <small class="text-muted">
+                                <i class="fas fa-shield-alt me-1"></i>
+                                Vos informations sont protégées et ne seront utilisées que pour améliorer nos services.
+                            </small>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Lien de retour -->
+            <div class="text-center mt-4">
+                <a href="{% url 'aguipex-index' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles personnalisés -->
+<style>
+    .form-control:focus,
+    .form-select:focus {
+        border-color: #008D3F;
+        box-shadow: 0 0 0 0.2rem rgba(0, 141, 63, 0.25);
+    }
+
+    .btn-primary {
+        background: linear-gradient(135deg, #008D3F 0%, #00A651 100%);
+        border: none;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #007A35 0%, #008D3F 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 141, 63, 0.3);
+    }
+
+    .card {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .form-label {
+        color: #2c3e50;
+        margin-bottom: 0.75rem;
+    }
+
+    .form-control,
+    .form-select {
+        border-radius: 12px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .form-control:hover,
+    .form-select:hover {
+        border-color: #008D3F;
+    }
+
+    .alert-info {
+        border-radius: 15px;
+        background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+        border: none;
+    }
+
+    .text-primary {
+        color: #008D3F !important;
+    }
+
+    .btn-outline-secondary {
+        border-radius: 25px;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        transform: translateY(-1px);
+    }
+
+    /* Styles pour l'indicateur téléphonique */
+    #phone-prefix {
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        border: 2px solid #dee2e6;
+        border-right: none;
+        border-radius: 12px 0 0 12px;
+        padding: 12px 15px;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+    }
+
+    #phone-prefix:hover {
+        background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+        border-color: #008D3F;
+    }
+
+    #country-flag {
+        font-size: 1.3rem;
+        margin-right: 8px;
+        transition: transform 0.2s ease;
+    }
+
+    #country-code {
+        color: #008D3F;
+        font-weight: 600;
+        transition: transform 0.2s ease;
+    }
+
+    /* Ajuster le champ téléphone pour l'input-group */
+    .input-group .form-control {
+        border-radius: 0 12px 12px 0;
+        border-left: none;
+    }
+
+    .input-group .form-control:focus {
+        border-left: none;
+        box-shadow: 0 0 0 0.2rem rgba(0, 141, 63, 0.25);
+    }
+
+    /* Styles pour le composant de sélection personnalisé */
+    .custom-select-container {
+        position: relative;
+        width: 100%;
+    }
+
+    .custom-select-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 2px solid #e9ecef;
+        border-top: none;
+        border-radius: 0 0 12px 12px;
+        max-height: 300px;
+        overflow-y: auto;
+        z-index: 1000;
+        display: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-select-dropdown.show {
+        display: block;
+    }
+
+    .custom-select-option {
+        padding: 12px 15px;
+        cursor: pointer;
+        border-bottom: 1px solid #f1f3f4;
+        transition: all 0.2s ease;
+        font-size: 1rem;
+    }
+
+    .custom-select-option:hover {
+        background-color: #e3f2fd;
+        color: #008D3F;
+    }
+
+    .custom-select-option.selected {
+        background-color: #008D3F;
+        color: white;
+    }
+
+    .custom-select-option.hidden {
+        display: none;
+    }
+
+    /* Scrollbar personnalisé pour la liste déroulante */
+    .custom-select-dropdown::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .custom-select-dropdown::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+    }
+
+    .custom-select-dropdown::-webkit-scrollbar-thumb {
+        background: #008D3F;
+        border-radius: 4px;
+    }
+
+    .custom-select-dropdown::-webkit-scrollbar-thumb:hover {
+        background: #007A35;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('visitorInfoForm');
+        const submitBtn = form.querySelector('button[type="submit"]');
+
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Désactiver le bouton et afficher un indicateur de chargement
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-3"></i>Enregistrement...';
+
+            // Récupérer les données du formulaire
+            const formData = new FormData(form);
+
+            // Envoyer les données via AJAX
+            fetch('{% url "soumettre-info-visiteur" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Marquer comme soumis dans le localStorage
+                        localStorage.setItem('visitor_info_submitted', 'true');
+
+                        // Afficher le message de succès
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Succès !',
+                                text: data.message,
+                                confirmButtonText: 'Continuer',
+                                confirmButtonColor: '#008D3F'
+                            }).then(() => {
+                                // Rediriger vers la page des entreprises
+                                window.location.href = '{% url "aguipex-entreprises" %}';
+                            });
+                        } else {
+                            alert('Succès : ' + data.message);
+                            setTimeout(() => {
+                                window.location.href = '{% url "aguipex-entreprises" %}';
+                            }, 2000);
+                        }
+
+                    } else {
+                        // Afficher l'erreur
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur !',
+                                text: data.message,
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#dc3545'
+                            });
+                        } else {
+                            alert('Erreur : ' + data.message);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur !',
+                            text: 'Une erreur est survenue. Veuillez réessayer.',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#dc3545'
+                        });
+                    } else {
+                        alert('Une erreur est survenue. Veuillez réessayer.');
+                    }
+                })
+                .finally(() => {
+                    // Réactiver le bouton
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                });
+        });
+
+        // Synchronisation de l'indicateur téléphonique avec le pays sélectionné
+        const paysSearchInput = document.getElementById('pays-search');
+        const paysHiddenInput = document.getElementById('pays');
+        const paysDropdown = document.getElementById('pays-dropdown');
+        const countryFlag = document.getElementById('country-flag');
+        const countryCode = document.getElementById('country-code');
+        const telephoneInput = document.getElementById('telephone');
+
+        // Fonction pour mettre à jour l'indicateur téléphonique
+        function updatePhonePrefix() {
+            const selectedValue = paysHiddenInput.value;
+            if (selectedValue) {
+                const selectedOption = paysDropdown.querySelector(`[data-value="${selectedValue}"]`);
+                if (selectedOption) {
+                    const flag = selectedOption.getAttribute('data-flag');
+                    const code = selectedOption.getAttribute('data-code');
+
+                    countryFlag.textContent = flag;
+                    countryCode.textContent = code;
+
+                    // Mettre à jour la classe CSS pour l'animation
+                    countryFlag.style.transform = 'scale(1.2)';
+                    countryCode.style.transform = 'scale(1.1)';
+
+                    setTimeout(() => {
+                        countryFlag.style.transform = 'scale(1)';
+                        countryCode.style.transform = 'scale(1)';
+                    }, 200);
+                }
+            }
+        }
+
+        // Fonction pour afficher/masquer la liste déroulante
+        function toggleDropdown(show) {
+            if (show) {
+                paysDropdown.classList.add('show');
+            } else {
+                paysDropdown.classList.remove('show');
+            }
+        }
+
+        // Fonction pour filtrer les options
+        function filterOptions(searchTerm) {
+            const options = paysDropdown.querySelectorAll('.custom-select-option');
+
+            options.forEach(option => {
+                const optionText = option.textContent.toLowerCase();
+                const isVisible = optionText.includes(searchTerm.toLowerCase());
+
+                if (isVisible) {
+                    option.classList.remove('hidden');
+                } else {
+                    option.classList.add('hidden');
+                }
+            });
+        }
+
+        // Écouter les événements sur le champ de recherche
+        paysSearchInput.addEventListener('focus', function () {
+            toggleDropdown(true);
+            // Définir la Guinée comme pays par défaut si aucun pays n'est sélectionné
+            if (!paysHiddenInput.value) {
+                paysHiddenInput.value = 'Guinée';
+                updatePhonePrefix();
+            }
+        });
+
+        paysSearchInput.addEventListener('input', function () {
+            const searchTerm = this.value.trim();
+            filterOptions(searchTerm);
+        });
+
+        // Écouter les clics sur les options
+        paysDropdown.addEventListener('click', function (e) {
+            if (e.target.classList.contains('custom-select-option')) {
+                const selectedValue = e.target.getAttribute('data-value');
+                paysHiddenInput.value = selectedValue;
+                paysSearchInput.value = e.target.textContent;
+                toggleDropdown(false);
+                updatePhonePrefix();
+            }
+        });
+
+        // Fermer la liste déroulante quand on clique ailleurs
+        document.addEventListener('click', function (e) {
+            if (!e.target.closest('.custom-select-container')) {
+                toggleDropdown(false);
+            }
+        });
+
+        // Définir la Guinée comme pays par défaut
+        paysHiddenInput.value = 'Guinée';
+        updatePhonePrefix();
+
+
+        // Validation en temps réel
+        const inputs = form.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function () {
+                if (this.hasAttribute('required') && !this.value.trim()) {
+                    this.classList.add('is-invalid');
+                } else {
+                    this.classList.remove('is-invalid');
+                    this.classList.add('is-valid');
+                }
+            });
+
+            input.addEventListener('input', function () {
+                if (this.classList.contains('is-invalid')) {
+                    this.classList.remove('is-invalid');
+                }
+            });
+        });
+
+        // Intercepter la soumission pour combiner le code pays avec le numéro
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Combiner le code pays avec le numéro de téléphone
+            const selectedCountry = paysHiddenInput.value;
+            if (selectedCountry) {
+                const selectedOption = paysDropdown.querySelector(`[data-value="${selectedCountry}"]`);
+                if (selectedOption) {
+                    const countryCodeValue = selectedOption.getAttribute('data-code');
+                    const phoneNumber = telephoneInput.value.trim();
+
+                    // Créer un champ caché avec le numéro complet
+                    let fullPhoneNumber = countryCodeValue + ' ' + phoneNumber;
+
+                    // Mettre à jour la valeur du champ téléphone
+                    telephoneInput.value = fullPhoneNumber;
+                }
+            }
+
+            // Continuer avec la soumission normale
+            submitForm();
+        });
+
+        // Fonction de soumission du formulaire
+        function submitForm() {
+            // Désactiver le bouton et afficher un indicateur de chargement
+            const submitBtn = form.querySelector('button[type="submit"]');
+            submitBtn.disabled = true;
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-3"></i>Enregistrement...';
+
+            // Récupérer les données du formulaire
+            const formData = new FormData(form);
+
+            // Envoyer les données via AJAX
+            fetch('{% url "soumettre-info-visiteur" %}', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest',
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        // Marquer comme soumis dans le localStorage
+                        localStorage.setItem('visitor_info_submitted', 'true');
+
+                        // Afficher le message de succès
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Succès !',
+                                text: data.message,
+                                confirmButtonText: 'Continuer',
+                                confirmButtonColor: '#008D3F'
+                            }).then(() => {
+                                // Rediriger vers la page des entreprises
+                                window.location.href = '{% url "aguipex-entreprises" %}';
+                            });
+                        } else {
+                            alert('Succès : ' + data.message);
+                            setTimeout(() => {
+                                window.location.href = '{% url "aguipex-entreprises" %}';
+                            }, 2000);
+                        }
+
+                    } else {
+                        // Afficher l'erreur
+                        if (typeof Swal !== 'undefined') {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Erreur !',
+                                text: data.message,
+                                confirmButtonText: 'OK',
+                                confirmButtonColor: '#dc3545'
+                            });
+                        } else {
+                            alert('Erreur : ' + data.message);
+                        }
+                    }
+                })
+                .catch(error => {
+                    console.error('Erreur:', error);
+                    if (typeof Swal !== 'undefined') {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erreur !',
+                            text: 'Une erreur est survenue. Veuillez réessayer.',
+                            confirmButtonText: 'OK',
+                            confirmButtonColor: '#dc3545'
+                        });
+                    } else {
+                        alert('Une erreur est survenue. Veuillez réessayer.');
+                    }
+                })
+                .finally(() => {
+                    // Réactiver le bouton
+                    submitBtn.disabled = false;
+                    submitBtn.innerHTML = originalText;
+                });
+        }
+    });
+</script>
+{% endblock %}

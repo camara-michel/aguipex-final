@@ -1,0 +1,255 @@
+/**
+ * CSS personnalisé pour améliorer l'affichage des listes déroulantes dans l'admin Django/Jazzmin
+ * Corrige le problème de texte noir sur fond gris - PRIORITÉ MAXIMALE
+ */
+
+/* ============================================
+   RÈGLES GÉNÉRALES POUR TOUS LES SELECT
+   ============================================ */
+
+/* Tous les select - Fond blanc, texte noir */
+select,
+select.form-control,
+select.form-select,
+select.form-control-sm,
+select.form-control-lg,
+.admin select,
+body select,
+.content-wrapper select,
+.main-sidebar select,
+#changelist-filter select,
+.form-row select,
+.field-box select,
+.module select,
+.inline-group select,
+.tabular.inline-related select,
+.popup select,
+.filtered select,
+select[multiple],
+.django-admin select,
+.jazzmin select {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #212529 !important;
+    color: #333333 !important;
+    border: 1px solid #dee2e6 !important;
+    padding: 8px 12px !important;
+    border-radius: 4px !important;
+    font-size: 14px !important;
+    line-height: 1.5 !important;
+    min-height: 38px !important;
+    -webkit-appearance: none !important;
+    -moz-appearance: none !important;
+    appearance: none !important;
+}
+
+/* Toutes les options - Fond blanc, texte noir */
+select option,
+.admin select option,
+body select option,
+.content-wrapper select option,
+.main-sidebar select option,
+#changelist-filter select option,
+.form-row select option,
+.field-box select option,
+.module select option,
+.inline-group select option,
+.tabular.inline-related select option,
+.popup select option,
+.filtered select option,
+select[multiple] option,
+.django-admin select option,
+.jazzmin select option {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #212529 !important;
+    color: #333333 !important;
+    padding: 8px 12px !important;
+}
+
+/* ============================================
+   ÉTATS INTERACTIFS
+   ============================================ */
+
+/* Select au survol */
+select:hover,
+.admin select:hover,
+body select:hover,
+.content-wrapper select:hover {
+    border-color: #008d3f !important;
+    box-shadow: 0 0 0 2px rgba(0, 141, 63, 0.1) !important;
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Select au focus */
+select:focus,
+.admin select:focus,
+body select:focus,
+.content-wrapper select:focus {
+    border-color: #008d3f !important;
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.15) !important;
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Options au survol */
+select option:hover,
+.admin select option:hover,
+body select option:hover {
+    background-color: #f8f9fa !important;
+    color: #008d3f !important;
+}
+
+/* Options sélectionnées */
+select option:checked,
+.admin select option:checked,
+body select option:checked {
+    background-color: #008d3f !important;
+    background: #008d3f !important;
+    color: #ffffff !important;
+}
+
+/* ============================================
+   ZONES SPÉCIFIQUES
+   ============================================ */
+
+/* Filtres dans la sidebar */
+#changelist-filter select,
+#changelist-filter select option,
+.sidebar select,
+.sidebar select option {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #333333 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+/* Select dans les formulaires */
+.form-row select,
+.field-box select,
+.module select,
+.form-group select {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #333333 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+/* Select dans les inlines */
+.inline-group select,
+.tabular.inline-related select,
+.stacked.inline-related select {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #333333 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+/* Select dans les popups */
+.popup select,
+.popup select option {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #333333 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+/* Select multiple */
+select[multiple],
+select[multiple] option {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Select disabled */
+select:disabled,
+select[disabled],
+select[readonly] {
+    background-color: #e9ecef !important;
+    background: #e9ecef !important;
+    color: #6c757d !important;
+    cursor: not-allowed !important;
+    opacity: 0.65 !important;
+}
+
+/* ============================================
+   THÈMES SOMBRES (OVERRIDE)
+   ============================================ */
+
+/* Correction pour les thèmes sombres */
+body.dark-theme select,
+body.dark-theme select option,
+body[data-theme="dark"] select,
+body[data-theme="dark"] select option,
+.theme-dark select,
+.theme-dark select option {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* ============================================
+   AMÉLIORATION VISUELLE
+   ============================================ */
+
+/* Icône de flèche personnalisée */
+select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23333' d='M6 9L1 4h10z'/%3E%3C/svg%3E") !important;
+    background-repeat: no-repeat !important;
+    background-position: right 10px center !important;
+    padding-right: 35px !important;
+}
+
+/* Amélioration de la lisibilité */
+select,
+select option {
+    font-weight: 400 !important;
+    text-shadow: none !important;
+    -webkit-font-smoothing: antialiased !important;
+    -moz-osx-font-smoothing: grayscale !important;
+}
+
+/* Contraste amélioré pour meilleure lisibilité */
+select option {
+    background: #ffffff !important;
+    color: #212529 !important;
+}
+
+select option:checked {
+    background: #008d3f !important;
+    color: #ffffff !important;
+}
+
+/* ============================================
+   SPÉCIFICITÉ JAZZMIN
+   ============================================ */
+
+/* Override spécifique pour Jazzmin */
+.content-wrapper .select2-container .select2-selection,
+.content-wrapper .select2-container .select2-selection__rendered {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+}
+
+/* Bootstrap select */
+.bootstrap-select .dropdown-toggle {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    border: 1px solid #dee2e6 !important;
+}
+
+.bootstrap-select .dropdown-menu {
+    background-color: #ffffff !important;
+}
+
+.bootstrap-select .dropdown-menu .dropdown-item {
+    color: #333333 !important;
+}
+
+.bootstrap-select .dropdown-menu .dropdown-item:hover {
+    background-color: #f8f9fa !important;
+    color: #008d3f !important;
+}

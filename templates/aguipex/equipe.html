@@ -1,0 +1,68 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">Équipes</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>Équipes</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section class="space pt-0 pb-4 mt-2 mb-2" data-bg-src="{% static 'assets/img/bg/team_bg_2.png' %}">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="title-area mb-0">
+                    <span class="sub-title mb-2">
+                        <div class="icon-masking me-2"><img
+                                src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape"></div>
+                        <span class="fs-20 text-uppercase">
+                            Découvrez notre équipe
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="slider-area">
+            <div class="swiper th-slider has-shadow" id="teamSlider2"
+                data-slider-options='{"loop":true,"breakpoints":{"0":{"slidesPerView":1},"576":{"slidesPerView":"1"},"768":{"slidesPerView":"2"},"992":{"slidesPerView":"3"},"1200":{"slidesPerView":"4"}}}'>
+                <div class="swiper-wrapper">
+                    {% for equipe in equipes %}
+                    <div class="swiper-slide">
+                        <div class="th-team team-box">
+                            <div class="team-img">
+                                {% if equipe.image %}
+                                <img src="{{equipe.image.url}}" alt="{{equipe.name}}">
+                                {% endif %}
+                                <div class="team-social">
+                                    <div class="play-btn"><i class="far fa-plus"></i></div>
+                                    <div class="th-social"><a target="_blank" href="{{equipe.lien1}}"><i
+                                                class="{{equipe.reseau1}}"></i></a> <a target="_blank"
+                                            href="https://twitter.com/"><i class="fab fa-twitter"></i></a> <a
+                                            target="_blank" href="https://instagram.com/"><i
+                                                class="fab fa-instagram"></i></a> <a target="_blank"
+                                            href="{{equipe.lien2}}"><i class="{{equipe.reseau2}}"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="team-content">
+                                <div class="box-particle" id="team-p1"></div>
+                                <h3 class="box-title" style="font-size: 16px !important;">{{equipe.name}}</h3><span
+                                    class="team-desig">{{equipe.fonction}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div><button data-slider-prev="#teamSlider2" class="slider-arrow style3 slider-prev"><i
+                    class="far fa-arrow-left"></i></button> <button data-slider-next="#teamSlider2"
+                class="slider-arrow style3 slider-next"><i class="far fa-arrow-right"></i></button>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,578 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}Politique de Confidentialité - AGUIPEX{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <!-- En-tête de la page -->
+            <div class="text-center mb-5">
+                <div class="mb-4">
+                    <i class="fas fa-shield-alt fa-3x text-primary"></i>
+                </div>
+                <h1 class="display-5 fw-bold text-primary mb-3">
+                    Politique de Confidentialité
+                </h1>
+                <p class="lead text-muted">
+                    Découvrez comment AGUIPEX protège et traite vos données personnelles.
+                </p>
+                <div class="alert alert-info border-0 bg-light">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Dernière mise à jour :</strong> {% now "d F Y" %}
+                </div>
+            </div>
+
+            <!-- Contenu de la politique de confidentialité -->
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 mb-4">
+                            <!-- Navigation des sections -->
+                            <div class="sticky-top" style="top: 100px;">
+                                <div class="list-group">
+                                    <a href="#introduction" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-info-circle me-2"></i>Introduction
+                                    </a>
+                                    <a href="#collecte" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-database me-2"></i>Collecte des données
+                                    </a>
+                                    <a href="#utilisation" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-cogs me-2"></i>Utilisation des données
+                                    </a>
+                                    <a href="#partage" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-share-alt me-2"></i>Partage des données
+                                    </a>
+                                    <a href="#securite" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-lock me-2"></i>Sécurité
+                                    </a>
+                                    <a href="#droits" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-user-check me-2"></i>Vos droits
+                                    </a>
+                                    <a href="#cookies" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-cookie-bite me-2"></i>Cookies
+                                    </a>
+                                    <a href="#contact" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-envelope me-2"></i>Contact
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-md-8">
+                            <!-- Section 1: Introduction -->
+                            <section id="introduction" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-info-circle me-2"></i>1. Introduction
+                                </h2>
+                                <p class="text-muted">
+                                    AGUIPEX (Agence Guinéenne de Promotion des Exportations) s'engage à protéger votre
+                                    vie privée
+                                    et vos données personnelles. Cette politique de confidentialité explique comment
+                                    nous collectons,
+                                    utilisons et protégeons vos informations.
+                                </p>
+                                <p class="text-muted">
+                                    En utilisant notre site web et nos services, vous acceptez les pratiques décrites
+                                    dans cette politique.
+                                    Si vous avez des questions, n'hésitez pas à nous contacter.
+                                </p>
+                                <div class="alert alert-warning border-0 bg-light">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <strong>Important :</strong> Cette politique s'applique à tous les visiteurs et
+                                    utilisateurs de notre site web.
+                                </div>
+                            </section>
+
+                            <!-- Section 2: Collecte des données -->
+                            <section id="collecte" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-database me-2"></i>2. Collecte des données
+                                </h2>
+                                <p class="text-muted mb-3">
+                                    Nous collectons différents types d'informations selon les services que vous utilisez
+                                    :
+                                </p>
+
+                                <h5 class="fw-bold text-dark mb-3">Données que vous nous fournissez :</h5>
+                                <div class="row mb-4">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-success me-2"></i>Nom et prénom</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Adresse e-mail</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Numéro de téléphone</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Pays et ville de résidence
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-success me-2"></i>Messages et demandes</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>CV et lettres de
+                                                motivation</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Informations
+                                                professionnelles</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Préférences et intérêts
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <h5 class="fw-bold text-dark mb-3">Données collectées automatiquement :</h5>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-success me-2"></i>Adresse IP</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Type de navigateur</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Système d'exploitation
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-success me-2"></i>Pages visitées</li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Temps passé sur le site
+                                            </li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Liens cliqués</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Section 3: Utilisation des données -->
+                            <section id="utilisation" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-cogs me-2"></i>3. Utilisation des données
+                                </h2>
+                                <p class="text-muted mb-3">
+                                    Nous utilisons vos données pour les finalités suivantes :
+                                </p>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <h6 class="fw-bold text-primary">
+                                                <i class="fas fa-bullseye me-2"></i>Services et support
+                                            </h6>
+                                            <ul class="list-unstyled text-muted small">
+                                                <li>• Répondre à vos demandes</li>
+                                                <li>• Fournir nos services</li>
+                                                <li>• Améliorer nos services</li>
+                                                <li>• Support client</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <h6 class="fw-bold text-primary">
+                                                <i class="fas fa-chart-line me-2"></i>Communication
+                                            </h6>
+                                            <ul class="list-unstyled text-muted small">
+                                                <li>• Newsletter et actualités</li>
+                                                <li>• Informations commerciales</li>
+                                                <li>• Invitations aux événements</li>
+                                                <li>• Opportunités d'affaires</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <h6 class="fw-bold text-primary">
+                                                <i class="fas fa-users me-2"></i>Recrutement
+                                            </h6>
+                                            <ul class="list-unstyled text-muted small">
+                                                <li>• Traitement des candidatures</li>
+                                                <li>• Évaluation des profils</li>
+                                                <li>• Contact et suivi</li>
+                                                <li>• Base de données CV</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-4">
+                                        <div class="border rounded p-3 h-100">
+                                            <h6 class="fw-bold text-primary">
+                                                <i class="fas fa-shield-alt me-2"></i>Sécurité et conformité
+                                            </h6>
+                                            <ul class="list-unstyled text-muted small">
+                                                <li>• Protection contre la fraude</li>
+                                                <li>• Respect des obligations légales</li>
+                                                <li>• Résolution des litiges</li>
+                                                <li>• Audit et contrôle</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Section 4: Partage des données -->
+                            <section id="partage" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-share-alt me-2"></i>4. Partage des données
+                                </h2>
+                                <p class="text-muted">
+                                    Nous ne vendons, ne louons ni ne partageons vos données personnelles avec des tiers,
+                                    sauf dans les cas suivants :
+                                </p>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="alert alert-info border-0 bg-light mb-3">
+                                            <h6 class="fw-bold">
+                                                <i class="fas fa-handshake me-2"></i>Avec votre consentement
+                                            </h6>
+                                            <p class="mb-0 small">Lorsque vous nous donnez explicitement votre accord.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="alert alert-info border-0 bg-light mb-3">
+                                            <h6 class="fw-bold">
+                                                <i class="fas fa-gavel me-2"></i>Obligations légales
+                                            </h6>
+                                            <p class="mb-0 small">Pour respecter les lois et réglementations en vigueur.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="alert alert-info border-0 bg-light mb-3">
+                                            <h6 class="fw-bold">
+                                                <i class="fas fa-tools me-2"></i>Prestataires de services
+                                            </h6>
+                                            <p class="mb-0 small">Pour les services techniques et de support.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="alert alert-info border-0 bg-light mb-3">
+                                            <h6 class="fw-bold">
+                                                <i class="fas fa-building me-2"></i>Partenaires commerciaux
+                                            </h6>
+                                            <p class="mb-0 small">Pour faciliter vos transactions commerciales.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Section 5: Sécurité -->
+                            <section id="securite" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-lock me-2"></i>5. Sécurité des données
+                                </h2>
+                                <p class="text-muted mb-4">
+                                    Nous mettons en place des mesures de sécurité appropriées pour protéger vos données
+                                    :
+                                </p>
+
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="text-center p-3">
+                                            <i class="fas fa-shield-alt fa-2x text-primary mb-3"></i>
+                                            <h6 class="fw-bold">Chiffrement SSL</h6>
+                                            <p class="text-muted small">Toutes les données sont chiffrées en transit.
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="text-center p-3">
+                                            <i class="fas fa-user-lock fa-2x text-primary mb-3"></i>
+                                            <h6 class="fw-bold">Accès restreint</h6>
+                                            <p class="text-muted small">Accès limité aux personnes autorisées.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="text-center p-3">
+                                            <i class="fas fa-history fa-2x text-primary mb-3"></i>
+                                            <h6 class="fw-bold">Sauvegarde</h6>
+                                            <p class="text-muted small">Sauvegarde régulière et sécurisée.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-warning border-0 bg-light">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    <strong>Attention :</strong> Aucune méthode de transmission sur Internet n'est 100%
+                                    sécurisée.
+                                    Nous nous efforçons d'utiliser des moyens commercialement acceptables pour protéger
+                                    vos données.
+                                </div>
+                            </section>
+
+                            <!-- Section 6: Vos droits -->
+                            <section id="droits" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-user-check me-2"></i>6. Vos droits
+                                </h2>
+                                <p class="text-muted mb-4">
+                                    Conformément à la réglementation, vous disposez des droits suivants :
+                                </p>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-eye text-primary me-3 mt-1"></i>
+                                            <div>
+                                                <h6 class="fw-bold">Droit d'accès</h6>
+                                                <p class="text-muted small mb-0">Demander une copie de vos données
+                                                    personnelles.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-edit text-primary me-3 mt-1"></i>
+                                            <div>
+                                                <h6 class="fw-bold">Droit de rectification</h6>
+                                                <p class="text-muted small mb-0">Corriger des données inexactes ou
+                                                    incomplètes.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-trash text-primary me-3 mt-1"></i>
+                                            <div>
+                                                <h6 class="fw-bold">Droit à l'effacement</h6>
+                                                <p class="text-muted small mb-0">Demander la suppression de vos données.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-pause text-primary me-3 mt-1"></i>
+                                            <div>
+                                                <h6 class="fw-bold">Droit à la limitation</h6>
+                                                <p class="text-muted small mb-0">Limiter le traitement de vos données.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-download text-primary me-3 mt-1"></i>
+                                            <div>
+                                                <h6 class="fw-bold">Droit à la portabilité</h6>
+                                                <p class="text-muted small mb-0">Recevoir vos données dans un format
+                                                    structuré.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <div class="d-flex align-items-start">
+                                            <i class="fas fa-ban text-primary me-3 mt-1"></i>
+                                            <div>
+                                                <h6 class="fw-bold">Droit d'opposition</h6>
+                                                <p class="text-muted small mb-0">Vous opposer au traitement de vos
+                                                    données.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-info border-0 bg-light">
+                                    <i class="fas fa-info-circle me-2"></i>
+                                    <strong>Pour exercer vos droits :</strong> Contactez-nous à
+                                    <a href="mailto:privacy@aguipex.gov.gn"
+                                        class="text-primary">privacy@aguipex.gov.gn</a>
+                                    ou utilisez le formulaire de contact.
+                                </div>
+                            </section>
+
+                            <!-- Section 7: Cookies -->
+                            <section id="cookies" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-cookie-bite me-2"></i>7. Cookies et technologies similaires
+                                </h2>
+                                <p class="text-muted mb-3">
+                                    Notre site utilise des cookies et des technologies similaires pour améliorer votre
+                                    expérience :
+                                </p>
+
+                                <div class="row">
+                                    <div class="col-md-4 mb-3">
+                                        <div class="border rounded p-3 text-center h-100">
+                                            <i class="fas fa-cog fa-2x text-primary mb-3"></i>
+                                            <h6 class="fw-bold">Cookies techniques</h6>
+                                            <p class="text-muted small">Nécessaires au fonctionnement du site.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="border rounded p-3 text-center h-100">
+                                            <i class="fas fa-chart-bar fa-2x text-primary mb-3"></i>
+                                            <h6 class="fw-bold">Cookies analytiques</h6>
+                                            <p class="text-muted small">Pour analyser l'utilisation du site.</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4 mb-3">
+                                        <div class="border rounded p-3 text-center h-100">
+                                            <i class="fas fa-bullseye fa-2x text-primary mb-3"></i>
+                                            <h6 class="fw-bold">Cookies marketing</h6>
+                                            <p class="text-muted small">Pour personnaliser le contenu.</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <p class="text-muted">
+                                    Vous pouvez gérer vos préférences de cookies via les paramètres de votre navigateur.
+                                    Notez que la désactivation de certains cookies peut affecter le fonctionnement du
+                                    site.
+                                </p>
+                            </section>
+
+                            <!-- Section 8: Contact -->
+                            <section id="contact" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-envelope me-2"></i>8. Contact et questions
+                                </h2>
+                                <p class="text-muted mb-4">
+                                    Pour toute question concernant cette politique de confidentialité ou le traitement
+                                    de vos données :
+                                </p>
+
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-envelope text-primary me-3"></i>
+                                            <div>
+                                                <strong>Email :</strong><br>
+                                                <a href="mailto:privacy@aguipex.gov.gn"
+                                                    class="text-muted">privacy@aguipex.gov.gn</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-phone text-primary me-3"></i>
+                                            <div>
+                                                <strong>Téléphone :</strong><br>
+                                                <span class="text-muted">+224 611 756 552</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="alert alert-success border-0 bg-light">
+                                    <i class="fas fa-clock me-2"></i>
+                                    <strong>Délai de réponse :</strong> Nous nous engageons à répondre à vos demandes
+                                    dans un délai de 30 jours maximum.
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lien de retour -->
+            <div class="text-center mt-4">
+                <a href="{% url 'aguipex-index' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles personnalisés -->
+<style>
+    .list-group-item {
+        border: none;
+        border-radius: 10px !important;
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent !important;
+    }
+
+    .list-group-item:hover {
+        background-color: #e3f2fd;
+        border-left-color: #008D3F !important;
+        transform: translateX(5px);
+    }
+
+    .list-group-item.active {
+        background-color: #008D3F;
+        border-left-color: #008D3F !important;
+        color: white;
+    }
+
+    .card {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .text-primary {
+        color: #008D3F !important;
+    }
+
+    .btn-outline-secondary {
+        border-radius: 25px;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        transform: translateY(-1px);
+    }
+
+    section {
+        scroll-margin-top: 120px;
+    }
+
+    .alert {
+        border-radius: 15px;
+    }
+
+    .border.rounded {
+        border-radius: 15px !important;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Navigation active dans la sidebar
+        const navItems = document.querySelectorAll('.list-group-item');
+        const sections = document.querySelectorAll('section');
+
+        // Fonction pour mettre à jour la navigation active
+        function updateActiveNav() {
+            const scrollPosition = window.scrollY + 150;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    navItems.forEach(item => item.classList.remove('active'));
+                    navItems[index].classList.add('active');
+                }
+            });
+        }
+
+        // Écouter le scroll pour mettre à jour la navigation
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Navigation smooth scroll
+        navItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialiser la navigation active
+        updateActiveNav();
+    });
+</script>
+{% endblock %}

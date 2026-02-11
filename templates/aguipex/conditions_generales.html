@@ -1,0 +1,328 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}Conditions Générales - AGUIPEX{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <!-- En-tête de la page -->
+            <div class="text-center mb-5">
+                <div class="mb-4">
+                    <i class="fas fa-file-contract fa-3x text-primary"></i>
+                </div>
+                <h1 class="display-5 fw-bold text-primary mb-3">
+                    Conditions Générales
+                </h1>
+                <p class="lead text-muted">
+                    Veuillez lire attentivement ces conditions générales avant d'utiliser nos services.
+                </p>
+                <div class="alert alert-info border-0 bg-light">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Dernière mise à jour :</strong> {% now "d F Y" %}
+                </div>
+            </div>
+
+            <!-- Contenu des conditions générales -->
+            <div class="card shadow-lg border-0">
+                <div class="card-body p-5">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-4 mb-4">
+                            <!-- Navigation des sections -->
+                            <div class="sticky-top" style="top: 100px;">
+                                <div class="list-group">
+                                    <a href="#acceptation" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-check-circle me-2"></i>Acceptation
+                                    </a>
+                                    <a href="#services" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-cogs me-2"></i>Services
+                                    </a>
+                                    <a href="#utilisation" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-user me-2"></i>Utilisation
+                                    </a>
+                                    <a href="#propriete" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-copyright me-2"></i>Propriété intellectuelle
+                                    </a>
+                                    <a href="#confidentialite" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-shield-alt me-2"></i>Confidentialité
+                                    </a>
+                                    <a href="#responsabilite" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-exclamation-triangle me-2"></i>Responsabilité
+                                    </a>
+                                    <a href="#modifications" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-edit me-2"></i>Modifications
+                                    </a>
+                                    <a href="#contact" class="list-group-item list-group-item-action">
+                                        <i class="fas fa-envelope me-2"></i>Contact
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-md-8">
+                            <!-- Section 1: Acceptation -->
+                            <section id="acceptation" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-check-circle me-2"></i>1. Acceptation des conditions
+                                </h2>
+                                <p class="text-muted">
+                                    En accédant et en utilisant le site web d'AGUIPEX, vous acceptez d'être lié par ces
+                                    conditions générales.
+                                    Si vous n'acceptez pas ces conditions, veuillez ne pas utiliser notre site.
+                                </p>
+                                <p class="text-muted">
+                                    Ces conditions s'appliquent à tous les visiteurs, utilisateurs et autres personnes
+                                    qui accèdent ou utilisent le service.
+                                </p>
+                            </section>
+
+                            <!-- Section 2: Services -->
+                            <section id="services" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-cogs me-2"></i>2. Description des services
+                                </h2>
+                                <p class="text-muted">
+                                    AGUIPEX fournit des services de promotion des exportations, d'assistance aux
+                                    entreprises guinéennes
+                                    et d'information sur les opportunités commerciales internationales.
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-success me-2"></i>Promotion des exportations
+                                            </li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Assistance aux entreprises
+                                            </li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Formation et conseil</li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul class="list-unstyled">
+                                            <li><i class="fas fa-check text-success me-2"></i>Information commerciale
+                                            </li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Participation aux foires
+                                            </li>
+                                            <li><i class="fas fa-check text-success me-2"></i>Réseau de partenaires</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </section>
+
+                            <!-- Section 3: Utilisation -->
+                            <section id="utilisation" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-user me-2"></i>3. Conditions d'utilisation
+                                </h2>
+                                <p class="text-muted">
+                                    Vous vous engagez à utiliser nos services de manière appropriée et à ne pas :
+                                </p>
+                                <ul class="text-muted">
+                                    <li>Utiliser les services à des fins illégales ou non autorisées</li>
+                                    <li>Violer les droits de propriété intellectuelle</li>
+                                    <li>Transmettre des virus ou du code malveillant</li>
+                                    <li>Tenter d'accéder non autorisé à nos systèmes</li>
+                                    <li>Interférer avec le bon fonctionnement du service</li>
+                                </ul>
+                            </section>
+
+                            <!-- Section 4: Propriété intellectuelle -->
+                            <section id="propriete" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-copyright me-2"></i>4. Propriété intellectuelle
+                                </h2>
+                                <p class="text-muted">
+                                    Le contenu de ce site web, y compris les textes, images, logos, et logiciels,
+                                    est protégé par les droits de propriété intellectuelle et appartient à AGUIPEX.
+                                </p>
+                                <p class="text-muted">
+                                    Toute reproduction, distribution ou utilisation commerciale de ce contenu
+                                    est strictement interdite sans autorisation écrite préalable.
+                                </p>
+                            </section>
+
+                            <!-- Section 5: Confidentialité -->
+                            <section id="confidentialite" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-shield-alt me-2"></i>5. Confidentialité et protection des données
+                                </h2>
+                                <p class="text-muted">
+                                    Nous nous engageons à protéger votre vie privée et vos données personnelles.
+                                    Pour plus d'informations, consultez notre
+                                    <a href="{% url 'aguipex-politique-confidentialite' %}"
+                                        class="text-primary">politique de confidentialité</a>.
+                                </p>
+                            </section>
+
+                            <!-- Section 6: Responsabilité -->
+                            <section id="responsabilite" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>6. Limitation de responsabilité
+                                </h2>
+                                <p class="text-muted">
+                                    AGUIPEX s'efforce de fournir des informations exactes et à jour,
+                                    mais ne peut garantir l'exactitude, l'exhaustivité ou l'actualité du contenu.
+                                </p>
+                                <p class="text-muted">
+                                    En aucun cas, AGUIPEX ne sera responsable des dommages directs, indirects,
+                                    accessoires ou consécutifs résultant de l'utilisation de nos services.
+                                </p>
+                            </section>
+
+                            <!-- Section 7: Modifications -->
+                            <section id="modifications" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-edit me-2"></i>7. Modifications des conditions
+                                </h2>
+                                <p class="text-muted">
+                                    Nous nous réservons le droit de modifier ces conditions générales à tout moment.
+                                    Les modifications prendront effet immédiatement après leur publication sur le site.
+                                </p>
+                                <p class="text-muted">
+                                    Il est de votre responsabilité de consulter régulièrement ces conditions
+                                    pour vous tenir informé des éventuelles modifications.
+                                </p>
+                            </section>
+
+                            <!-- Section 8: Contact -->
+                            <section id="contact" class="mb-5">
+                                <h2 class="h3 text-primary mb-3">
+                                    <i class="fas fa-envelope me-2"></i>8. Contact et questions
+                                </h2>
+                                <p class="text-muted">
+                                    Si vous avez des questions concernant ces conditions générales,
+                                    n'hésitez pas à nous contacter :
+                                </p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-envelope text-primary me-3"></i>
+                                            <div>
+                                                <strong>Email :</strong><br>
+                                                <a href="mailto:contact@aguipex.gov.gn"
+                                                    class="text-muted">contact@aguipex.gov.gn</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="fas fa-phone text-primary me-3"></i>
+                                            <div>
+                                                <strong>Téléphone :</strong><br>
+                                                <span class="text-muted">+224 611 756 552</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lien de retour -->
+            <div class="text-center mt-4">
+                <a href="{% url 'aguipex-index' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles personnalisés -->
+<style>
+    .list-group-item {
+        border: none;
+        border-radius: 10px !important;
+        margin-bottom: 5px;
+        transition: all 0.3s ease;
+        border-left: 3px solid transparent !important;
+    }
+
+    .list-group-item:hover {
+        background-color: #e3f2fd;
+        border-left-color: #008D3F !important;
+        transform: translateX(5px);
+    }
+
+    .list-group-item.active {
+        background-color: #008D3F;
+        border-left-color: #008D3F !important;
+        color: white;
+    }
+
+    .card {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .text-primary {
+        color: #008D3F !important;
+    }
+
+    .btn-outline-secondary {
+        border-radius: 25px;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        transform: translateY(-1px);
+    }
+
+    section {
+        scroll-margin-top: 120px;
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Navigation active dans la sidebar
+        const navItems = document.querySelectorAll('.list-group-item');
+        const sections = document.querySelectorAll('section');
+
+        // Fonction pour mettre à jour la navigation active
+        function updateActiveNav() {
+            const scrollPosition = window.scrollY + 150;
+
+            sections.forEach((section, index) => {
+                const sectionTop = section.offsetTop;
+                const sectionBottom = sectionTop + section.offsetHeight;
+
+                if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
+                    navItems.forEach(item => item.classList.remove('active'));
+                    navItems[index].classList.add('active');
+                }
+            });
+        }
+
+        // Écouter le scroll pour mettre à jour la navigation
+        window.addEventListener('scroll', updateActiveNav);
+
+        // Navigation smooth scroll
+        navItems.forEach(item => {
+            item.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetSection = document.getElementById(targetId);
+
+                if (targetSection) {
+                    targetSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Initialiser la navigation active
+        updateActiveNav();
+    });
+</script>
+{% endblock %}

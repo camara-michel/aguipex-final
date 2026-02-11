@@ -1,0 +1,727 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% load html_filters %}
+{% load i18n %}
+
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #333;
+    --muted: #6c757d;
+    --surface: #ffffff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --radius-lg: 16px;
+    --font-title: "Century Gothic", sans-serif;
+  }
+
+  /* HERO */
+  .breadcumb-wrapper {
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    padding: 60px 0;
+    text-align: center;
+    color: #fff;
+  }
+  .breadcumb-title {
+    font-weight: 800;
+    font-size: 2rem;
+    margin: 0 0 6px;
+    font-family: var(--font-title);
+  }
+  .breadcumb-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 0;
+    font-size: 0.85rem;
+  }
+  .breadcumb-menu a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .breadcumb-menu li + li::before {
+    content: '›';
+    margin: 0 5px;
+  }
+
+  /* NAVIGATION MODES */
+  .nav-modes {
+    background: white;
+    padding: 20px;
+    margin: -30px auto 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    max-width: 1200px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .nav-mode-btn {
+    padding: 12px 24px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    background: white;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-title);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-mode-btn:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.15);
+  }
+  .nav-mode-btn.active {
+    background: var(--brand);
+    color: white;
+    border-color: var(--brand);
+  }
+
+  /* SEARCH SECTION */
+  .search-section {
+    background: white;
+    padding: 24px;
+    margin-bottom: 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .search-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    align-items: end;
+  }
+  .search-box,
+  .search-select {
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    padding: 12px 16px;
+    font-size: 0.95rem;
+    background: #fff;
+    font-family: var(--font-title);
+    transition: all 0.2s ease;
+  }
+  .search-box:focus,
+  .search-select:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+  }
+  .search-box {
+    width: 100%;
+  }
+  .search-select {
+    width: 100%;
+    cursor: pointer;
+  }
+  .search-btn {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 20px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-title);
+  }
+  .search-btn:hover {
+    background: var(--brand-2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.3);
+  }
+  .search-tips {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 12px;
+    font-family: var(--font-title);
+  }
+
+  /* ALERTS */
+  .alert {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    margin-bottom: 16px;
+    border: 1px solid transparent;
+    font-family: var(--font-title);
+  }
+  .alert-error {
+    background: #fde2e2;
+    color: #d9534f;
+    border-color: #f5c6cb;
+  }
+  .alert-info {
+    background: #d1ecf1;
+    color: #0c5460;
+    border-color: #bee5eb;
+  }
+  .alert a {
+    color: var(--brand);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .alert a:hover {
+    text-decoration: underline;
+  }
+
+  /* ENTREPRISES SECTION */
+  .entreprises-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px 60px;
+  }
+  .entreprises-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .entreprises-count {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-family: var(--font-title);
+    font-weight: 500;
+  }
+  .entreprises-count strong {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  /* ENTREPRISES GRID */
+  .entreprises-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .entreprise-card {
+    background: white;
+    border-radius: 16px;
+    overflow: visible;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    position: relative;
+    margin-top:5rem;
+  }
+  .entreprise-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+  
+  /* Logo/Image Section */
+  .entreprise-image-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-top: 0;
+    overflow: visible;
+    background: transparent;
+    display: block;
+  }
+  .entreprise-logo {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #fff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    background: #fff;
+    z-index: 2;
+  }
+  .entreprise-logo-placeholder {
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #fff;
+    background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 2;
+  }
+  .entreprise-logo-placeholder i {
+    font-size: 3rem;
+    color: #adb5bd;
+  }
+
+  /* Content Section */
+  .entreprise-content {
+    padding: 80px 20px 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-top: 0;
+  }
+  .entreprise-type {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0, 141, 63, 0.1);
+    color: var(--brand);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+    align-self: flex-start;
+  }
+  .entreprise-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+    line-height: 1.3;
+  }
+  .entreprise-sector {
+    display: inline-block;
+    padding: 4px 12px;
+    background: var(--surface-2);
+    color: var(--muted);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+    align-self: flex-start;
+    text-transform: capitalize;
+  }
+  .entreprise-description {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex: 1;
+    font-family: var(--font-title);
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .entreprise-products {
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  .entreprise-products-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-family: var(--font-title);
+  }
+  .entreprise-products-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .entreprise-products-list .badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: white;
+    color: var(--text);
+    font-weight: 500;
+    border: 1px solid #e9ecef;
+  }
+  .entreprise-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+    font-size: 0.85rem;
+    color: var(--muted);
+    font-family: var(--font-title);
+  }
+  .entreprise-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .entreprise-meta i {
+    font-size: 0.9rem;
+    color: var(--brand);
+    width: 18px;
+  }
+  .entreprise-details-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: var(--brand);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-title);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  .entreprise-details-btn:hover {
+    background: var(--brand-2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.3);
+  }
+
+  /* PAGINATION */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .pagination a,
+  .pagination span {
+    padding: 10px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: var(--font-title);
+  }
+  .pagination a:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+  .pagination .current {
+    background: var(--brand);
+    color: white;
+    border-color: var(--brand);
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+  .empty-state-icon {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 20px;
+  }
+  .empty-state-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+  }
+  .empty-state-text {
+    color: var(--muted);
+    font-size: 1rem;
+    font-family: var(--font-title);
+  }
+
+  /* CTA SECTION */
+  .cta-section {
+    text-align: center;
+    padding: 60px 20px;
+    background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+    margin-top: 60px;
+  }
+  .cta-section h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+    color: var(--text);
+  }
+  .cta-section p {
+    font-size: 1rem;
+    margin-bottom: 24px;
+    color: var(--muted);
+    font-family: var(--font-title);
+  }
+  .cta-btn {
+    background: var(--brand);
+    color: #fff;
+    padding: 12px 28px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    font-family: var(--font-title);
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .cta-btn:hover {
+    background: var(--brand-2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.3);
+  }
+
+  @media (max-width: 768px) {
+    .entreprises-grid {
+      grid-template-columns: 1fr;
+    }
+    .search-form {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .search-btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .nav-modes {
+      flex-direction: column;
+      padding: 16px;
+    }
+    .nav-mode-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+
+<!-- HERO -->
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">
+        Notre base de données des entreprises
+      </h1>
+      <ul class="breadcumb-menu">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li>Entreprises</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation Modes -->
+<div class="container">
+  <div class="nav-modes">
+    <a href="{% url 'aguipex-produits' %}" class="nav-mode-btn">
+      <i class="fas fa-tags"></i>
+      Par Type de Produit
+    </a>
+    <a href="{% url 'aguipex-entreprises' %}" class="nav-mode-btn active">
+      <i class="fas fa-building"></i>
+      Par Entreprise
+    </a>
+  </div>
+</div>
+
+<!-- SEARCH -->
+<section class="search-section">
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-error">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  
+  {% if search_query or type_produit_filter %}
+  <div class="alert alert-info">
+    <i class="fas fa-search me-2"></i>
+      {% if entreprises %} 
+        {{ entreprises.paginator.count }} entreprise{{ entreprises.paginator.count|pluralize }} trouvée{{ entreprises.paginator.count|pluralize }}
+        {% if search_query %} pour "{{ search_query|unescape_html }}"{% endif %}
+        {% if type_produit_filter %} avec le type de produit "{{ type_produit_filter_obj.nom|unescape_html }}"{% endif %}
+    {% else %}
+      Aucune entreprise trouvée
+      {% if search_query %} pour "{{ search_query|unescape_html }}"{% endif %}
+      {% if type_produit_filter %} avec le type de produit "{{ type_produit_filter_obj.nom|unescape_html }}"{% endif %}
+    {% endif %}
+    <a href="{% url 'aguipex-entreprises' %}" class="float-end text-decoration-none">
+      <i class="fas fa-times me-1"></i>Effacer la recherche
+    </a>
+  </div>
+  {% endif %}
+
+  <form method="get" class="search-form">
+    <div>
+      <input
+        type="text"
+        name="q"
+        placeholder="Rechercher par nom, ville, secteur..."
+        value="{{ search_query|default:'' }}"
+        class="search-box"
+      />
+    </div>
+    <div>
+      <select name="type_produit" class="search-select">
+        <option value="">Tous les types de produits</option>
+        {% for type in types_produits %}
+        <option value="{{ type.slug }}" {% if type_produit_filter == type.slug %}selected{% endif %}>{{ type.nom|unescape_html }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="search-btn">
+      <i class="fas fa-search"></i>Rechercher
+    </button>
+  </form>
+
+  <div class="search-tips">
+    <small>
+      <i class="fas fa-lightbulb me-1"></i>
+      Recherche par texte : nom d'entreprise, ville, secteur d'activité, description | 
+      Sélectionnez un produit spécifique dans la liste déroulante
+    </small>
+  </div>
+</section>
+
+<!-- ENTREPRISES -->
+<div class="entreprises-section">
+  <div class="entreprises-header">
+    <div class="entreprises-count">
+      {% if entreprises %}
+        <strong>{{ entreprises.paginator.count }}</strong> entreprise{{ entreprises.paginator.count|pluralize }} au total
+      {% else %}
+        <strong>0</strong> entreprise trouvée
+      {% endif %}
+    </div>
+  </div>
+
+  {% if entreprises %}
+  <div class="entreprises-grid">
+    {% for e in entreprises %}
+    <article class="entreprise-card">
+      <div class="entreprise-image-wrapper">
+        {% if e.logo %}
+        <img
+          src="{{ e.logo.url }}"
+          alt="Logo {{ e.nom }}"
+          class="entreprise-logo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="entreprise-logo-placeholder" style="display: none;">
+          <i class="fas fa-building"></i>
+        </div>
+        {% else %}
+        <div class="entreprise-logo-placeholder">
+          <i class="fas fa-building"></i>
+        </div>
+        {% endif %}
+      </div>
+      
+      <div class="entreprise-content">
+        {% if e.type_activite %}
+        <span class="entreprise-type ">{{ e.type_activite|unescape_html|upper }}</span>
+        {% endif %}
+        
+        <h3 class="entreprise-name ">{{ e.nom|unescape_html|upper }}</h3>
+        
+        {% if e.secteur_activite %}
+        <span class="entreprise-sector">{{ e.secteur_activite|unescape_html|lower }}</span>
+        {% endif %}
+        
+        {% if e.description %}
+        <p class="entreprise-description">
+          {{ e.description|unescape_html|striptags|truncatewords:20 }}
+        </p>
+        {% endif %}
+
+
+        <div class="entreprise-meta">
+          {% if e.ville %}
+          <span><i class="fas fa-location-dot"></i>{{ e.ville|unescape_html }}</span>
+          {% endif %}
+          {% if e.telephone %}
+          <span><i class="fas fa-phone"></i>{{ e.telephone|unescape_html }}</span>
+          {% endif %}
+        </div>
+        
+        <a href="{% url 'aguipex-entreprise-detail' e.slug %}" class="entreprise-details-btn">
+          <i class="fas fa-eye"></i>Voir détails
+        </a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if entreprises.has_other_pages %}
+  <div class="pagination">
+    {% if entreprises.has_previous %}
+    <a href="?page={{ entreprises.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if type_produit_filter %}&type_produit={{ type_produit_filter }}{% endif %}">
+      &laquo; Précédent
+    </a>
+    {% endif %}
+    
+    {% for num in entreprises.paginator.page_range %}
+      {% if entreprises.number == num %}
+      <span class="current">{{ num }}</span>
+      {% elif num > entreprises.number|add:'-3' and num < entreprises.number|add:'3' %}
+      <a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if type_produit_filter %}&type_produit={{ type_produit_filter }}{% endif %}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+    
+    {% if entreprises.has_next %}
+    <a href="?page={{ entreprises.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if type_produit_filter %}&type_produit={{ type_produit_filter }}{% endif %}">
+      Suivant &raquo;
+    </a>
+    {% endif %}
+  </div>
+  {% endif %}
+  
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon"><i class="fas fa-building"></i></div>
+    <h3 class="empty-state-title">Aucune entreprise trouvée</h3>
+    <p class="empty-state-text">Il n'y a pas encore d'entreprises correspondant à votre recherche.</p>
+  </div>
+  {% endif %}
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <h2>Votre entreprise n'est pas encore présente ?</h2>
+    <p>Enregistrez-la dès maintenant et rejoignez notre réseau.</p>
+    <a href="{% url 'aguipex-enregistrer-entreprise' %}" class="cta-btn">
+      <i class="fas fa-plus"></i> Enregistrer mon entreprise
+    </a>
+  </div>
+</section>
+
+{% endblock content %}

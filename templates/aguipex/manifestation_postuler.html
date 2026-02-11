@@ -1,0 +1,296 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% load html_filters %}
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --surface: #fff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --radius: 12px;
+    --radius-lg: 16px;
+  }
+  .breadcumb-wrapper { background: linear-gradient(135deg, var(--brand), var(--brand-2)); padding: 50px 0; color: #fff; }
+  .breadcumb-title { font-weight: 800; font-size: 1.5rem; margin: 0 0 6px; }
+  .breadcumb-menu { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+  .breadcumb-menu a { color: #fff; text-decoration: none; }
+  .breadcumb-menu li + li::before { content: '›'; margin: 0 6px; opacity: 0.8; }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; color: var(--brand); font-weight: 600; text-decoration: none; margin-bottom: 1.5rem; }
+  .back-link:hover { color: var(--brand-2); }
+  .form-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    padding: 2rem;
+    max-width: 800px;
+    margin: 0 auto 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+  .form-section {
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--surface-2);
+  }
+  .form-section:last-child {
+    border-bottom: none;
+  }
+  .form-section-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--brand);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .form-check {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .form-check-input {
+    margin-top: 0;
+  }
+  .form-check-label {
+    margin-bottom: 0;
+    font-weight: 500;
+  }
+  .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  @media (max-width: 768px) {
+    .form-row {
+      grid-template-columns: 1fr;
+    }
+  }
+  .form-card h2 { font-size: 1.35rem; font-weight: 700; color: var(--text); margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--brand); }
+  .form-card .form-group { margin-bottom: 1.25rem; }
+  .form-card label { font-weight: 600; color: var(--text); margin-bottom: 0.35rem; display: block; font-size: 0.9rem; }
+  .form-card .form-control { border-radius: 8px; border: 1px solid #dee2e6; padding: 0.5rem 0.75rem; width: 100%; }
+  .form-card .form-control:focus { border-color: var(--brand); outline: none; box-shadow: 0 0 0 3px rgba(0,141,63,0.15); }
+  .form-card .btn-submit {
+    background: var(--brand);
+    color: #fff;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .form-card .btn-submit:hover { background: var(--brand-2); }
+  .form-card .text-danger { font-size: 0.85rem; color: #dc3545; margin-top: 0.25rem; }
+  .form-card .alert { padding: 0.75rem 1rem; border-radius: 8px; margin-bottom: 1rem; }
+  .form-card .alert-success { background: #d4edda; color: #155724; }
+  .form-card .alert-warning { background: #fff3cd; color: #856404; }
+  .foire-detail-card {
+    background: var(--surface-2);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(0,0,0,0.06);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .foire-detail-card h2 { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0 0 1rem; padding-bottom: 0.5rem; border-bottom: 2px solid var(--brand); }
+  .foire-detail-card .foire-meta { display: flex; flex-wrap: wrap; gap: 1rem; font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+  .foire-detail-card .foire-meta span { display: flex; align-items: center; gap: 0.4rem; }
+  .foire-detail-card .foire-meta i { color: var(--brand); }
+  .foire-detail-card .foire-desc { 
+    color: #444; 
+    font-size: 0.9rem; 
+    line-height: 1.6; 
+    font-family: inherit;
+  }
+  .foire-detail-card .foire-desc p,
+  .foire-detail-card .foire-desc li,
+  .foire-detail-card .foire-desc span,
+  .foire-detail-card .foire-desc div,
+  .foire-detail-card .foire-desc h1,
+  .foire-detail-card .foire-desc h2,
+  .foire-detail-card .foire-desc h3,
+  .foire-detail-card .foire-desc h4,
+  .foire-detail-card .foire-desc h5,
+  .foire-detail-card .foire-desc h6 {
+    font-family: inherit;
+  }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">Postuler — {{ manifestation.titre|unescape_html }}</h1>
+      <ul class="breadcumb-menu d-flex flex-wrap align-items-center gap-1">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li><a href="{% url 'aguipex-manifestations' %}">Manifestations commerciales</a></li>
+        <li><a href="{% url 'aguipex-manifestation-detail' manifestation.slug %}">{{ manifestation.titre|unescape_html }}</a></li>
+        <li>Postuler</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="space pt-4 pb-5">
+  <div class="container">
+    <a href="{% url 'aguipex-manifestation-detail' manifestation.slug %}" class="back-link"><i class="far fa-arrow-left"></i> Retour à la manifestation</a>
+
+    <div class="foire-detail-card">
+      <h2><i class="far fa-info-circle"></i> Détail de la manifestation</h2>
+      <div class="foire-meta">
+        {% if manifestation.date_debut %}
+        <span><i class="far fa-calendar-alt"></i> Début : {{ manifestation.date_debut|date:"d/m/Y" }}</span>
+        {% endif %}
+        {% if manifestation.date_fin %}
+        <span><i class="far fa-calendar-check"></i> Fin : {{ manifestation.date_fin|date:"d/m/Y" }}</span>
+        {% endif %}
+        {% if manifestation.lieu or manifestation.pays %}
+        <span><i class="far fa-map-marker-alt"></i> {{ manifestation.lieu|default:""|unescape_html }}{% if manifestation.lieu and manifestation.pays %}, {% endif %}{{ manifestation.pays|default:""|unescape_html }}</span>
+        {% endif %}
+      </div>
+      {% if manifestation.description %}
+      <div class="foire-desc">{{ manifestation.description|unescape_html|safe }}</div>
+      {% else %}
+      <p class="foire-desc text-muted mb-0">Manifestation : <strong>{{ manifestation.titre|unescape_html }}</strong></p>
+      {% endif %}
+      {% if manifestation.conditions_de_participation %}
+      <div class="foire-desc mt-3">
+        <h3 style="font-size: 1rem; font-weight: 700; color: var(--brand); margin-bottom: 0.5rem;">Conditions de participation</h3>
+        <div>{{ manifestation.conditions_de_participation|unescape_html|safe }}</div>
+      </div>
+      {% endif %}
+    </div>
+
+    <div class="form-card">
+      <h2>Formulaire de candidature</h2>
+      <p class="text-muted small mb-3">Manifestation : <strong>{{ manifestation.titre|unescape_html }}</strong></p>
+
+      {% if messages %}
+      {% for message in messages %}
+      <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+      {% endfor %}
+      {% endif %}
+
+      <form method="post" action="">
+        {% csrf_token %}
+        
+        <!-- Informations de base -->
+        <div class="form-section">
+          <h3 class="form-section-title"><i class="far fa-building"></i> Informations de base</h3>
+          <div class="form-group">
+            <label for="id_nom_entreprise">{{ form.nom_entreprise.label }} <span class="text-danger">*</span></label>
+            {{ form.nom_entreprise }}
+            {% if form.nom_entreprise.errors %}<div class="text-danger">{{ form.nom_entreprise.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="id_email_contact">{{ form.email_contact.label }} <span class="text-danger">*</span></label>
+              {{ form.email_contact }}
+              {% if form.email_contact.errors %}<div class="text-danger">{{ form.email_contact.errors.0 }}</div>{% endif %}
+            </div>
+            <div class="form-group">
+              <label for="id_telephone_contact">{{ form.telephone_contact.label }}</label>
+              {{ form.telephone_contact }}
+              {% if form.telephone_contact.errors %}<div class="text-danger">{{ form.telephone_contact.errors.0 }}</div>{% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id_message">{{ form.message.label }}</label>
+            {{ form.message }}
+            {% if form.message.errors %}<div class="text-danger">{{ form.message.errors.0 }}</div>{% endif %}
+          </div>
+        </div>
+
+        <!-- Informations sur l'entreprise -->
+        <div class="form-section">
+          <h3 class="form-section-title"><i class="far fa-info-circle"></i> Informations sur l'entreprise</h3>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="id_type_entreprise">{{ form.type_entreprise.label }}</label>
+              {{ form.type_entreprise }}
+              {% if form.type_entreprise.errors %}<div class="text-danger">{{ form.type_entreprise.errors.0 }}</div>{% endif %}
+            </div>
+            <div class="form-group">
+              <label for="id_domaine_activite">{{ form.domaine_activite.label }}</label>
+              {{ form.domaine_activite }}
+              {% if form.domaine_activite.errors %}<div class="text-danger">{{ form.domaine_activite.errors.0 }}</div>{% endif %}
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="id_responsable_entreprise">{{ form.responsable_entreprise.label }}</label>
+              {{ form.responsable_entreprise }}
+              {% if form.responsable_entreprise.errors %}<div class="text-danger">{{ form.responsable_entreprise.errors.0 }}</div>{% endif %}
+            </div>
+            <div class="form-group">
+              <label for="id_date_creation_entreprise">{{ form.date_creation_entreprise.label }}</label>
+              {{ form.date_creation_entreprise }}
+              {% if form.date_creation_entreprise.errors %}<div class="text-danger">{{ form.date_creation_entreprise.errors.0 }}</div>{% endif %}
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="id_siege_social">{{ form.siege_social.label }}</label>
+            {{ form.siege_social }}
+            {% if form.siege_social.errors %}<div class="text-danger">{{ form.siege_social.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="form-group">
+            <label for="id_nombre_personnes">{{ form.nombre_personnes.label }}</label>
+            {{ form.nombre_personnes }}
+            {% if form.nombre_personnes.errors %}<div class="text-danger">{{ form.nombre_personnes.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="form-group">
+            <label for="id_produits_entreprise">{{ form.produits_entreprise.label }}</label>
+            {{ form.produits_entreprise }}
+            {% if form.produits_entreprise.errors %}<div class="text-danger">{{ form.produits_entreprise.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="form-group">
+            <label for="id_certifications">{{ form.certifications.label }}</label>
+            {{ form.certifications }}
+            {% if form.certifications.errors %}<div class="text-danger">{{ form.certifications.errors.0 }}</div>{% endif %}
+          </div>
+        </div>
+
+        <!-- Documents et statuts -->
+        <div class="form-section">
+          <h3 class="form-section-title"><i class="far fa-file-alt"></i> Documents et statuts</h3>
+          <div class="form-check">
+            {{ form.a_rccm }}
+            <label for="id_a_rccm" class="form-check-label">{{ form.a_rccm.label }}</label>
+            {% if form.a_rccm.errors %}<div class="text-danger">{{ form.a_rccm.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="form-check">
+            {{ form.a_code_nif }}
+            <label for="id_a_code_nif" class="form-check-label">{{ form.a_code_nif.label }}</label>
+            {% if form.a_code_nif.errors %}<div class="text-danger">{{ form.a_code_nif.errors.0 }}</div>{% endif %}
+          </div>
+        </div>
+
+        <!-- Expérience et financement -->
+        <div class="form-section">
+          <h3 class="form-section-title"><i class="far fa-chart-line"></i> Expérience et financement</h3>
+          <div class="form-group">
+            <label for="id_nombre_manifestations_participees">{{ form.nombre_manifestations_participees.label }}</label>
+            {{ form.nombre_manifestations_participees }}
+            {% if form.nombre_manifestations_participees.errors %}<div class="text-danger">{{ form.nombre_manifestations_participees.errors.0 }}</div>{% endif %}
+          </div>
+          <div class="form-check">
+            {{ form.peut_se_financer }}
+            <label for="id_peut_se_financer" class="form-check-label">{{ form.peut_se_financer.label }}</label>
+            {% if form.peut_se_financer.errors %}<div class="text-danger">{{ form.peut_se_financer.errors.0 }}</div>{% endif %}
+          </div>
+        </div>
+
+        <p class="text-muted small mb-3"><span class="text-danger">*</span> Champs obligatoires. Les autres champs sont optionnels.</p>
+        <button type="submit" class="btn-submit"><i class="far fa-paper-plane me-1"></i> Envoyer ma candidature</button>
+      </form>
+    </div>
+  </div>
+</section>
+{% endblock content %}

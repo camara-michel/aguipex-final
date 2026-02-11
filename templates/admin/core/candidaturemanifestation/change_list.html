@@ -1,0 +1,180 @@
+{% extends "admin/change_list.html" %}
+{% load static %}
+
+{% block extrahead %}
+{{ block.super }}
+<style>
+    /* Dashboard KPI Compact et Professionnel */
+    .kpi-dashboard {
+        background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+        border-radius: 8px;
+        padding: 12px 16px;
+        margin-bottom: 16px;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        border: 1px solid #e9ecef;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        justify-content: space-between;
+    }
+    
+    .kpi-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 12px;
+        background: white;
+        border-radius: 6px;
+        border-left: 3px solid;
+        transition: all 0.2s ease;
+        min-width: 120px;
+        box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    
+    .kpi-item:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    
+    .kpi-item.primary { border-left-color: #008d3f; }
+    .kpi-item.success { border-left-color: #28a745; }
+    .kpi-item.danger { border-left-color: #dc3545; }
+    .kpi-item.warning { border-left-color: #ffc107; }
+    .kpi-item.info { border-left-color: #17a2b8; }
+    
+    .kpi-icon-mini {
+        font-size: 1rem;
+        opacity: 0.7;
+    }
+    .kpi-item.primary .kpi-icon-mini { color: #008d3f; }
+    .kpi-item.success .kpi-icon-mini { color: #28a745; }
+    .kpi-item.danger .kpi-icon-mini { color: #dc3545; }
+    .kpi-item.warning .kpi-icon-mini { color: #ffc107; }
+    .kpi-item.info .kpi-icon-mini { color: #17a2b8; }
+    
+    .kpi-content {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+    }
+    
+    .kpi-label {
+        font-size: 0.7rem;
+        color: #6c757d;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 0.3px;
+        line-height: 1.2;
+        margin-bottom: 2px;
+    }
+    
+    .kpi-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: #212529;
+        line-height: 1.2;
+        font-family: "Century Gothic", sans-serif;
+    }
+    
+    .kpi-link {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+    }
+    .kpi-link:hover {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    @media (max-width: 1200px) {
+        .kpi-dashboard {
+            justify-content: flex-start;
+        }
+        .kpi-item {
+            min-width: 110px;
+        }
+    }
+    
+    @media (max-width: 768px) {
+        .kpi-dashboard {
+            flex-direction: column;
+            align-items: stretch;
+        }
+        .kpi-item {
+            min-width: auto;
+            width: 100%;
+            justify-content: space-between;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block result_list %}
+{% if kpi %}
+<div class="kpi-dashboard">
+    <a href="?statut_metier_filter=accepte" class="kpi-link">
+        <div class="kpi-item success">
+            <i class="fas fa-check-circle kpi-icon-mini"></i>
+            <div class="kpi-content">
+                <div class="kpi-label">Acceptées</div>
+                <div class="kpi-value">{{ kpi.acceptees }}</div>
+            </div>
+        </div>
+    </a>
+    <a href="?statut_metier_filter=refus" class="kpi-link">
+        <div class="kpi-item danger">
+            <i class="fas fa-times-circle kpi-icon-mini"></i>
+            <div class="kpi-content">
+                <div class="kpi-label">Refusées</div>
+                <div class="kpi-value">{{ kpi.refusees }}</div>
+            </div>
+        </div>
+    </a>
+    <a href="?statut_metier_filter=en_attente" class="kpi-link">
+        <div class="kpi-item warning">
+            <i class="fas fa-clock kpi-icon-mini"></i>
+            <div class="kpi-content">
+                <div class="kpi-label">En attente</div>
+                <div class="kpi-value">{{ kpi.en_attente }}</div>
+            </div>
+        </div>
+    </a>
+    <a href="?statut_back_office_filter=publie" class="kpi-link">
+        <div class="kpi-item info">
+            <i class="fas fa-eye kpi-icon-mini"></i>
+            <div class="kpi-content">
+                <div class="kpi-label">Publiées</div>
+                <div class="kpi-value">{{ kpi.publiees }}</div>
+            </div>
+        </div>
+    </a>
+    <a href="?statut_back_office_filter=brouillon" class="kpi-link">
+        <div class="kpi-item warning">
+            <i class="fas fa-file-alt kpi-icon-mini"></i>
+            <div class="kpi-content">
+                <div class="kpi-label">Brouillons</div>
+                <div class="kpi-value">{{ kpi.brouillons }}</div>
+            </div>
+        </div>
+    </a>
+    <div class="kpi-item primary">
+        <i class="fas fa-file-invoice kpi-icon-mini"></i>
+        <div class="kpi-content">
+            <div class="kpi-label">Total</div>
+            <div class="kpi-value">{{ kpi.total }}</div>
+        </div>
+    </div>
+    </div>
+{% endif %}
+<div style="margin-bottom: 16px; padding: 12px; background: #f8f9fa; border-radius: 6px; border: 1px solid #e9ecef;">
+    <a href="{% url 'admin:candidature_export_excel' %}" class="button" style="margin-right: 8px; background: #28a745; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;">
+        <i class="fas fa-file-excel"></i> Exporter en Excel
+    </a>
+    <a href="{% url 'admin:candidature_export_csv' %}" class="button" style="background: #17a2b8; color: white; padding: 8px 16px; border-radius: 4px; text-decoration: none; display: inline-block;">
+        <i class="fas fa-file-csv"></i> Exporter en CSV
+    </a>
+</div>
+{{ block.super }}
+{% endblock %}
+

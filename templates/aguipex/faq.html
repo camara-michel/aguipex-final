@@ -1,0 +1,71 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/breadcumb-bg.jpg' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">FAQ</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li>faq</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<div class="faq-area position-relative space overflow-hidden pt-4" id="faq-sec">
+    <div class="container th-container4">
+        <div class="row align-items-center">
+            <div class="col-xl-6">
+                <div class="faq-img4">
+                    <div class="img1 th-anim"><img src="{% static 'assets/img/normal/fqImg1.png' %}" alt="faq"></div>
+                    <div class="img2 dance2 th-anim"><img src="{% static 'assets/img/normal/faqImg2.png' %}" alt="faq">
+                    </div>
+                    <!-- <div class="faq-client-box jump">
+                        <div class="client-thumb-group"><img src="{% static 'assets/img/testimonial/client-img-1.png' %}"
+                                alt="avater"></div><span class="cilent-box_title">Commentaires des clients</span>
+                    </div> -->
+                    <div class="faq-shape"></div>
+                </div>
+            </div>
+            <div class="col-xl-6">
+                <div class="ps-xl-5 ms-xl-3">
+                    <div class="title-area pe-xl-5 me-xl-4 text-center text-xl-start">
+                        <span class="sub-title style1">Foire Aux Questions</span>
+                        <h2 class="sec-title">Trouvez ici les réponses à vos questions sur nos services et notre
+                            fonctionnement.</h2>
+                    </div>
+                    <div class="accordion" id="faqAccordion">
+                        <!-- Question 1 -->
+                        {% for faq in faqs %}
+                        <div class="accordion-card">
+                            <div class="accordion-header" id="collapse-item-{{ forloop.counter }}">
+                                <button
+                                    class="accordion-button {% if forloop.first %}collapsed{% else %}collapsed{% endif %}"
+                                    type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-{{ forloop.counter }}"
+                                    aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                    aria-controls="collapse-{{ forloop.counter }}">
+                                    {{ faq.question }}
+                                </button>
+                            </div>
+                            <div id="collapse-{{ forloop.counter }}"
+                                class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                aria-labelledby="collapse-item-{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    <p class="faq-text">{{ faq.response|safe }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,1101 @@
+{% extends "partials/base.html" %} {% load static %} {% load html_filters %} {% block style %}
+<style>
+  .breadcumb-wrapper {
+    background: linear-gradient(135deg, #008d3f, #00a854);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .breadcumb-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('{% static "assets/img/bg/pattern.png" %}') repeat;
+    opacity: 0.1;
+  }
+
+  .breadcumb-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+  }
+
+  .breadcumb-title {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .breadcumb-menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+
+  .breadcumb-menu li {
+    color: rgba(255, 255, 255, 0.9);
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .breadcumb-menu a {
+    color: white;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .breadcumb-menu a:hover {
+    color: #f0f0f0;
+    text-decoration: underline;
+  }
+
+  .entreprise-header {
+    background: white;
+    border-radius: 30px;
+    margin: -50px 20px 0;
+    padding: 60px 40px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 3;
+  }
+
+  .entreprise-logo-large {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid white;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+  }
+
+  .entreprise-logo-placeholder {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 6px solid #f8f9fa;
+    background: #f8f9fa;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    margin-bottom: 30px;
+  }
+
+  .entreprise-name-large {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 20px;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .entreprise-type-large {
+    background: linear-gradient(45deg, #008d3f, #00a854);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    display: inline-block;
+    margin-bottom: 30px;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .entreprise-description-large {
+    color: #6c757d;
+    font-size: 1.2rem;
+    line-height: 1.8;
+    max-width: 100%;
+    margin: 0 auto 40px;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+    text-align: left; /* Par défaut à gauche, mais respectera l'alignement CKEditor */
+  }
+  
+  .entreprise-description-large p,
+  .entreprise-description-large div,
+  .entreprise-description-large span,
+  .entreprise-description-large li {
+    font-family: inherit;
+  }
+  
+  .entreprise-description-large img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 0.5rem 0;
+  }
+  
+  .entreprise-description-large ul,
+  .entreprise-description-large ol {
+    margin: 1rem 0;
+    padding-left: 2rem;
+  }
+  
+  .entreprise-description-large h1,
+  .entreprise-description-large h2,
+  .entreprise-description-large h3,
+  .entreprise-description-large h4 {
+    font-family: inherit;
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .entreprise-description-large blockquote {
+    margin: 1rem 0;
+    padding-left: 1rem;
+    border-left: 3px solid var(--brand);
+    font-style: italic;
+  }
+  
+  /* Styles pour tous les champs RichTextField (description, adresse, certifications) */
+  .contact-value {
+    font-family: var(--title-font, "Century Gothic", sans-serif) !important;
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #333;
+    font-weight: 400;
+    text-align: left; /* Par défaut à gauche, mais respectera l'alignement CKEditor */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Tous les éléments HTML dans les champs RichTextField */
+  .contact-value p,
+  .contact-value div,
+  .contact-value span,
+  .contact-value li,
+  .contact-value td,
+  .contact-value th,
+  .contact-value a,
+  .contact-value strong,
+  .contact-value em,
+  .contact-value u,
+  .contact-value s,
+  .contact-value h1,
+  .contact-value h2,
+  .contact-value h3,
+  .contact-value h4,
+  .contact-value h5,
+  .contact-value h6 {
+    font-family: var(--title-font, "Century Gothic", sans-serif) !important;
+    color: inherit;
+  }
+  
+  /* Paragraphes - Respecter l'alignement choisi dans CKEditor */
+  .contact-value p {
+    margin: 0.75rem 0;
+    line-height: 1.7;
+    text-align: inherit; /* Respecter l'alignement défini dans CKEditor */
+  }
+  
+  .contact-value p[style*="text-align: center"],
+  .contact-value p[style*="text-align:center"] {
+    text-align: center !important;
+  }
+  
+  .contact-value p[style*="text-align: right"],
+  .contact-value p[style*="text-align:right"] {
+    text-align: right !important;
+  }
+  
+  .contact-value p[style*="text-align: justify"],
+  .contact-value p[style*="text-align:justify"] {
+    text-align: justify !important;
+  }
+  
+  .contact-value p:first-child {
+    margin-top: 0;
+  }
+  
+  .contact-value p:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Divs avec alignement */
+  .contact-value div[style*="text-align: center"],
+  .contact-value div[style*="text-align:center"] {
+    text-align: center !important;
+  }
+  
+  .contact-value div[style*="text-align: right"],
+  .contact-value div[style*="text-align:right"] {
+    text-align: right !important;
+  }
+  
+  .contact-value div[style*="text-align: justify"],
+  .contact-value div[style*="text-align:justify"] {
+    text-align: justify !important;
+  }
+  
+  /* Listes */
+  .contact-value ul,
+  .contact-value ol {
+    margin: 0.75rem 0;
+    padding-left: 1.75rem;
+    font-family: inherit;
+  }
+  
+  .contact-value ul {
+    list-style-type: disc;
+  }
+  
+  .contact-value ol {
+    list-style-type: decimal;
+  }
+  
+  .contact-value li {
+    margin: 0.4rem 0;
+    line-height: 1.7;
+  }
+  
+  /* Titres */
+  .contact-value h1,
+  .contact-value h2,
+  .contact-value h3,
+  .contact-value h4,
+  .contact-value h5,
+  .contact-value h6 {
+    font-family: inherit;
+    margin-top: 1.25rem;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    line-height: 1.3;
+    color: #333;
+  }
+  
+  .contact-value h1 { font-size: 1.75rem; }
+  .contact-value h2 { font-size: 1.5rem; }
+  .contact-value h3 { font-size: 1.25rem; }
+  .contact-value h4 { font-size: 1.1rem; }
+  .contact-value h5 { font-size: 1rem; }
+  .contact-value h6 { font-size: 0.9rem; }
+  
+  /* Images */
+  .contact-value img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 0.75rem 0;
+    display: block;
+  }
+  
+  /* Citations */
+  .contact-value blockquote {
+    margin: 1rem 0;
+    padding: 0.75rem 1rem;
+    padding-left: 1.25rem;
+    border-left: 3px solid #008d3f;
+    font-style: italic;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+  
+  /* Tableaux */
+  .contact-value table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    font-family: inherit;
+  }
+  
+  .contact-value table td,
+  .contact-value table th {
+    padding: 0.5rem;
+    border: 1px solid #dee2e6;
+    font-family: inherit;
+  }
+  
+  .contact-value table th {
+    background: #f8f9fa;
+    font-weight: 600;
+  }
+  
+  /* Liens */
+  .contact-value a {
+    color: #008d3f;
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+  
+  .contact-value a:hover {
+    color: #00a854;
+    text-decoration: underline;
+  }
+  
+  /* Texte en gras et italique */
+  .contact-value strong,
+  .contact-value b {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .contact-value em,
+  .contact-value i {
+    font-style: italic;
+  }
+  
+  /* Support des emojis et caractères spéciaux */
+  .contact-value {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+  }
+  
+  /* Désactivé : white-space: pre-wrap pour améliorer le design */
+  /* .contact-value:not(:has(p)):not(:has(div)):not(:has(ul)):not(:has(ol)) {
+    white-space: pre-wrap;
+  } */
+  
+  /* Classes d'alignement CKEditor - respecter les styles inline */
+  .contact-value [style*="text-align: center"],
+  .contact-value [style*="text-align:center"] {
+    text-align: center !important;
+  }
+  
+  .contact-value [style*="text-align: right"],
+  .contact-value [style*="text-align:right"] {
+    text-align: right !important;
+  }
+  
+  .contact-value [style*="text-align: justify"],
+  .contact-value [style*="text-align:justify"] {
+    text-align: justify !important;
+  }
+  
+  .contact-value [style*="text-align: left"],
+  .contact-value [style*="text-align:left"] {
+    text-align: left !important;
+  }
+
+  .entreprise-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 20px;
+    min-width: 150px;
+  }
+
+  .stat-icon {
+    font-size: 2rem;
+    color: #008d3f;
+    margin-bottom: 15px;
+  }
+
+  .stat-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .stat-label {
+    color: #6c757d;
+    font-size: 0.9rem;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .entreprise-details {
+    padding: 80px 0;
+    background: #f8f9fa;
+  }
+
+  .detail-section {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    margin-bottom: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 15px;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(45deg, #008d3f, #00a854);
+    border-radius: 2px;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 24px;
+    align-items: stretch;
+  }
+  
+  /* Responsive : ajuster le nombre de colonnes selon la taille d'écran */
+  @media (max-width: 576px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+  }
+  
+  @media (min-width: 577px) and (max-width: 768px) {
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: 18px;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .contact-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    .contact-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    min-height: auto;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    border: 1px solid #e9ecef;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  }
+  
+  @media (max-width: 768px) {
+    .contact-item {
+      padding: 18px;
+      flex-direction: row;
+      align-items: flex-start;
+    }
+    
+    .contact-item .contact-icon {
+      flex-shrink: 0;
+      margin-right: 14px;
+      margin-bottom: 0;
+      width: 44px;
+      height: 44px;
+      font-size: 1.05rem;
+    }
+    
+    .contact-label {
+      margin-bottom: 5px;
+    }
+  }
+
+  .contact-item:hover {
+    background: #f8f9fa;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.1);
+    border-color: #008d3f;
+  }
+
+  .contact-icon {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, #008d3f, #00a854);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 1.15rem;
+    margin-right: 16px;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(0, 141, 63, 0.15);
+  }
+
+  .contact-text {
+    flex: 1;
+    min-width: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding-top: 0;
+  }
+
+  .contact-label {
+    font-size: 0.7rem;
+    color: #6c757d;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    font-weight: 600;
+    word-wrap: break-word;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+    letter-spacing: 0.8px;
+    line-height: 1.2;
+  }
+
+  .contact-value {
+    color: #333;
+    font-weight: 400;
+    font-size: 1rem;
+    line-height: 1.5;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    hyphens: auto;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+    margin-top: 0;
+  }
+  
+  /* Pour les valeurs simples (non RichTextField) comme téléphone, email, site web */
+  .contact-value:not(:has(p)):not(:has(div)):not(:has(ul)):not(:has(ol)):not(:has(span)) {
+    font-weight: 500;
+    color: #008d3f;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .contact-value a {
+    color: #008d3f;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+    display: inline-block;
+    word-break: break-all;
+  }
+
+  .contact-value a:hover {
+    color: #00a854;
+    text-decoration: underline;
+  }
+  
+  /* Style spécifique pour le téléphone */
+  .contact-value a[href^="tel:"],
+  .contact-phone {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #008d3f;
+    letter-spacing: 0.2px;
+    display: inline-block;
+    white-space: nowrap;
+    line-height: 1.4;
+    margin-top: 0;
+  }
+  
+  /* Style spécifique pour l'email */
+  .contact-value a[href^="mailto:"] {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #008d3f;
+    word-break: break-all;
+    line-height: 1.4;
+    margin-top: 0;
+  }
+  
+  /* Style spécifique pour les liens de site web */
+  .contact-value a[target="_blank"] {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #008d3f;
+    word-break: break-all;
+    line-height: 1.4;
+    margin-top: 0;
+  }
+
+  .produits-section {
+    padding: 80px 0;
+    background: white;
+  }
+
+  .produit-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: all 0.3s ease;
+    height: 100%;
+  }
+
+  .produit-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .produit-image {
+    height: 200px;
+    object-fit: cover;
+    position: relative;
+  }
+
+  .produit-image-placeholder {
+    height: 200px;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .produit-content {
+    padding: 25px;
+    text-align: center;
+  }
+
+  .produit-title {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 15px;
+    line-height: 1.3;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .produit-description {
+    color: #6c757d;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .produit-price {
+    background: linear-gradient(45deg, #008d3f, #00a854);
+    color: white;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: 600;
+    display: inline-block;
+    margin-bottom: 20px;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .view-produit-btn {
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+    background: linear-gradient(45deg, #008d3f, #00a854);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 25px;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    width: 100%;
+  }
+
+  .view-produit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 141, 63, 0.3);
+    color: white;
+    text-decoration: none;
+  }
+
+  .empty-produits {
+    text-align: center;
+    padding: 60px 20px;
+    background: #f8f9fa;
+    border-radius: 20px;
+  }
+
+  .empty-icon {
+    font-size: 4rem;
+    color: #6c757d;
+    margin-bottom: 20px;
+  }
+
+  .empty-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 15px;
+    font-weight: 600;
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+  }
+
+  .empty-text {
+    font-family: var(--title-font, "Century Gothic", sans-serif);
+    color: #6c757d;
+    font-size: 1rem;
+  }
+
+  .back-btn {
+    background: linear-gradient(45deg, #6c757d, #495057);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    color: white;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+  }
+
+  .back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    color: white;
+    text-decoration: none;
+  }
+
+  @media (max-width: 768px) {
+    .entreprise-header {
+      margin: -30px 15px 0;
+      padding: 40px 25px;
+    }
+
+    .entreprise-name-large {
+      font-size: 2rem;
+    }
+
+    .entreprise-stats {
+      gap: 20px;
+    }
+
+    .stat-item {
+      min-width: 120px;
+      padding: 15px;
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+{% endblock style %} {% block content %}
+<!-- Header Section -->
+
+
+
+<div
+  class="breadcumb-wrapper"
+  data-bg-src="{% static 'assets/img/bg/allpage.png' %}"
+>
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">
+        {{ entreprise.nom|unescape_html|upper }}
+      </h1>
+      <ul class="breadcumb-menu">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li><a href="{% url 'aguipex-entreprises' %}">Entreprises</a></li>
+        <li>{{ entreprise.nom }}</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<!-- Entreprise Header -->
+<div class="entreprise-header">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        {% if entreprise.logo %}
+        <img
+          src="{{ entreprise.logo.url }}"
+          class="entreprise-logo-large mx-auto"
+          alt="Logo {{ entreprise.nom|unescape_html|upper }}"
+        />
+        {% else %}
+        <div class="entreprise-logo-placeholder mx-auto">
+          <i class="fas fa-building fa-3x text-muted"></i>
+        </div>
+        {% endif %}
+
+        <h1 class="entreprise-name-large">{{ entreprise.nom }}</h1>
+        <span class="entreprise-type-large"
+          >{{ entreprise.type_activite|unescape_html|upper }}</span
+        >
+
+        {% if entreprise.description %}
+        <div class="entreprise-description-large">{{ entreprise.description|safe|unescape_html }}</div>
+        {% endif %}
+
+        <div class="entreprise-stats">
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fas fa-map-marker-alt"></i>
+            </div>
+            <div class="stat-value">{{ entreprise.ville }}</div>
+            <div class="stat-label">Localisation</div>
+          </div>
+
+          {% if entreprise.nombre_employes %}
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-value">{{ entreprise.nombre_employes }}</div>
+            <div class="stat-label">Employés</div>
+          </div>
+          {% endif %} {% if entreprise.date_creation %}
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fas fa-calendar-alt"></i>
+            </div>
+            <div class="stat-value">
+              {{ entreprise.date_creation|date:"Y" }}
+            </div>
+            <div class="stat-label">Année de création</div>
+          </div>
+          {% endif %}
+
+          <div class="stat-item">
+            <div class="stat-icon">
+              <i class="fas fa-box"></i>
+            </div>
+            <div class="stat-value">{{ entreprise.produits_entreprise.count }}</div>
+            <div class="stat-label">Produits</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Entreprise Details -->
+<div class="entreprise-details">
+  <div class="container">
+    <!-- Contact Information -->
+    <div class="detail-section">
+      <h2 class="section-title">Informations de contact</h2>
+      <div class="contact-grid">
+        {% if entreprise.adresse %}
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">Adresse</div>
+            <div class="contact-value">{{ entreprise.adresse|safe|unescape_html }}</div>
+          </div>
+        </div>
+        {% endif %} {% if entreprise.telephone %}
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-phone"></i>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">Téléphone</div>
+            <div class="contact-value">
+              <a href="tel:{{ entreprise.telephone }}" class="contact-phone">{{ entreprise.telephone }}</a>
+            </div>
+          </div>
+        </div>
+        {% endif %} {% if entreprise.email %}
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">Email</div>
+            <div class="contact-value">
+              <a href="mailto:{{ entreprise.email }}">{{ entreprise.email }}</a>
+            </div>
+          </div>
+        </div>
+        {% endif %} {% if entreprise.site_web %}
+        <div class="contact-item">
+          <div class="contact-icon">
+            <i class="fas fa-globe"></i>
+          </div>
+          <div class="contact-text">
+            <div class="contact-label">Site web</div>
+            <div class="contact-value">
+              {% if entreprise.site_web|slice:":4" == "http" %}
+              <a href="{{ entreprise.site_web }}" target="_blank" rel="noopener">{{ entreprise.site_web }}</a>
+              {% else %}
+              <span>{{ entreprise.site_web }}</span>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <!-- Additional Information -->
+    {% if entreprise.secteur_activite or entreprise.certifications %}
+    <div class="detail-section">
+      <h2 class="section-title">Informations complémentaires</h2>
+      <div class="row">
+        {% if entreprise.secteur_activite %}
+        <div class="col-md-6 mb-4">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-industry"></i>
+            </div>
+            <div class="contact-text">
+              <div class="contact-label">Secteur d'activité</div>
+              <div class="contact-value">{{ entreprise.secteur_activite|unescape_html|lower }}</div>
+            </div>
+          </div>
+        </div>
+        {% endif %} {% if entreprise.certifications %}
+        <div class="col-md-6 mb-4">
+          <div class="contact-item">
+            <div class="contact-icon">
+              <i class="fas fa-certificate"></i>
+            </div>
+            <div class="contact-text">
+              <div class="contact-label">Certifications</div>
+              <div class="contact-value">{{ entreprise.certifications|safe|unescape_html }}</div>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Produits Section -->
+<div class="produits-section">
+  <div class="container">
+    <h2 class="section-title text-center">Produits de {{ entreprise.nom }}</h2>
+
+    {% if produits %}
+    <div class="row">
+      {% for produit in produits %}
+      <div class="col-lg-4 col-md-6 mb-4">
+        <div class="produit-card">
+          {% if produit.image %}
+          <div class="produit-image-wrapper" style="position: relative; width: 100%; padding-top: 75%; overflow: hidden; background: #f8f9fa; border-radius: 12px 12px 0 0;">
+            <img
+              src="{{ produit.image.url }}"
+              class="produit-image"
+              alt="{{ produit.nom }}"
+              style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+            />
+          </div>
+          {% else %}
+          <div class="produit-image-placeholder">
+            <i class="fas fa-box fa-4x text-muted"></i>
+          </div>
+          {% endif %}
+
+          <div class="produit-content">
+            {% if produit.type_produit %}
+            <span class="produit-type" style="display: inline-block; padding: 4px 12px; background: rgba(0, 141, 63, 0.1); color: #008d3f; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin-bottom: 12px; font-family: var(--title-font, 'Century Gothic', sans-serif);">
+              {{ produit.type_produit.nom }}
+            </span>
+            {% endif %}
+            <h3 class="produit-title">{{ produit.nom }}</h3>
+
+            {% if produit.description_courte %}
+            <p class="produit-description">
+              {{ produit.description_courte|truncatewords:20 }}
+            </p>
+            {% endif %}
+            
+            <button 
+              class="view-produit-btn" 
+              onclick="openProductModal('{% if produit.image %}{{ produit.image.url }}{% endif %}', '{{ produit.nom|escapejs }}', '{{ produit.description_courte|escapejs }}', '{{ produit.type_produit.nom|default:""|escapejs }}')"
+              style="width: 100%; padding: 12px 20px; background: #008d3f; color: white; border: none; border-radius: 10px; font-weight: 600; font-size: 0.95rem; cursor: pointer; transition: all 0.3s ease; font-family: var(--title-font, 'Century Gothic', sans-serif); display: flex; align-items: center; justify-content: center; gap: 8px;"
+            >
+              <i class="fas fa-eye"></i>Voir le produit
+            </button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-produits">
+      <div class="empty-icon">
+        <i class="fas fa-box"></i>
+      </div>
+      <h3 class="empty-title">Aucun produit disponible</h3>
+      <p class="empty-text">
+        Cette entreprise n'a pas encore ajouté de produits à son catalogue.
+      </p>
+    </div>
+    {% endif %}
+
+    <div class="text-center">
+      <a href="{% url 'aguipex-entreprises' %}" class="back-btn">
+        <i class="fas fa-arrow-left me-2"></i>Retour aux entreprises
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Product Modal -->
+<div class="product-modal" id="product-modal" onclick="closeProductModal(event)" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.9); z-index: 10000; align-items: center; justify-content: center; padding: 20px;">
+  <div class="product-modal-content" onclick="event.stopPropagation()" style="position: relative; max-width: 900px; max-height: 90vh; background: white; border-radius: 16px; overflow: hidden;">
+    <button class="product-modal-close" onclick="closeProductModal()" style="position: absolute; top: 16px; right: 16px; width: 40px; height: 40px; background: rgba(0, 0, 0, 0.7); color: white; border: none; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 10001;">
+      <i class="fas fa-times"></i>
+    </button>
+    <img id="modal-image" src="" alt="" class="product-modal-image" style="width: 100%; max-height: 60vh; object-fit: contain; background: #f8f9fa;">
+    <div class="product-modal-info" style="padding: 24px;">
+      <span class="product-modal-type" id="modal-type" style="display: inline-block; padding: 6px 16px; background: rgba(0, 141, 63, 0.1); color: #008d3f; border-radius: 20px; font-size: 0.85rem; font-weight: 600; margin-bottom: 12px; font-family: var(--title-font, 'Century Gothic', sans-serif);"></span>
+      <h2 class="product-modal-name" id="modal-name" style="font-size: 1.5rem; font-weight: 700; color: #333; margin-bottom: 12px; font-family: var(--title-font, 'Century Gothic', sans-serif);"></h2>
+      <p class="product-modal-description" id="modal-description" style="color: #6c757d; font-size: 1rem; line-height: 1.7; margin-bottom: 20px; font-family: var(--title-font, 'Century Gothic', sans-serif);"></p>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+function openProductModal(imageUrl, nom, description, typeProduit) {
+  document.getElementById('modal-image').src = imageUrl;
+  document.getElementById('modal-name').textContent = nom;
+  document.getElementById('modal-description').textContent = description;
+  if (typeProduit) {
+    document.getElementById('modal-type').textContent = typeProduit;
+    document.getElementById('modal-type').style.display = 'inline-block';
+  } else {
+    document.getElementById('modal-type').style.display = 'none';
+  }
+  document.getElementById('product-modal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProductModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('product-modal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeProductModal();
+  }
+});
+</script>
+{% endblock script %}

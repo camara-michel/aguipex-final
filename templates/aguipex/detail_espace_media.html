@@ -1,0 +1,217 @@
+
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+    .media-detail-header {
+        background: linear-gradient(135deg, #008D3F 0%, #006B2F 100%);
+        color: white;
+        padding: 2.5rem 0;
+        margin-bottom: 2rem;
+    }
+    
+    .breadcumb-title {
+        font-size: 1.6rem !important;
+    }
+    
+    .media-gallery {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    
+    .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.2rem;
+        margin-top: 1.2rem;
+    }
+    
+    .gallery-item {
+        position: relative;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        aspect-ratio: 16/9;
+    }
+    
+    .gallery-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    
+    .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+    
+    .gallery-item:hover img {
+        transform: scale(1.05);
+    }
+    
+    .gallery-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+    
+    .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+    }
+    
+    .gallery-btn {
+        background: rgba(255, 255, 255, 0.9);
+        color: #333;
+        padding: 10px 16px;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 0.85rem;
+        transition: all 0.3s ease;
+    }
+    
+    .gallery-btn:hover {
+        background: white;
+        color: #333;
+        transform: scale(1.05);
+    }
+    
+    .media-info {
+        background: #fff;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+    }
+    
+    .media-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #333;
+        margin-bottom: 1rem;
+        line-height: 1.3;
+    }
+    
+    .media-meta {
+        color: #666;
+        font-size: 0.85rem;
+        margin-bottom: 1.2rem;
+    }
+    
+    .no-images {
+        text-align: center;
+        padding: 2.5rem;
+        color: #666;
+    }
+    
+    .no-images i {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #ddd;
+    }
+    
+    .no-images h4 {
+        font-size: 1.1rem;
+    }
+    
+    .no-images p {
+        font-size: 0.9rem;
+    }
+    
+    .btn-outline-primary {
+        border-color: #008D3F;
+        color: #008D3F;
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #008D3F;
+        border-color: #008D3F;
+        color: white;
+    }
+    
+    .text-primary {
+        color: #008D3F !important;
+    }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="media-detail-header breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container text-center py-5">
+        <h1 class="breadcumb-title text-uppercase text-white fw-bold">{{espace_media.titre}}</h1>
+        <ul class="breadcumb-menu d-flex justify-content-center gap-3 mt-2">
+            <li><a href="{% url 'aguipex-index' %}" class="text-white">Accueil</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'aguipex-espaceMedia' %}" class="text-white">Espace média</a></li>
+            <li class="active text-white-50" aria-current="page">{{espace_media.titre}}</li>
+        </ul>
+    </div>
+</div>
+
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="media-gallery">
+                <h3 class="mb-4">
+                    <i class="fas fa-images me-2 text-primary"></i>
+                    Galerie d'images
+                </h3>
+                
+                {% if espace_media.image_media.all %}
+                <div class="gallery-grid">
+                    {% for image in espace_media.image_media.all %}
+                    <div class="gallery-item">
+                        <img src="{{image.images.url}}" alt="{{espace_media.titre}} - Image {{forloop.counter}}">
+                        <div class="gallery-overlay">
+                            <a href="{{image.images.url}}" class="gallery-btn popup-image">
+                                <i class="fas fa-expand me-2"></i>Voir en grand
+                            </a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="no-images">
+                    <i class="fas fa-images"></i>
+                    <h4>Aucune image disponible</h4>
+                    <p>Cet espace média ne contient pas encore d'images.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        
+        <div class="col-lg-4">
+            <div class="media-info">
+                <h2 class="media-title">{{espace_media.titre}}</h2>
+                <div class="media-meta">
+                    <p><i class="far fa-calendar-alt me-2"></i>Créé le {{espace_media.created_at|date:"d F Y"}}</p>
+                    <p><i class="fas fa-images me-2"></i>{{espace_media.image_media.count}} image(s)</p>
+                </div>
+                
+                <div class="d-grid gap-2">
+                    <a href="{% url 'aguipex-espaceMedia' %}" class="btn btn-outline-primary">
+                        <i class="fas fa-arrow-left me-2"></i>Retour à l'espace média
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

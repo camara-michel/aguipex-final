@@ -1,0 +1,302 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% load html_filters %}
+{% block style %}
+<style>
+  .ip-detail-section {
+    padding: 3rem 0 4rem;
+    background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
+  }
+
+  .ip-detail-header {
+    background: linear-gradient(135deg, rgba(0,141,63,0.05), rgba(0,168,84,0.05));
+    border-radius: 16px;
+    padding: 2.5rem;
+    margin-bottom: 2.5rem;
+    border-left: 5px solid #008d3f;
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .ip-detail-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, #008d3f, #00a854);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .ip-detail-code {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1.25rem;
+    background: #fff;
+    border-radius: 8px;
+    font-size: 1rem;
+    color: #6c757d;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+
+  .ip-detail-code strong {
+    color: #008d3f;
+    font-weight: 700;
+  }
+
+  .ip-description-card {
+    background: #fff;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.06);
+    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+  }
+
+  .ip-description-card h4 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #008d3f;
+    margin-bottom: 1.25rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .ip-description-card h4::before {
+    content: '';
+    width: 4px;
+    height: 30px;
+    background: linear-gradient(135deg, #008d3f, #00a854);
+    border-radius: 2px;
+  }
+
+  .ip-personnel-section {
+    margin-bottom: 2.5rem;
+    animation: fadeInUp 0.6s ease-out 0.4s backwards;
+  }
+
+  .ip-personnel-section h3 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .ip-personnel-section h3::before {
+    content: '';
+    width: 4px;
+    height: 35px;
+    background: linear-gradient(135deg, #008d3f, #00a854);
+    border-radius: 2px;
+  }
+
+  .ip-table-wrapper {
+    background: #fff;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .ip-table {
+    margin: 0;
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .ip-table thead {
+    background: linear-gradient(135deg, #008d3f, #00a854);
+  }
+
+  .ip-table thead th {
+    color: #fff;
+    font-weight: 600;
+    padding: 1.25rem 1.5rem;
+    border: none;
+    font-size: 0.95rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .ip-table tbody tr {
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+
+  .ip-table tbody tr:hover {
+    background: rgba(0,141,63,0.05);
+    transform: scale(1.01);
+  }
+
+  .ip-table tbody tr:last-child {
+    border-bottom: none;
+  }
+
+  .ip-table tbody td {
+    padding: 1.25rem 1.5rem;
+    vertical-align: middle;
+    border: none;
+  }
+
+  .ip-table tbody td strong {
+    color: #1a1a1a;
+    font-weight: 600;
+  }
+
+  .ip-table tbody td a {
+    color: #008d3f;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+
+  .ip-table tbody td a:hover {
+    color: #00a854;
+    text-decoration: underline;
+  }
+
+  .ip-back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.875rem 1.75rem;
+    background: linear-gradient(135deg, #008d3f, #00a854);
+    color: #fff;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 12px rgba(0,141,63,0.2);
+    animation: fadeInUp 0.6s ease-out 0.6s backwards;
+  }
+
+  .ip-back-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0,141,63,0.3);
+    color: #fff;
+    gap: 1rem;
+  }
+
+  .ip-empty-personnel {
+    text-align: center;
+    padding: 3rem 2rem;
+    background: #f8f9fa;
+    border-radius: 16px;
+    color: #6c757d;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .ip-detail-header {
+      padding: 1.5rem;
+    }
+    .ip-detail-header h1 {
+      font-size: 1.5rem;
+    }
+    .ip-description-card {
+      padding: 1.5rem;
+    }
+    .ip-table thead th,
+    .ip-table tbody td {
+      padding: 1rem;
+      font-size: 0.875rem;
+    }
+  }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+    <div class="container">
+        <div class="breadcumb-content">
+            <h1 class="breadcumb-title text-uppercase">{{ interprofession.nom }}</h1>
+            <ul class="breadcumb-menu">
+                <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+                <li><a href="{% url 'aguipex-interprofessions' %}">Interprofessions</a></li>
+                <li>{{ interprofession.nom }}</li>
+            </ul>
+        </div>
+    </div>
+</div>
+<section class="ip-detail-section">
+    <div class="container">
+        <div class="ip-detail-header">
+            <h1>{{ interprofession.nom }}</h1>
+            <div class="ip-detail-code">
+                <i class="far fa-hashtag"></i>
+                <span><strong>Code :</strong> {{ interprofession.code }}</span>
+            </div>
+        </div>
+
+        {% if interprofession.description %}
+        <div class="ip-description-card">
+            <h4>Description</h4>
+            <div class="card-text">
+                {{ interprofession.description|safe|unescape_html }}
+            </div>
+        </div>
+        {% endif %}
+
+        <div class="ip-personnel-section">
+            <h3>Personnels</h3>
+            {% if personnels %}
+            <div class="ip-table-wrapper">
+                <div class="table-responsive">
+                    <table class="ip-table">
+                        <thead>
+                            <tr>
+                                <th>Nom et prénom</th>
+                                <th>Poste</th>
+                                <th>Profession</th>
+                                <th>Localisation</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in personnels %}
+                            <tr>
+                                <td><strong>{{ p.prenom }} {{ p.nom }}</strong></td>
+                                <td>{{ p.poste|default:"—" }}</td>
+                                <td>{{ p.profession|default:"—" }}</td>
+                                <td>{{ p.localisation|default:"—" }}</td>
+                                <td>
+                                    {% if p.email %}
+                                    <a href="mailto:{{ p.email }}">{{ p.email }}</a>
+                                    {% else %}—{% endif %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {% else %}
+            <div class="ip-empty-personnel">
+                <p>Aucun personnel publié pour cette interprofession.</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="mt-4">
+            <a href="{% url 'aguipex-interprofessions' %}" class="ip-back-btn">
+                <i class="fas fa-arrow-left"></i>
+                Retour à la liste des interprofessions
+            </a>
+        </div>
+    </div>
+</section>
+{% endblock content %}

@@ -1,0 +1,730 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% load html_filters %}
+
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #333;
+    --muted: #6c757d;
+    --surface: #ffffff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.12);
+    --radius-lg: 16px;
+    --font-title: "Century Gothic", sans-serif;
+  }
+
+  /* HERO */
+  .breadcumb-wrapper {
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    padding: 60px 0;
+    text-align: center;
+    color: #fff;
+  }
+  .breadcumb-title {
+    font-weight: 800;
+    font-size: 2rem;
+    margin: 0 0 6px;
+    font-family: var(--font-title);
+  }
+  .breadcumb-menu {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    padding: 0;
+    font-size: 0.85rem;
+  }
+  .breadcumb-menu a {
+    color: #fff;
+    text-decoration: none;
+  }
+  .breadcumb-menu li + li::before {
+    content: '›';
+    margin: 0 5px;
+  }
+
+  /* NAVIGATION MODES */
+  .nav-modes {
+    background: white;
+    padding: 20px;
+    margin: -30px auto 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    max-width: 1200px;
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+  }
+  .nav-mode-btn {
+    padding: 12px 24px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    background: white;
+    color: var(--text);
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-title);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .nav-mode-btn:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.15);
+  }
+  .nav-mode-btn.active {
+    background: var(--brand);
+    color: white;
+    border-color: var(--brand);
+  }
+
+  /* SEARCH SECTION */
+  .search-section {
+    background: white;
+    padding: 24px;
+    margin-bottom: 30px;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .alert {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .alert-info {
+    background: rgba(0, 141, 63, 0.1);
+    color: var(--brand);
+    border: 1px solid rgba(0, 141, 63, 0.2);
+  }
+  .alert-error {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.2);
+  }
+  .search-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  .search-box {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: var(--font-title);
+    transition: all 0.2s ease;
+  }
+  .search-box:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+  }
+  .search-select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: var(--font-title);
+    background: white;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .search-select:focus {
+    outline: none;
+    border-color: var(--brand);
+    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+  }
+  .search-btn {
+    padding: 12px 24px;
+    background: var(--brand);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-title);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+  }
+  .search-btn:hover {
+    background: var(--brand-2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.3);
+  }
+  .search-tips {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.85rem;
+    font-family: var(--font-title);
+  }
+  .search-tips i {
+    color: var(--brand);
+  }
+
+  /* PRODUCTS GRID */
+  .products-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  .products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .products-count {
+    color: var(--muted);
+    font-size: 0.95rem;
+    font-family: var(--font-title);
+  }
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+    margin-bottom: 40px;
+  }
+  .product-card {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+  }
+  .product-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 75%;
+    overflow: hidden;
+    background: #f8f9fa;
+  }
+  .product-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .product-card:hover .product-image {
+    transform: scale(1.05);
+  }
+  .product-content {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .product-type {
+    display: inline-block;
+    padding: 4px 12px;
+    background: rgba(0, 141, 63, 0.1);
+    color: var(--brand);
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+  }
+  .product-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+    line-height: 1.3;
+  }
+  .product-description {
+    color: var(--muted);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin-bottom: 16px;
+    flex: 1;
+    font-family: var(--font-title);
+  }
+  .product-entreprise {
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 16px;
+  }
+  .product-entreprise-label {
+    font-size: 0.75rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-family: var(--font-title);
+  }
+  .product-entreprise-name {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: var(--font-title);
+  }
+  .product-entreprise-description {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 4px;
+    font-family: var(--font-title);
+  }
+  .product-view-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: var(--brand);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: var(--font-title);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .product-view-btn:hover {
+    background: var(--brand-2);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.3);
+  }
+
+  /* MODAL LIGHTBOX */
+  .product-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+  }
+  .product-modal.active {
+    display: flex;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .product-modal-content {
+    position: relative;
+    max-width: 900px;
+    max-height: 90vh;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    animation: slideUp 0.3s ease;
+  }
+  @keyframes slideUp {
+    from {
+      transform: translateY(50px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  .product-modal-close {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    width: 40px;
+    height: 40px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    transition: all 0.2s ease;
+  }
+  .product-modal-close:hover {
+    background: rgba(0, 0, 0, 0.9);
+    transform: rotate(90deg);
+  }
+  .product-modal-image {
+    width: 100%;
+    max-height: 60vh;
+    object-fit: contain;
+    background: #f8f9fa;
+  }
+  .product-modal-info {
+    padding: 24px;
+  }
+  .product-modal-type {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(0, 141, 63, 0.1);
+    color: var(--brand);
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+  }
+  .product-modal-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+  }
+  .product-modal-description {
+    color: var(--muted);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    font-family: var(--font-title);
+  }
+  .product-modal-entreprise {
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+  .product-modal-entreprise-label {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-bottom: 8px;
+    font-family: var(--font-title);
+  }
+  .product-modal-entreprise-name {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);
+    font-family: var(--font-title);
+  }
+
+  /* PAGINATION */
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  .pagination a,
+  .pagination span {
+    padding: 10px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    color: var(--text);
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.2s ease;
+    font-family: var(--font-title);
+  }
+  .pagination a:hover {
+    border-color: var(--brand);
+    color: var(--brand);
+  }
+  .pagination .current {
+    background: var(--brand);
+    color: white;
+    border-color: var(--brand);
+  }
+
+  /* EMPTY STATE */
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+  }
+  .empty-state-icon {
+    font-size: 4rem;
+    color: #dee2e6;
+    margin-bottom: 20px;
+  }
+  .empty-state-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 12px;
+    font-family: var(--font-title);
+  }
+  .empty-state-text {
+    color: var(--muted);
+    font-size: 1rem;
+    font-family: var(--font-title);
+  }
+
+  @media (max-width: 768px) {
+    .products-grid {
+      grid-template-columns: 1fr;
+    }
+    .search-form {
+      grid-template-columns: 1fr;
+      gap: 10px;
+    }
+    .search-btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="breadcumb-wrapper">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title">Produits & Services</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li>Produits</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- Navigation Modes -->
+<div class="container">
+  <div class="nav-modes">
+    <a href="{% url 'aguipex-produits' %}" class="nav-mode-btn {% if mode == 'produits' %}active{% endif %}">
+      <i class="fas fa-tags"></i>
+      Par Type de Produit
+    </a>
+    <a href="{% url 'aguipex-entreprises' %}" class="nav-mode-btn {% if mode == 'entreprises' %}active{% endif %}">
+      <i class="fas fa-building"></i>
+      Par Entreprise
+    </a>
+  </div>
+</div>
+
+<!-- Search Section -->
+<section class="search-section">
+  {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-error">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+  
+  {% if search_query or type_produit_selected %}
+  <div class="alert alert-info">
+    <i class="fas fa-search me-2"></i>
+      {% if produits %} 
+        {{ produits.paginator.count }} produit{{ produits.paginator.count|pluralize }} trouvé{{ produits.paginator.count|pluralize }}
+        {% if search_query %} pour "{{ search_query|unescape_html }}"{% endif %}
+        {% if type_produit_selected %} avec le type de produit "{{ type_produit_selected.nom|unescape_html }}"{% endif %}
+    {% else %}
+      Aucun produit trouvé
+      {% if search_query %} pour "{{ search_query|unescape_html }}"{% endif %}
+      {% if type_produit_selected %} avec le type de produit "{{ type_produit_selected.nom|unescape_html }}"{% endif %}
+    {% endif %}
+    <a href="{% url 'aguipex-produits' %}" class="float-end text-decoration-none">
+      <i class="fas fa-times me-1"></i>Effacer la recherche
+    </a>
+  </div>
+  {% endif %}
+
+  <form method="get" class="search-form">
+    <div>
+      <input
+        type="text"
+        name="q"
+        placeholder="Rechercher par nom, description, entreprise..."
+        value="{{ search_query|default:'' }}"
+        class="search-box"
+      />
+    </div>
+    <div>
+      <select name="type_produit" class="search-select">
+        <option value="">Tous les types de produits</option>
+        {% for type in types_produits %}
+        <option value="{{ type.slug }}" {% if type_produit_selected and type_produit_selected.slug == type.slug %}selected{% endif %}>{{ type.nom|unescape_html }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <button type="submit" class="search-btn">
+      <i class="fas fa-search"></i>Rechercher
+    </button>
+  </form>
+
+  <div class="search-tips">
+    <small>
+      <i class="fas fa-lightbulb me-1"></i>
+      Recherche par texte : nom de produit, description, nom d'entreprise | 
+      Sélectionnez un type de produit spécifique dans la liste déroulante
+    </small>
+  </div>
+</section>
+
+<!-- Products Section -->
+<div class="products-section">
+  <div class="products-header">
+    <div class="products-count">
+      {% if type_produit_selected %}
+        <strong>{{ total_produits }}</strong> produit{{ total_produits|pluralize }} trouvé{{ total_produits|pluralize }} dans "{{ type_produit_selected.nom|unescape_html }}"
+      {% else %}
+        <strong>{{ total_produits }}</strong> produit{{ total_produits|pluralize }} au total
+      {% endif %}
+    </div>
+  </div>
+
+  {% if produits %}
+  <div class="products-grid">
+    {% for produit in produits %}
+    <div class="product-card">
+      <div class="product-image-wrapper">
+        {% if produit.image %}
+        <img src="{{ produit.image.url }}" alt="{{ produit.nom|unescape_html }}" class="product-image" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; background: #f8f9fa;">
+          <i class="fas fa-image fa-3x" style="color: #dee2e6;"></i>
+        </div>
+        {% else %}
+        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f8f9fa;">
+          <i class="fas fa-image fa-3x" style="color: #dee2e6;"></i>
+        </div>
+        {% endif %}
+      </div>
+      <div class="product-content">
+        {% if produit.type_produit %}
+        <span class="product-type">{{ produit.type_produit.nom|unescape_html }}</span>
+        {% endif %}
+        <h3 class="product-name">{{ produit.nom|unescape_html }}</h3>
+        <p class="product-description">{{ produit.description_courte|unescape_html|truncatewords:20 }}</p>
+        <div class="product-entreprise">
+          <div class="product-entreprise-label">Entreprise</div>
+          <div class="product-entreprise-name">{{ produit.entreprise.nom|unescape_html|upper }}</div>
+          {% if produit.entreprise.description %}
+          <div class="product-entreprise-description">{{ produit.entreprise.description|unescape_html|striptags|truncatewords:15 }}</div>
+          {% endif %}
+        </div>
+        <button class="product-view-btn" onclick="openProductModal({{ produit.id }}, '{% if produit.image %}{{ produit.image.url }}{% else %}{% static 'assets/img/placeholder.png' %}{% endif %}', '{{ produit.nom|escapejs }}', '{{ produit.description_courte|escapejs }}', '{{ produit.entreprise.nom|escapejs }}', '{{ produit.type_produit.nom|default:""|escapejs }}')">
+          <i class="fas fa-eye"></i>
+          Voir le produit
+        </button>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+
+  <!-- Pagination -->
+  {% if produits.has_other_pages %}
+  <div class="pagination">
+    {% if produits.has_previous %}
+    <a href="?page={{ produits.previous_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if type_produit_selected %}&type_produit={{ type_produit_selected.slug }}{% endif %}">&laquo; Précédent</a>
+    {% endif %}
+    {% for num in produits.paginator.page_range %}
+      {% if produits.number == num %}
+      <span class="current">{{ num }}</span>
+      {% elif num > produits.number|add:'-3' and num < produits.number|add:'3' %}
+      <a href="?page={{ num }}{% if search_query %}&q={{ search_query }}{% endif %}{% if type_produit_selected %}&type_produit={{ type_produit_selected.slug }}{% endif %}">{{ num }}</a>
+      {% endif %}
+    {% endfor %}
+    {% if produits.has_next %}
+    <a href="?page={{ produits.next_page_number }}{% if search_query %}&q={{ search_query }}{% endif %}{% if type_produit_selected %}&type_produit={{ type_produit_selected.slug }}{% endif %}">Suivant &raquo;</a>
+    {% endif %}
+  </div>
+  {% endif %}
+  {% else %}
+  <div class="empty-state">
+    <div class="empty-state-icon"><i class="fas fa-inbox"></i></div>
+    <h3 class="empty-state-title">Aucun produit trouvé</h3>
+    <p class="empty-state-text">Il n'y a pas encore de produits dans cette catégorie.</p>
+  </div>
+  {% endif %}
+</div>
+
+<!-- Product Modal -->
+<div class="product-modal" id="product-modal" onclick="closeProductModal(event)">
+  <div class="product-modal-content" onclick="event.stopPropagation()">
+    <button class="product-modal-close" onclick="closeProductModal()">
+      <i class="fas fa-times"></i>
+    </button>
+    <img id="modal-image" src="" alt="" class="product-modal-image">
+    <div class="product-modal-info">
+      <span class="product-modal-type" id="modal-type"></span>
+      <h2 class="product-modal-name" id="modal-name"></h2>
+      <p class="product-modal-description" id="modal-description"></p>
+      <div class="product-modal-entreprise">
+        <div class="product-modal-entreprise-label">Entreprise</div>
+        <div class="product-modal-entreprise-name" id="modal-entreprise"></div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+function openProductModal(id, imageUrl, nom, description, entreprise, typeProduit) {
+  document.getElementById('modal-image').src = imageUrl;
+  document.getElementById('modal-name').textContent = nom;
+  document.getElementById('modal-description').textContent = description;
+  document.getElementById('modal-entreprise').textContent = entreprise;
+  if (typeProduit) {
+    document.getElementById('modal-type').textContent = typeProduit;
+    document.getElementById('modal-type').style.display = 'inline-block';
+  } else {
+    document.getElementById('modal-type').style.display = 'none';
+  }
+  document.getElementById('product-modal').classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeProductModal(event) {
+  if (event && event.target !== event.currentTarget) return;
+  document.getElementById('product-modal').classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+// Fermer avec Escape
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeProductModal();
+  }
+});
+</script>
+{% endblock script %}
+

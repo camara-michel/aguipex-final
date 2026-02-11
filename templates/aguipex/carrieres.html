@@ -1,0 +1,641 @@
+{% extends 'partials/base.html' %}
+{% load static %}
+
+{% block title %}Carrières - AGUIPEX{% endblock %}
+
+{% block content %}
+<div class="container-fluid py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <!-- En-tête de la page -->
+            <div class="text-center mb-5">
+                <div class="mb-4">
+                    <i class="fas fa-briefcase fa-3x text-primary"></i>
+                </div>
+                <h1 class="display-5 fw-bold text-primary mb-3">
+                    Rejoignez Notre Équipe
+                </h1>
+                <p class="lead text-muted">
+                    Découvrez les opportunités de carrière chez AGUIPEX et contribuez à la promotion des exportations
+                    guinéennes.
+                </p>
+                <div class="alert alert-info border-0 bg-light">
+                    <i class="fas fa-info-circle me-2"></i>
+                    <strong>Envie de nous rejoindre ?</strong> Découvrez nos offres d'emploi et postulez en ligne.
+                </div>
+            </div>
+
+            <!-- Section Pourquoi nous rejoindre -->
+            <div class="card shadow-lg border-0 mb-5">
+                <div class="card-body p-5">
+                    <h2 class="h3 text-primary mb-4 text-center">
+                        <i class="fas fa-star me-2"></i>Pourquoi Travailler Chez AGUIPEX ?
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="text-center">
+                                <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                    style="width: 80px; height: 80px;">
+                                    <i class="fas fa-globe-africa fa-2x text-primary"></i>
+                                </div>
+                                <h5 class="fw-bold">Impact International</h5>
+                                <p class="text-muted small">Contribuez au développement économique de la Guinée sur la
+                                    scène internationale.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="text-center">
+                                <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                    style="width: 80px; height: 80px;">
+                                    <i class="fas fa-users fa-2x text-primary"></i>
+                                </div>
+                                <h5 class="fw-bold">Équipe Dynamique</h5>
+                                <p class="text-muted small">Rejoignez une équipe passionnée et multiculturelle.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="text-center">
+                                <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                    style="width: 80px; height: 80px;">
+                                    <i class="fas fa-graduation-cap fa-2x text-primary"></i>
+                                </div>
+                                <h5 class="fw-bold">Formation Continue</h5>
+                                <p class="text-muted small">Développez vos compétences avec nos programmes de formation.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-lg-3 mb-4">
+                            <div class="text-center">
+                                <div class="bg-primary bg-opacity-10 rounded-circle d-inline-flex align-items-center justify-content-center mb-3"
+                                    style="width: 80px; height: 80px;">
+                                    <i class="fas fa-chart-line fa-2x text-primary"></i>
+                                </div>
+                                <h5 class="fw-bold">Croissance Personnelle</h5>
+                                <p class="text-muted small">Évoluez dans un environnement professionnel stimulant.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Offres d'emploi -->
+            <div class="card shadow-lg border-0 mb-5">
+                <div class="card-body p-5">
+                    <h2 class="h3 text-primary mb-4">
+                        <i class="fas fa-search me-2"></i>Offres d'Emploi Actuelles
+                    </h2>
+
+                    <!-- Filtres -->
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-3">
+                            <select class="form-select" id="filter-department">
+                                <option value="">Tous les départements</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="technique">Technique</option>
+                                <option value="administration">Administration</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <select class="form-select" id="filter-type">
+                                <option value="">Tous les types de contrat</option>
+                                <option value="cdi">CDI</option>
+                                <option value="cdd">CDD</option>
+                                <option value="stage">Stage</option>
+                                <option value="alternance">Alternance</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4 mb-3">
+                            <select class="form-select" id="filter-location">
+                                <option value="">Toutes les localisations</option>
+                                <option value="conakry">Conakry</option>
+                                <option value="kankan">Kankan</option>
+                                <option value="kindia">Kindia</option>
+                                <option value="nzerekore">Nzérékoré</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Liste des offres -->
+                    <div id="offres-container">
+                        <!-- Offre 1 -->
+                        <div class="offre-item border rounded p-4 mb-4" data-department="commercial" data-type="cdi"
+                            data-location="conakry">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h4 class="h5 fw-bold text-primary mb-2">Chargé de Développement Commercial</h4>
+                                    <p class="text-muted mb-2">
+                                        <i class="fas fa-building me-2"></i>Département Commercial
+                                        <span class="mx-3"><i class="fas fa-map-marker-alt me-2"></i>Conakry</span>
+                                        <span class="mx-3"><i class="fas fa-clock me-2"></i>CDI</span>
+                                    </p>
+                                    <p class="mb-3">
+                                        Nous recherchons un chargé de développement commercial pour renforcer notre
+                                        équipe
+                                        et développer nos partenariats internationaux.
+                                    </p>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-light text-dark">Négociation</span>
+                                        <span class="badge bg-light text-dark">Relation client</span>
+                                        <span class="badge bg-light text-dark">Export</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offreModal"
+                                        data-offre="1">
+                                        <i class="fas fa-eye me-2"></i>Voir l'offre
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Offre 2 -->
+                        <div class="offre-item border rounded p-4 mb-4" data-department="marketing" data-type="cdd"
+                            data-location="conakry">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h4 class="h5 fw-bold text-primary mb-2">Chargé de Communication Marketing</h4>
+                                    <p class="text-muted mb-2">
+                                        <i class="fas fa-bullhorn me-2"></i>Département Marketing
+                                        <span class="mx-3"><i class="fas fa-map-marker-alt me-2"></i>Conakry</span>
+                                        <span class="mx-3"><i class="fas fa-clock me-2"></i>CDD 12 mois</span>
+                                    </p>
+                                    <p class="mb-3">
+                                        Rejoignez notre équipe marketing pour promouvoir les exportations guinéennes
+                                        et développer notre présence digitale.
+                                    </p>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-light text-dark">Communication</span>
+                                        <span class="badge bg-light text-dark">Digital</span>
+                                        <span class="badge bg-light text-dark">Événementiel</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offreModal"
+                                        data-offre="2">
+                                        <i class="fas fa-eye me-2"></i>Voir l'offre
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Offre 3 -->
+                        <div class="offre-item border rounded p-4 mb-4" data-department="technique" data-type="stage"
+                            data-location="conakry">
+                            <div class="row align-items-center">
+                                <div class="col-md-8">
+                                    <h4 class="h5 fw-bold text-primary mb-2">Stagiaire en Développement Web</h4>
+                                    <p class="text-muted mb-2">
+                                        <i class="fas fa-code me-2"></i>Département Technique
+                                        <span class="mx-3"><i class="fas fa-map-marker-alt me-2"></i>Conakry</span>
+                                        <span class="mx-3"><i class="fas fa-clock me-2"></i>Stage 6 mois</span>
+                                    </p>
+                                    <p class="mb-3">
+                                        Stage passionnant pour un étudiant en informatique souhaitant contribuer
+                                        au développement de nos outils digitaux.
+                                    </p>
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <span class="badge bg-light text-dark">Développement</span>
+                                        <span class="badge bg-light text-dark">Web</span>
+                                        <span class="badge bg-light text-dark">Innovation</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-4 text-md-end">
+                                    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#offreModal"
+                                        data-offre="3">
+                                        <i class="fas fa-eye me-2"></i>Voir l'offre
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Message si aucune offre -->
+                    <div id="no-offres" class="text-center py-5" style="display: none;">
+                        <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                        <h4 class="text-muted">Aucune offre ne correspond à vos critères</h4>
+                        <p class="text-muted">Essayez de modifier vos filtres ou revenez plus tard.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Candidature spontanée -->
+            <div class="card shadow-lg border-0 mb-5">
+                <div class="card-body p-5">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h2 class="h3 text-primary mb-3">
+                                <i class="fas fa-paper-plane me-2"></i>Candidature Spontanée
+                            </h2>
+                            <p class="text-muted mb-4">
+                                Vous ne trouvez pas d'offre qui vous correspond ? Envoyez-nous votre candidature
+                                spontanée !
+                                Nous étudions toutes les candidatures et contactons les profils qui nous intéressent.
+                            </p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check text-success me-2"></i>CV à jour</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>Lettre de motivation</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>Portfolio (si applicable)</li>
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <ul class="list-unstyled">
+                                        <li><i class="fas fa-check text-success me-2"></i>Réponse sous 48h</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>Suivi personnalisé</li>
+                                        <li><i class="fas fa-check text-success me-2"></i>Opportunités futures</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <button class="btn btn-primary btn-lg" data-bs-toggle="modal"
+                                data-bs-target="#candidatureModal">
+                                <i class="fas fa-upload me-2"></i>Postuler
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Avantages -->
+            <div class="card shadow-lg border-0 mb-5">
+                <div class="card-body p-5">
+                    <h2 class="h3 text-primary mb-4 text-center">
+                        <i class="fas fa-gift me-2"></i>Nos Avantages
+                    </h2>
+                    <div class="row">
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center p-4">
+                                <i class="fas fa-heartbeat fa-2x text-primary mb-3"></i>
+                                <h5 class="fw-bold">Santé & Bien-être</h5>
+                                <p class="text-muted">Assurance santé complète et programmes de bien-être au travail.
+                                </p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center p-4">
+                                <i class="fas fa-calendar-alt fa-2x text-primary mb-3"></i>
+                                <h5 class="fw-bold">Congés & RTT</h5>
+                                <p class="text-muted">25 jours de congés payés + RTT selon l'ancienneté.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="text-center p-4">
+                                <i class="fas fa-chart-line fa-2x text-primary mb-3"></i>
+                                <h5 class="fw-bold">Évolution</h5>
+                                <p class="text-muted">Plan de carrière personnalisé et promotions internes.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Lien de retour -->
+            <div class="text-center mt-4">
+                <a href="{% url 'aguipex-index' %}" class="btn btn-outline-secondary">
+                    <i class="fas fa-arrow-left me-2"></i>
+                    Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Détail Offre -->
+<div class="modal fade" id="offreModal" tabindex="-1" aria-labelledby="offreModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="offreModalLabel">Détail de l'Offre</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body" id="offreModalBody">
+                <!-- Le contenu sera chargé dynamiquement -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-primary" onclick="postulerOffre()">
+                    <i class="fas fa-paper-plane me-2"></i>Postuler
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Candidature -->
+<div class="modal fade" id="candidatureModal" tabindex="-1" aria-labelledby="candidatureModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="candidatureModalLabel">Candidature Spontanée</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form id="candidatureForm">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="nom" class="form-label">Nom complet *</label>
+                            <input type="text" class="form-control" id="nom" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="telephone" class="form-label">Téléphone</label>
+                            <input type="tel" class="form-control" id="telephone">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="departement" class="form-label">Département d'intérêt *</label>
+                            <select class="form-select" id="departement" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="commercial">Commercial</option>
+                                <option value="marketing">Marketing</option>
+                                <option value="technique">Technique</option>
+                                <option value="administration">Administration</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Lettre de motivation *</label>
+                        <textarea class="form-control" id="message" rows="5" required
+                            placeholder="Présentez-vous et expliquez pourquoi vous souhaitez rejoindre AGUIPEX..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cv" class="form-label">CV (PDF) *</label>
+                        <input type="file" class="form-control" id="cv" accept=".pdf" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-primary" onclick="envoyerCandidature()">
+                    <i class="fas fa-paper-plane me-2"></i>Envoyer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Styles personnalisés -->
+<style>
+    .offre-item {
+        transition: all 0.3s ease;
+        border-color: #e9ecef !important;
+    }
+
+    .offre-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        border-color: #008D3F !important;
+    }
+
+    .card {
+        border-radius: 20px;
+        overflow: hidden;
+    }
+
+    .text-primary {
+        color: #008D3F !important;
+    }
+
+    .btn-outline-secondary {
+        border-radius: 25px;
+        padding: 10px 25px;
+        transition: all 0.3s ease;
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        border-color: #6c757d;
+        transform: translateY(-1px);
+    }
+
+    .badge {
+        border-radius: 20px;
+        padding: 8px 16px;
+        font-size: 0.85rem;
+    }
+
+    .form-select,
+    .form-control {
+        border-radius: 10px;
+        border: 2px solid #e9ecef;
+        transition: all 0.3s ease;
+    }
+
+    .form-select:focus,
+    .form-control:focus {
+        border-color: #008D3F;
+        box-shadow: 0 0 0 0.2rem rgba(0, 141, 63, 0.25);
+    }
+</style>
+{% endblock %}
+
+{% block script %}
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Filtrage des offres
+        const filterSelects = document.querySelectorAll('#filter-department, #filter-type, #filter-location');
+        const offresContainer = document.getElementById('offres-container');
+        const noOffres = document.getElementById('no-offres');
+        const offresItems = document.querySelectorAll('.offre-item');
+
+        function filterOffres() {
+            const department = document.getElementById('filter-department').value;
+            const type = document.getElementById('filter-type').value;
+            const location = document.getElementById('filter-location').value;
+
+            let visibleCount = 0;
+
+            offresItems.forEach(item => {
+                const itemDepartment = item.dataset.department;
+                const itemType = item.dataset.type;
+                const itemLocation = item.dataset.location;
+
+                const departmentMatch = !department || itemDepartment === department;
+                const typeMatch = !type || itemType === type;
+                const locationMatch = !location || itemLocation === location;
+
+                if (departmentMatch && typeMatch && locationMatch) {
+                    item.style.display = 'block';
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            if (visibleCount === 0) {
+                noOffres.style.display = 'block';
+            } else {
+                noOffres.style.display = 'none';
+            }
+        }
+
+        filterSelects.forEach(select => {
+            select.addEventListener('change', filterOffres);
+        });
+
+        // Détail des offres
+        const offreModal = document.getElementById('offreModal');
+        const offreModalBody = document.getElementById('offreModalBody');
+
+        offreModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const offreId = button.getAttribute('data-offre');
+
+            // Contenu des offres (en production, ceci viendrait d'une base de données)
+            const offres = {
+                1: {
+                    titre: "Chargé de Développement Commercial",
+                    description: `
+                        <h4>Description du poste</h4>
+                        <p>Nous recherchons un chargé de développement commercial pour renforcer notre équipe et développer nos partenariats internationaux.</p>
+                        
+                        <h5>Missions principales :</h5>
+                        <ul>
+                            <li>Développer le portefeuille clients et prospects</li>
+                            <li>Négocier des partenariats commerciaux</li>
+                            <li>Participer aux salons et événements internationaux</li>
+                            <li>Analyser les marchés et opportunités</li>
+                        </ul>
+                        
+                        <h5>Profil recherché :</h5>
+                        <ul>
+                            <li>Bac+5 en commerce international ou équivalent</li>
+                            <li>3-5 ans d'expérience en développement commercial</li>
+                            <li>Maîtrise de l'anglais et du français</li>
+                            <li>Capacité d'adaptation et esprit d'équipe</li>
+                        </ul>
+                        
+                        <h5>Conditions :</h5>
+                        <ul>
+                            <li>CDI à temps plein</li>
+                            <li>Salaire attractif selon expérience</li>
+                            <li>Avantages sociaux complets</li>
+                            <li>Formation continue</li>
+                        </ul>
+                    `
+                },
+                2: {
+                    titre: "Chargé de Communication Marketing",
+                    description: `
+                        <h4>Description du poste</h4>
+                        <p>Rejoignez notre équipe marketing pour promouvoir les exportations guinéennes et développer notre présence digitale.</p>
+                        
+                        <h5>Missions principales :</h5>
+                        <ul>
+                            <li>Gérer la communication digitale et traditionnelle</li>
+                            <li>Créer du contenu marketing engageant</li>
+                            <li>Organiser des événements et salons</li>
+                            <li>Analyser les performances marketing</li>
+                        </ul>
+                        
+                        <h5>Profil recherché :</h5>
+                        <ul>
+                            <li>Bac+4/5 en marketing ou communication</li>
+                            <li>2-3 ans d'expérience en marketing</li>
+                            <li>Maîtrise des outils digitaux</li>
+                            <li>Créativité et sens de l'organisation</li>
+                        </ul>
+                        
+                        <h5>Conditions :</h5>
+                        <ul>
+                            <li>CDD 12 mois renouvelable</li>
+                            <li>Salaire selon grille en vigueur</li>
+                            <li>Avantages sociaux</li>
+                            <li>Évolution possible en CDI</li>
+                        </ul>
+                    `
+                },
+                3: {
+                    titre: "Stagiaire en Développement Web",
+                    description: `
+                        <h4>Description du poste</h4>
+                        <p>Stage passionnant pour un étudiant en informatique souhaitant contribuer au développement de nos outils digitaux.</p>
+                        
+                        <h5>Missions principales :</h5>
+                        <ul>
+                            <li>Développer des fonctionnalités web</li>
+                            <li>Maintenir et améliorer nos sites</li>
+                            <li>Participer aux projets d'innovation</li>
+                            <li>Apprendre les bonnes pratiques</li>
+                        </ul>
+                        
+                        <h5>Profil recherché :</h5>
+                        <ul>
+                            <li>Étudiant en informatique (Bac+3 minimum)</li>
+                            <li>Connaissances en HTML, CSS, JavaScript</li>
+                            <li>Intérêt pour le développement web</li>
+                            <li>Motivation et curiosité</li>
+                        </ul>
+                        
+                        <h5>Conditions :</h5>
+                        <ul>
+                            <li>Stage de 6 mois</li>
+                            <li>Gratification selon la loi</li>
+                            <li>Encadrement par un développeur senior</li>
+                            <li>Possibilité d'embauche</li>
+                        </ul>
+                    `
+                }
+            };
+
+            const offre = offres[offreId];
+            if (offre) {
+                offreModalBody.innerHTML = offre.description;
+            }
+        });
+    });
+
+    function postulerOffre() {
+        // Rediriger vers le formulaire de candidature
+        document.getElementById('offreModal').querySelector('.btn-close').click();
+        document.getElementById('candidatureModal').querySelector('.btn-close').click();
+
+        // Afficher un message de succès
+        if (typeof Swal !== 'undefined') {
+            Swal.fire({
+                icon: 'success',
+                title: 'Candidature envoyée !',
+                text: 'Votre candidature a été reçue. Nous vous recontacterons dans les plus brefs délais.',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#008D3F'
+            });
+        } else {
+            alert('Candidature envoyée avec succès !');
+        }
+    }
+
+    function envoyerCandidature() {
+        const form = document.getElementById('candidatureForm');
+
+        if (form.checkValidity()) {
+            // En production, ici on enverrait les données au serveur
+            if (typeof Swal !== 'undefined') {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Candidature envoyée !',
+                    text: 'Nous avons bien reçu votre candidature spontanée. Nous l\'étudierons avec attention et vous recontacterons si votre profil nous intéresse.',
+                    confirmButtonText: 'OK',
+                    confirmButtonColor: '#008D3F'
+                }).then(() => {
+                    document.getElementById('candidatureModal').querySelector('.btn-close').click();
+                    form.reset();
+                });
+            } else {
+                alert('Candidature envoyée avec succès !');
+                document.getElementById('candidatureModal').querySelector('.btn-close').click();
+                form.reset();
+            }
+        } else {
+            form.reportValidity();
+        }
+    }
+</script>
+{% endblock %}

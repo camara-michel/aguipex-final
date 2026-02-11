@@ -1,0 +1,421 @@
+{% extends "partials/base.html" %}
+{% load static %}
+{% block style %}
+<style>
+  :root {
+    --brand: #008d3f;
+    --brand-2: #00a854;
+    --text: #1a1a1a;
+    --muted: #6c757d;
+    --surface: #fff;
+    --surface-2: #f8f9fa;
+    --shadow: 0 4px 12px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
+    --shadow-xl: 0 20px 60px rgba(0,141,63,0.15);
+    --radius: 12px;
+    --radius-lg: 16px;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes slideIn {
+    from {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
+    }
+  }
+
+  .breadcumb-wrapper { 
+    background: linear-gradient(135deg, var(--brand), var(--brand-2)); 
+    padding: 50px 0; 
+    color: #fff; 
+  }
+  .breadcumb-title { font-weight: 800; font-size: 1.75rem; margin: 0 0 6px; }
+  .breadcumb-menu { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; }
+  .breadcumb-menu li + li::before { content: '›'; margin: 0 6px; opacity: 0.8; }
+  .breadcumb-menu a { color: #fff; text-decoration: none; }
+
+  .page-intro { 
+    max-width: 720px; 
+    margin: 0 auto 3rem; 
+    text-align: center;
+    animation: fadeInUp 0.6s ease-out;
+  }
+  .page-intro h2 { 
+    font-size: 1.75rem; 
+    font-weight: 700; 
+    color: var(--text); 
+    margin-bottom: 0.75rem;
+    background: linear-gradient(135deg, var(--brand), var(--brand-2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .page-intro p { 
+    color: var(--muted); 
+    font-size: 1.05rem; 
+    margin: 0;
+    line-height: 1.6;
+  }
+
+  /* Cards avec animation d'entrée */
+  .row.g-4 > div {
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+  .row.g-4 > div:nth-child(1) { animation-delay: 0.1s; }
+  .row.g-4 > div:nth-child(2) { animation-delay: 0.2s; }
+  .row.g-4 > div:nth-child(3) { animation-delay: 0.3s; }
+  .row.g-4 > div:nth-child(4) { animation-delay: 0.4s; }
+  .row.g-4 > div:nth-child(5) { animation-delay: 0.5s; }
+  .row.g-4 > div:nth-child(6) { animation-delay: 0.6s; }
+
+  .projet-card {
+    background: var(--surface);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(0,0,0,0.06);
+    position: relative;
+    will-change: transform, box-shadow;
+  }
+
+  .projet-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--brand), var(--brand-2));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .projet-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-xl);
+    border-color: rgba(0,141,63,0.2);
+  }
+
+  .projet-card:hover::before {
+    transform: scaleX(1);
+  }
+
+  .projet-card-header {
+    padding: 1.5rem 1.75rem;
+    border-bottom: 1px solid var(--surface-2);
+    flex-grow: 0;
+    position: relative;
+    background: linear-gradient(to bottom, #fff, #fafafa);
+  }
+
+  .projet-status {
+    display: inline-block;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.75rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease-out;
+  }
+
+  .projet-status.en_cours { 
+    background: linear-gradient(135deg, #1565c0, #1976d2);
+    color: #e3f2fd;
+    box-shadow: 0 4px 12px rgba(21, 101, 192, 0.3);
+  }
+
+  .projet-status.termine { 
+    background: linear-gradient(135deg, #2e7d32, #388e3c);
+    color: #e8f5e9;
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+  }
+
+  .projet-card:hover .projet-status {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+  }
+
+  .projet-card-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    transition: color 0.3s ease;
+  }
+
+  .projet-card:hover .projet-card-title {
+    color: var(--brand);
+  }
+
+  .projet-card-body {
+    padding: 1.5rem 1.75rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .projet-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    color: var(--muted);
+  }
+
+  .projet-meta span { 
+    display: flex; 
+    align-items: center; 
+    gap: 0.5rem;
+    padding: 0.5rem;
+    background: var(--surface-2);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+  }
+
+  .projet-meta span:hover {
+    background: rgba(0,141,63,0.08);
+    transform: translateX(4px);
+  }
+
+  .projet-meta i { 
+    color: var(--brand); 
+    width: 1.1rem;
+    font-size: 0.9rem;
+  }
+
+  .projet-assignee {
+    margin-top: auto;
+    padding: 1rem;
+    background: linear-gradient(135deg, rgba(0,141,63,0.05), rgba(0,168,84,0.05));
+    border-radius: 10px;
+    font-size: 0.875rem;
+    color: var(--muted);
+    border-left: 3px solid var(--brand);
+    transition: all 0.3s ease;
+  }
+
+  .projet-assignee:hover {
+    background: linear-gradient(135deg, rgba(0,141,63,0.1), rgba(0,168,84,0.1));
+    transform: translateX(4px);
+  }
+
+  .projet-assignee i {
+    color: var(--brand);
+    margin-right: 0.5rem;
+  }
+
+  .projet-assignee strong { 
+    color: var(--text);
+    display: block;
+    margin-bottom: 0.25rem;
+  }
+
+  .projet-card-footer {
+    padding: 1.25rem 1.75rem;
+    background: linear-gradient(to top, var(--surface-2), #fff);
+    flex-grow: 0;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    border-top: 1px solid var(--surface-2);
+  }
+
+  .projet-last-pct {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--brand);
+    background: linear-gradient(135deg, rgba(0,141,63,0.1), rgba(0,168,84,0.1));
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    min-width: 60px;
+    text-align: center;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  .projet-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--brand);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    padding: 0.5rem 0;
+  }
+
+  .projet-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--brand);
+    transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .projet-link:hover { 
+    color: var(--brand-2);
+    gap: 0.75rem;
+  }
+
+  .projet-link:hover::after {
+    width: 100%;
+  }
+
+  .projet-link i {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .projet-link:hover i {
+    transform: translate(4px, -4px);
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 4rem 1.5rem;
+    background: var(--surface-2);
+    border-radius: var(--radius-lg);
+    color: var(--muted);
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  .empty-state h3 { 
+    font-size: 1.25rem; 
+    color: var(--text); 
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+  }
+
+  /* Responsive */
+  @media (max-width: 991px) {
+    .page-intro h2 { font-size: 1.5rem; }
+    .projet-card-header { padding: 1.25rem 1.5rem; }
+    .projet-card-body { padding: 1.25rem 1.5rem; }
+    .projet-card-footer { padding: 1rem 1.5rem; }
+  }
+
+  @media (max-width: 767px) {
+    .page-intro { margin-bottom: 2rem; }
+    .projet-card:hover {
+      transform: translateY(-4px) scale(1.01);
+    }
+  }
+</style>
+{% endblock style %}
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">Projets</h1>
+      <ul class="breadcumb-menu d-flex flex-wrap align-items-center gap-1">
+        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li>Projets</li>
+      </ul>
+    </div>
+  </div>
+</div>
+<section class="space pt-4 pb-5">
+  <div class="container">
+    <div class="page-intro">
+      <h2>Nos projets en cours et réalisés</h2>
+      <p>Découvrez les projets portés par AGUIPEX, leur avancement et les étapes clés.</p>
+    </div>
+    <div class="row g-4">
+      {% for p in projets %}
+      <div class="col-md-6 col-lg-4">
+        <div class="projet-card">
+          <div class="projet-card-header">
+            <span class="projet-status {{ p.status }}">{{ p.get_status_display }}</span>
+            <h3 class="projet-card-title">{{ p.title }}</h3>
+          </div>
+          <div class="projet-card-body">
+            <div class="projet-meta">
+              {% if p.start_date %}
+              <span><i class="far fa-calendar-alt"></i> Début : {{ p.start_date|date:"d/m/Y" }}</span>
+              {% endif %}
+              {% if p.end_date %}
+              <span><i class="far fa-calendar-check"></i> Fin : {{ p.end_date|date:"d/m/Y" }}</span>
+              {% endif %}
+            </div>
+            {% if p.responsable_nom or p.responsable_poste %}
+            <div class="projet-assignee">
+              <i class="far fa-user me-1"></i> <strong>Responsable :</strong>
+              {{ p.responsable_nom|default:"" }}{% if p.responsable_poste %} — {{ p.responsable_poste }}{% endif %}
+            </div>
+            {% endif %}
+          </div>
+          <div class="projet-card-footer">
+            <a href="{% url 'aguipex-projet-detail' p.slug %}" class="projet-link">
+              Voir le détail et l'évolution <i class="far fa-arrow-right"></i>
+            </a>
+            {% if p.last_etape_pourcentage is not None %}
+            <span class="projet-last-pct">{{ p.last_etape_pourcentage }} %</span>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% empty %}
+      <div class="col-12">
+        <div class="empty-state">
+          <h3>Aucun projet à afficher</h3>
+          <p>Les projets en cours ou terminés apparaîtront ici.</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock content %}
