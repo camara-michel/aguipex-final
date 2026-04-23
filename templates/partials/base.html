@@ -28,11 +28,11 @@
   <link rel="manifest" href="{% static 'assets/img/favicons/manifest.json' %}" />
   <meta name="msapplication-TileColor" content="#ffffff" />
   <meta name="msapplication-TileImage" content="{% static 'assets/img/favicons/ms-icon-144x144.png' %}" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#073f65" />
   <style>
     /* Styles pour les menus actifs */
     .main-menu>ul>li.active>a {
-      color: #008D3F !important;
+      color: #073f65 !important;
       font-weight: 600;
       position: relative;
     }
@@ -44,20 +44,20 @@
       left: 0;
       width: 100%;
       height: 2px;
-      background: #008D3F;
+      background: #073f65;
       border-radius: 1px;
     }
 
     .main-menu ul.sub-menu li.active>a {
-      color: #008D3F !important;
+      color: #073f65 !important;
       font-weight: 600;
-      background: rgba(0, 141, 63, 0.1);
-      border-left: 3px solid #008D3F;
+      background: rgba(7, 63, 101, 0.1);
+      border-left: 3px solid #073f65;
       padding-left: 15px;
     }
 
     .main-menu>ul>li.menu-item-has-children.active>a {
-      color: #008D3F !important;
+      color: #073f65 !important;
       font-weight: 600;
     }
 
@@ -68,7 +68,7 @@
       left: 0;
       width: 100%;
       height: 2px;
-      background: #008D3F;
+      background: #073f65;
       border-radius: 1px;
     }
 
@@ -133,7 +133,7 @@
     }
 
     .th-menu-toggle {
-      background: #008D3F;
+      background: #073f65;
       border: none;
       color: white;
       padding: 12px;
@@ -148,7 +148,7 @@
     }
 
     .th-menu-toggle:hover {
-      background: #007a35;
+      background: #052a45;
       transform: scale(1.05);
     }
 
@@ -680,6 +680,7 @@
   <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.min.css' %}" />
   <link rel="stylesheet" href="{% static 'assets/css/swiper-bundle.min.css' %}" />
   <link rel="stylesheet" href="{% static 'assets/css/style_home.css' %}" />
+  <link rel="stylesheet" href="{% static 'assets/css/aguipex-theme.css' %}" />
 
   {% block style %} {% endblock style %}
 </head>
@@ -1066,7 +1067,7 @@
               <div class="icon-masking me-2">
                 <img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape" />
               </div>
-              <span class="text-capitalize fs-20" style="font-size: 1.75rem; font-weight: 700; background: linear-gradient(135deg, #008d3f, #00a854); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">NOS PARTENAIRES</span>
+              <span class="text-capitalize fs-20" style="font-size: 1.75rem; font-weight: 700; background: linear-gradient(135deg, #073f65, #0b8a5f); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">NOS PARTENAIRES</span>
             </span>
           </div>
           <p class="text-center mb-4" style="font-size: 1.1rem; color: #6c757d; max-width: 600px; margin: 0 auto;">Retrouvez nos partenaires qui nous font confiance</p>
@@ -1116,7 +1117,7 @@
         left: 0;
         right: 0;
         height: 3px;
-        background: linear-gradient(90deg, #008d3f, #00a854);
+        background: linear-gradient(90deg, #073f65, #0b8a5f);
         transform: scaleX(0);
         transform-origin: left;
         transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1162,7 +1163,7 @@
         left: 0;
         right: 0;
         bottom: 0;
-        background: linear-gradient(135deg, rgba(0,141,63,0.08), rgba(0,168,84,0.08));
+        background: linear-gradient(135deg, rgba(7,63,101,0.08), rgba(11,138,95,0.08));
         opacity: 0;
         transition: opacity 0.4s ease;
         border-radius: 16px;
@@ -1171,8 +1172,8 @@
 
       .partner-card-modern:hover {
         transform: translateY(-10px) scale(1.08);
-        box-shadow: 0 16px 48px rgba(0,141,63,0.2);
-        border-color: rgba(0,141,63,0.3);
+        box-shadow: 0 16px 48px rgba(7,63,101,0.2);
+        border-color: rgba(7,63,101,0.3);
         background: linear-gradient(135deg, rgba(255,255,255,1), rgba(248,249,250,1));
       }
 
@@ -1524,12 +1525,12 @@
   <style>
     .aguipex-chatbot-toggle {
       position: fixed; bottom: 90px; right: 24px; width: 56px; height: 56px;
-      background: linear-gradient(135deg, #008d3f, #00a854); color: #fff;
+      background: linear-gradient(135deg, #073f65, #0b8a5f); color: #fff;
       border-radius: 50%; display: flex; align-items: center; justify-content: center;
-      font-size: 1.4rem; cursor: pointer; box-shadow: 0 4px 16px rgba(0,141,63,0.4);
+      font-size: 1.4rem; cursor: pointer; box-shadow: 0 4px 16px rgba(7,63,101,0.4);
       z-index: 9998; transition: transform 0.2s, box-shadow 0.2s;
     }
-    .aguipex-chatbot-toggle:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(0,141,63,0.5); }
+    .aguipex-chatbot-toggle:hover { transform: scale(1.05); box-shadow: 0 6px 20px rgba(7,63,101,0.5); }
     .aguipex-chatbot-panel {
       position: fixed; bottom: 156px; right: 24px; width: 380px; max-width: calc(100vw - 48px);
       height: 480px; max-height: 70vh; background: #fff; border-radius: 16px;
@@ -1538,7 +1539,7 @@
     }
     .aguipex-chatbot-panel.open { display: flex; }
     .aguipex-chatbot-header {
-      background: linear-gradient(135deg, #008d3f, #00a854); color: #fff; padding: 14px 16px;
+      background: linear-gradient(135deg, #073f65, #0b8a5f); color: #fff; padding: 14px 16px;
       display: flex; align-items: center; justify-content: space-between; font-weight: 700;
     }
     .aguipex-chatbot-close { background: none; border: none; color: #fff; cursor: pointer; font-size: 1.2rem; padding: 0 4px; }
@@ -1549,9 +1550,9 @@
     .aguipex-chatbot-messages .msg { max-width: 88%; padding: 10px 12px; border-radius: 12px; }
     .aguipex-chatbot-messages .msg.user { align-self: flex-end; background: #e8f5e9; color: #1a1a1a; }
     .aguipex-chatbot-messages .msg.bot { align-self: flex-start; background: #f5f5f5; color: #1a1a1a; white-space: pre-wrap; }
-    .aguipex-chatbot-messages .msg.bot strong { color: #008d3f; }
+    .aguipex-chatbot-messages .msg.bot strong { color: #073f65; }
     .aguipex-chatbot-messages .msg.bot.loading { color: #666; }
-    .aguipex-chatbot-messages .msg.bot.loading .chatbot-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #008d3f; border-top-color: transparent; border-radius: 50%; animation: chatbot-spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
+    .aguipex-chatbot-messages .msg.bot.loading .chatbot-spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid #073f65; border-top-color: transparent; border-radius: 50%; animation: chatbot-spin 0.7s linear infinite; vertical-align: middle; margin-right: 6px; }
     @keyframes chatbot-spin { to { transform: rotate(360deg); } }
     .aguipex-chatbot-understood {
       padding: 6px 12px; font-size: 0.8rem; color: #6c757d; background: #f8f9fa; border-top: 1px solid #eee;
@@ -1564,12 +1565,12 @@
     .aguipex-chatbot-input-wrap input {
       flex: 1; padding: 10px 12px; border: 1px solid #dee2e6; border-radius: 8px; font-size: 0.9rem;
     }
-    .aguipex-chatbot-input-wrap input:focus { outline: none; border-color: #008d3f; box-shadow: 0 0 0 2px rgba(0,141,63,0.15); }
+    .aguipex-chatbot-input-wrap input:focus { outline: none; border-color: #073f65; box-shadow: 0 0 0 2px rgba(7,63,101,0.15); }
     .aguipex-chatbot-input-wrap button {
-      width: 44px; height: 44px; border: none; background: #008d3f; color: #fff; border-radius: 8px;
+      width: 44px; height: 44px; border: none; background: #073f65; color: #fff; border-radius: 8px;
       cursor: pointer; font-size: 1.1rem; transition: background 0.2s;
     }
-    .aguipex-chatbot-input-wrap button:hover { background: #00a854; }
+    .aguipex-chatbot-input-wrap button:hover { background: #0b8a5f; }
     .aguipex-chatbot-input-wrap button:disabled { opacity: 0.6; cursor: not-allowed; }
   </style>
   <script>

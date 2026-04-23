@@ -1,0 +1,57 @@
+/**
+ * Palette institutionnelle AGUIPEX
+ * Primaire #073f65 · Secondaire #0b8a5f · Accent (usage modéré) #e22541
+ * Chargé après style_home.css pour homogénéiser les variables.
+ */
+:root {
+  --aguipex-primary: #073f65;
+  --aguipex-secondary: #0b8a5f;
+  --aguipex-accent: #e22541;
+  --theme-color: #073f65;
+  --theme-color2: #0b8a5f;
+  --title-color: #0a2d47;
+  --success-color: #0b8a5f;
+  --error-color: #e22541;
+  --light-border-from-primary: #e2ecf2;
+  --smoke-color2: #e2ecf2;
+  /* Bootstrap 5 — boutons / alertes / liens */
+  --bs-primary: #073f65;
+  --bs-primary-rgb: 7, 63, 101;
+  --bs-success: #0b8a5f;
+  --bs-success-rgb: 11, 138, 95;
+  --bs-danger: #e22541;
+  --bs-danger-rgb: 226, 37, 65;
+  --bs-link-color: #073f65;
+  --bs-link-hover-color: #052a45;
+  --bs-info: #0b8a5f;
+  --bs-info-rgb: 11, 138, 95;
+}
+
+a:hover {
+  color: #052a45;
+}
+
+/* Boutons thème hérités (complète les classes .th-btn) */
+.th-btn.style2 {
+  color: var(--aguipex-primary) !important;
+  border-color: var(--aguipex-primary) !important;
+}
+
+.th-btn:hover {
+  color: #fff;
+}
+
+/* Liens d’accent (peu) : surlignage ou états spécifiques */
+.text-aguipex-accent {
+  color: var(--aguipex-accent) !important;
+}
+
+.border-aguipex-accent {
+  border-color: var(--aguipex-accent) !important;
+}
+
+.text-danger,
+.invalid-feedback,
+.form-card .text-danger {
+  color: var(--aguipex-accent) !important;
+}

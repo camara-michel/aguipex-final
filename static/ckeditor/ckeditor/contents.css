@@ -84,7 +84,7 @@ table td, table th {
 
 /* Styles pour les liens */
 a {
-    color: #684df4;
+    color: #073f65;
     text-decoration: underline;
 }
 
@@ -118,7 +118,7 @@ blockquote {
     font-family: "Century Gothic", sans-serif;
     padding: 2px 0;
     border-style: solid;
-    border-color: #684df4;
+    border-color: #073f65;
     border-width: 0;
     margin: 1em 0;
     padding-left: 1em;
@@ -186,7 +186,7 @@ a > img {
     padding: 1px;
     margin: 1px;
     border: none;
-    outline: 1px solid #684df4;
+    outline: 1px solid #073f65;
 }
 
 /* Assurer que les caractères spéciaux et icônes s'affichent */

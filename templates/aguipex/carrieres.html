@@ -392,7 +392,7 @@
     .offre-item:hover {
         transform: translateY(-2px);
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        border-color: #008D3F !important;
+        border-color: #073f65 !important;
     }
 
     .card {
@@ -401,7 +401,7 @@
     }
 
     .text-primary {
-        color: #008D3F !important;
+        color: #073f65 !important;
     }
 
     .btn-outline-secondary {
@@ -431,8 +431,8 @@
 
     .form-select:focus,
     .form-control:focus {
-        border-color: #008D3F;
-        box-shadow: 0 0 0 0.2rem rgba(0, 141, 63, 0.25);
+        border-color: #073f65;
+        box-shadow: 0 0 0 0.2rem rgba(7, 63, 101, 0.25);
     }
 </style>
 {% endblock %}
@@ -605,7 +605,7 @@
                 title: 'Candidature envoyée !',
                 text: 'Votre candidature a été reçue. Nous vous recontacterons dans les plus brefs délais.',
                 confirmButtonText: 'OK',
-                confirmButtonColor: '#008D3F'
+                confirmButtonColor: '#073f65'
             });
         } else {
             alert('Candidature envoyée avec succès !');
@@ -623,7 +623,7 @@
                     title: 'Candidature envoyée !',
                     text: 'Nous avons bien reçu votre candidature spontanée. Nous l\'étudierons avec attention et vous recontacterons si votre profil nous intéresse.',
                     confirmButtonText: 'OK',
-                    confirmButtonColor: '#008D3F'
+                    confirmButtonColor: '#073f65'
                 }).then(() => {
                     document.getElementById('candidatureModal').querySelector('.btn-close').click();
                     form.reset();

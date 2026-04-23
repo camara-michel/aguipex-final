@@ -3,15 +3,15 @@
 {% block style %}
 <style>
   :root {
-    --ip-brand: #008d3f;
-    --ip-brand-2: #00a854;
+    --ip-brand: #073f65;
+    --ip-brand-2: #0b8a5f;
     --ip-text: #1a1a1a;
     --ip-muted: #6c757d;
     --ip-surface: #fff;
     --ip-surface-2: #f8f9fa;
     --ip-shadow: 0 4px 12px rgba(0,0,0,0.08);
     --ip-shadow-lg: 0 12px 32px rgba(0,0,0,0.12);
-    --ip-shadow-xl: 0 20px 60px rgba(0,141,63,0.15);
+    --ip-shadow-xl: 0 20px 60px rgba(7,63,101,0.15);
     --ip-radius: 16px;
   }
 
@@ -179,7 +179,7 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle, rgba(0,141,63,0.1) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(7,63,101,0.1) 0%, transparent 70%);
     opacity: 0;
     transition: opacity 0.4s ease;
     pointer-events: none;
@@ -188,7 +188,7 @@
   .ip-card:hover {
     transform: translateY(-12px) scale(1.02);
     box-shadow: var(--ip-shadow-xl);
-    border-color: rgba(0,141,63,0.2);
+    border-color: rgba(7,63,101,0.2);
   }
 
   .ip-card:hover::before {
@@ -203,7 +203,7 @@
   .ip-card-header {
     position: relative;
     padding: 2rem 2rem 1.5rem;
-    background: linear-gradient(135deg, rgba(0,141,63,0.03), rgba(0,168,84,0.03));
+    background: linear-gradient(135deg, rgba(7,63,101,0.03), rgba(11,138,95,0.03));
     border-bottom: 1px solid rgba(0,0,0,0.06);
     z-index: 2;
   }
@@ -217,14 +217,14 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 1rem;
-    box-shadow: 0 4px 12px rgba(0,141,63,0.2);
+    box-shadow: 0 4px 12px rgba(7,63,101,0.2);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     animation: scaleIn 0.6s ease-out backwards;
   }
 
   .ip-card:hover .ip-card-icon {
     transform: rotate(5deg) scale(1.1);
-    box-shadow: 0 8px 20px rgba(0,141,63,0.3);
+    box-shadow: 0 8px 20px rgba(7,63,101,0.3);
     animation: pulse 2s ease-in-out infinite;
   }
 
@@ -279,7 +279,7 @@
   }
 
   .ip-card:hover .ip-card-code {
-    background: rgba(0,141,63,0.08);
+    background: rgba(7,63,101,0.08);
     transform: translateX(4px);
   }
 
@@ -348,13 +348,13 @@
     border-radius: 12px;
     font-weight: 700;
     font-size: 0.9rem;
-    box-shadow: 0 4px 12px rgba(0,141,63,0.2);
+    box-shadow: 0 4px 12px rgba(7,63,101,0.2);
     transition: all 0.3s ease;
   }
 
   .ip-card:hover .ip-badge {
     transform: rotate(-5deg) scale(1.1);
-    box-shadow: 0 6px 16px rgba(0,141,63,0.3);
+    box-shadow: 0 6px 16px rgba(7,63,101,0.3);
   }
 
   /* État vide */

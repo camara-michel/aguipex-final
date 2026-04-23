@@ -469,20 +469,20 @@
 <style>
     .form-control:focus,
     .form-select:focus {
-        border-color: #008D3F;
-        box-shadow: 0 0 0 0.2rem rgba(0, 141, 63, 0.25);
+        border-color: #073f65;
+        box-shadow: 0 0 0 0.2rem rgba(7, 63, 101, 0.25);
     }
 
     .btn-primary {
-        background: linear-gradient(135deg, #008D3F 0%, #00A651 100%);
+        background: linear-gradient(135deg, #073f65 0%, #00A651 100%);
         border: none;
         transition: all 0.3s ease;
     }
 
     .btn-primary:hover {
-        background: linear-gradient(135deg, #007A35 0%, #008D3F 100%);
+        background: linear-gradient(135deg, #052a45 0%, #073f65 100%);
         transform: translateY(-2px);
-        box-shadow: 0 4px 15px rgba(0, 141, 63, 0.3);
+        box-shadow: 0 4px 15px rgba(7, 63, 101, 0.3);
     }
 
     .card {
@@ -504,7 +504,7 @@
 
     .form-control:hover,
     .form-select:hover {
-        border-color: #008D3F;
+        border-color: #073f65;
     }
 
     .alert-info {
@@ -514,7 +514,7 @@
     }
 
     .text-primary {
-        color: #008D3F !important;
+        color: #073f65 !important;
     }
 
     .btn-outline-secondary {
@@ -542,7 +542,7 @@
 
     #phone-prefix:hover {
         background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%);
-        border-color: #008D3F;
+        border-color: #073f65;
     }
 
     #country-flag {
@@ -552,7 +552,7 @@
     }
 
     #country-code {
-        color: #008D3F;
+        color: #073f65;
         font-weight: 600;
         transition: transform 0.2s ease;
     }
@@ -565,7 +565,7 @@
 
     .input-group .form-control:focus {
         border-left: none;
-        box-shadow: 0 0 0 0.2rem rgba(0, 141, 63, 0.25);
+        box-shadow: 0 0 0 0.2rem rgba(7, 63, 101, 0.25);
     }
 
     /* Styles pour le composant de sélection personnalisé */
@@ -604,11 +604,11 @@
 
     .custom-select-option:hover {
         background-color: #e3f2fd;
-        color: #008D3F;
+        color: #073f65;
     }
 
     .custom-select-option.selected {
-        background-color: #008D3F;
+        background-color: #073f65;
         color: white;
     }
 
@@ -627,12 +627,12 @@
     }
 
     .custom-select-dropdown::-webkit-scrollbar-thumb {
-        background: #008D3F;
+        background: #073f65;
         border-radius: 4px;
     }
 
     .custom-select-dropdown::-webkit-scrollbar-thumb:hover {
-        background: #007A35;
+        background: #052a45;
     }
 </style>
 {% endblock %}
@@ -675,7 +675,7 @@
                                 title: 'Succès !',
                                 text: data.message,
                                 confirmButtonText: 'Continuer',
-                                confirmButtonColor: '#008D3F'
+                                confirmButtonColor: '#073f65'
                             }).then(() => {
                                 // Rediriger vers la page des entreprises
                                 window.location.href = '{% url "aguipex-entreprises" %}';
@@ -695,7 +695,7 @@
                                 title: 'Erreur !',
                                 text: data.message,
                                 confirmButtonText: 'OK',
-                                confirmButtonColor: '#dc3545'
+                                confirmButtonColor: '#e22541'
                             });
                         } else {
                             alert('Erreur : ' + data.message);
@@ -710,7 +710,7 @@
                             title: 'Erreur !',
                             text: 'Une erreur est survenue. Veuillez réessayer.',
                             confirmButtonText: 'OK',
-                            confirmButtonColor: '#dc3545'
+                            confirmButtonColor: '#e22541'
                         });
                     } else {
                         alert('Une erreur est survenue. Veuillez réessayer.');
@@ -893,7 +893,7 @@
                                 title: 'Succès !',
                                 text: data.message,
                                 confirmButtonText: 'Continuer',
-                                confirmButtonColor: '#008D3F'
+                                confirmButtonColor: '#073f65'
                             }).then(() => {
                                 // Rediriger vers la page des entreprises
                                 window.location.href = '{% url "aguipex-entreprises" %}';
@@ -913,7 +913,7 @@
                                 title: 'Erreur !',
                                 text: data.message,
                                 confirmButtonText: 'OK',
-                                confirmButtonColor: '#dc3545'
+                                confirmButtonColor: '#e22541'
                             });
                         } else {
                             alert('Erreur : ' + data.message);
@@ -928,7 +928,7 @@
                             title: 'Erreur !',
                             text: 'Une erreur est survenue. Veuillez réessayer.',
                             confirmButtonText: 'OK',
-                            confirmButtonColor: '#dc3545'
+                            confirmButtonColor: '#e22541'
                         });
                     } else {
                         alert('Une erreur est survenue. Veuillez réessayer.');

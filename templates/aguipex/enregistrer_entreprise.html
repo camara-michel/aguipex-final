@@ -5,8 +5,8 @@
 {% block style %}
 <style>
   :root {
-    --brand: #008d3f;
-    --brand-2: #00a854;
+    --brand: #073f65;
+    --brand-2: #0b8a5f;
     --text: #333;
     --muted: #6c757d;
     --surface: #ffffff;
@@ -146,7 +146,7 @@
   .alert-registration-success i {
     flex-shrink: 0;
     margin-top: 2px;
-    color: #2e7d32 !important;
+    color: #0b8a5f !important;
     font-size: 1.35rem;
   }
 
@@ -281,7 +281,7 @@
 
   .form-label.required::after {
     content: ' *';
-    color: #dc3545;
+    color: #e22541;
   }
 
   .form-label.optional::after {
@@ -304,11 +304,11 @@
   .form-control:focus {
     outline: none;
     border-color: var(--brand);
-    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+    box-shadow: 0 0 0 3px rgba(7, 63, 101, 0.1);
   }
 
   .form-control.is-invalid {
-    border-color: #dc3545;
+    border-color: #e22541;
     box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
   }
 
@@ -325,7 +325,7 @@
 
   .invalid-feedback {
     display: block;
-    color: #dc3545;
+    color: #e22541;
     font-size: var(--font-small);
     margin-top: 4px;
   }
@@ -370,13 +370,13 @@
 
   .file-upload:hover .file-upload-label {
     border-color: var(--brand);
-    background: rgba(0, 141, 63, 0.05);
+    background: rgba(7, 63, 101, 0.05);
     color: var(--brand);
   }
 
   .file-upload input[type="file"]:focus + .file-upload-label {
     border-color: var(--brand);
-    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+    box-shadow: 0 0 0 3px rgba(7, 63, 101, 0.1);
   }
 
   .file-icon {
@@ -405,7 +405,7 @@
 
   .produit-form-card:hover {
     border-color: var(--brand);
-    box-shadow: 0 4px 12px rgba(0, 141, 63, 0.1);
+    box-shadow: 0 4px 12px rgba(7, 63, 101, 0.1);
   }
 
   .produit-form-header {
@@ -425,7 +425,7 @@
   }
 
   .btn-remove-product {
-    background: #dc3545;
+    background: #e22541;
     color: white;
     border: none;
     border-radius: 8px;
@@ -445,7 +445,7 @@
     padding: 16px;
     margin-top: 20px;
     border: 2px dashed var(--brand);
-    background: rgba(0, 141, 63, 0.05);
+    background: rgba(7, 63, 101, 0.05);
     color: var(--brand);
     font-weight: 600;
     border-radius: 12px;
@@ -453,7 +453,7 @@
   }
 
   .btn-add-product:hover {
-    background: rgba(0, 141, 63, 0.1);
+    background: rgba(7, 63, 101, 0.1);
     border-color: var(--brand-2);
   }
 
@@ -489,7 +489,7 @@
 
   .custom-select.active {
     border-color: var(--brand);
-    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.1);
+    box-shadow: 0 0 0 3px rgba(7, 63, 101, 0.1);
   }
 
   .custom-select-value {
@@ -570,12 +570,12 @@
   }
 
   .custom-select-option:hover {
-    background: rgba(0, 141, 63, 0.05);
+    background: rgba(7, 63, 101, 0.05);
     color: var(--brand);
   }
 
   .custom-select-option.selected {
-    background: rgba(0, 141, 63, 0.1);
+    background: rgba(7, 63, 101, 0.1);
     color: var(--brand);
     font-weight: 600;
   }
@@ -584,11 +584,11 @@
     color: var(--brand);
     font-weight: 600;
     border-top: 2px solid #e9ecef;
-    background: rgba(0, 141, 63, 0.03);
+    background: rgba(7, 63, 101, 0.03);
   }
 
   .custom-select-option-new:hover {
-    background: rgba(0, 141, 63, 0.1);
+    background: rgba(7, 63, 101, 0.1);
   }
 
   .custom-select-option.hidden {
@@ -639,7 +639,7 @@
 
   .produit-image-upload:hover {
     border-color: var(--brand);
-    background: rgba(0, 141, 63, 0.05);
+    background: rgba(7, 63, 101, 0.05);
   }
 
   .produit-image-preview {
@@ -1503,7 +1503,7 @@ function addProductForm() {
     textarea.addEventListener('input', function() {
       const remaining = 500 - this.value.length;
       charCount.textContent = remaining;
-      charCount.style.color = remaining < 50 ? '#dc3545' : 'inherit';
+      charCount.style.color = remaining < 50 ? '#e22541' : 'inherit';
     });
   }
 }

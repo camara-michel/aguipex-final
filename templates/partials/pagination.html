@@ -16,7 +16,7 @@
 
                         {% for page in datas.paginator.page_range %}
                         {% if datas.number == page %}
-                        <li style="background-color: #008d3f; color:white;">
+                        <li style="background-color: #073f65; color:white;">
                             <a href="?page={{page}}">{{page}}</a>
                         </li>
                         {% elif page > datas.number|add:'-2' and page < datas.number|add:'2' %}

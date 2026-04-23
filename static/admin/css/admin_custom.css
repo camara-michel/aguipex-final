@@ -76,8 +76,8 @@ select:hover,
 .admin select:hover,
 body select:hover,
 .content-wrapper select:hover {
-    border-color: #008d3f !important;
-    box-shadow: 0 0 0 2px rgba(0, 141, 63, 0.1) !important;
+    border-color: #073f65 !important;
+    box-shadow: 0 0 0 2px rgba(7, 63, 101, 0.1) !important;
     background-color: #ffffff !important;
     color: #333333 !important;
 }
@@ -87,9 +87,9 @@ select:focus,
 .admin select:focus,
 body select:focus,
 .content-wrapper select:focus {
-    border-color: #008d3f !important;
+    border-color: #073f65 !important;
     outline: none !important;
-    box-shadow: 0 0 0 3px rgba(0, 141, 63, 0.15) !important;
+    box-shadow: 0 0 0 3px rgba(7, 63, 101, 0.15) !important;
     background-color: #ffffff !important;
     color: #333333 !important;
 }
@@ -99,15 +99,15 @@ select option:hover,
 .admin select option:hover,
 body select option:hover {
     background-color: #f8f9fa !important;
-    color: #008d3f !important;
+    color: #073f65 !important;
 }
 
 /* Options sélectionnées */
 select option:checked,
 .admin select option:checked,
 body select option:checked {
-    background-color: #008d3f !important;
-    background: #008d3f !important;
+    background-color: #073f65 !important;
+    background: #073f65 !important;
     color: #ffffff !important;
 }
 
@@ -219,7 +219,7 @@ select option {
 }
 
 select option:checked {
-    background: #008d3f !important;
+    background: #073f65 !important;
     color: #ffffff !important;
 }
 
@@ -251,5 +251,21 @@ select option:checked {
 
 .bootstrap-select .dropdown-menu .dropdown-item:hover {
     background-color: #f8f9fa !important;
-    color: #008d3f !important;
+    color: #073f65 !important;
 }
+
+/* AGUIPEX : harmonisation admin (Bootstrap / Jazzmin) */
+:root {
+    --bs-primary: #073f65;
+    --bs-primary-rgb: 7, 63, 101;
+    --bs-success: #0b8a5f;
+    --bs-success-rgb: 11, 138, 95;
+    --bs-danger: #e22541;
+    --bs-danger-rgb: 226, 37, 65;
+    --bs-link-color: #073f65;
+}
+a:not(.nav-link):not(.btn) { color: #073f65; }
+a:not(.nav-link):not(.btn):hover { color: #052a45; }
+.btn-success { background-color: #0b8a5f !important; border-color: #0b8a5f !important; }
+.btn-danger { background-color: #e22541 !important; border-color: #e22541 !important; }
+.btn-primary { background-color: #073f65 !important; border-color: #073f65 !important; }
