@@ -358,7 +358,7 @@
     }
 
     /* Premium loader GDB (page d'accueil) */
-    .preloader.gdb-premium-preloader {
+    .gdb-premium-preloader {
       position: fixed;
       inset: 0;
       width: 100vw;
@@ -371,7 +371,7 @@
       background: #073f65;
     }
 
-    .preloader.gdb-premium-preloader.can-hide {
+    .gdb-premium-preloader.can-hide {
       opacity: 0 !important;
       visibility: hidden !important;
       display: none !important;
@@ -896,7 +896,7 @@
   </div>
 
   {% if request.resolver_match and request.resolver_match.url_name == 'aguipex-index' %}
-  <div id="preloader" class="preloader gdb-premium-preloader">
+  <div id="preloader" class="gdb-premium-preloader">
     <button class="th-btn th-radius preloaderCls d-none">
       Fermer
     </button>
@@ -1356,7 +1356,7 @@
   <script src="{% static 'assets/js/main.js' %}"></script>
   <script>
     window.addEventListener("load", function () {
-      var preloader = document.querySelector(".preloader.gdb-premium-preloader");
+      var preloader = document.querySelector(".gdb-premium-preloader");
       if (!preloader) return;
       setTimeout(function () {
         preloader.classList.add("can-hide");
