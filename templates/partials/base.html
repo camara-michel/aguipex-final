@@ -359,7 +359,23 @@
 
     /* Premium loader GDB (page d'accueil) */
     .preloader.gdb-premium-preloader {
-      background: radial-gradient(circle at 20% 20%, rgba(11, 138, 95, 0.12), rgba(7, 63, 101, 0.06) 36%, #ffffff 70%);
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 99999;
+      display: block !important;
+      opacity: 1;
+      visibility: visible;
+      transition: opacity 0.35s ease, visibility 0.35s ease;
+      background: radial-gradient(circle at 20% 20%, rgba(11, 138, 95, 0.25), rgba(7, 63, 101, 0.95) 36%, #062f4d 100%);
+    }
+
+    .preloader.gdb-premium-preloader.can-hide {
+      opacity: 0 !important;
+      visibility: hidden !important;
+      display: none !important;
+      pointer-events: none;
     }
 
     .gdb-loader-shell {
@@ -374,9 +390,10 @@
     .gdb-loader-card {
       width: min(720px, 92vw);
       border-radius: 22px;
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(7, 63, 101, 0.12);
-      box-shadow: 0 24px 65px rgba(7, 63, 101, 0.22);
+      background: rgba(255, 255, 255, 0.08);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      box-shadow: 0 24px 65px rgba(0, 0, 0, 0.3);
       text-align: center;
       padding: 28px 22px;
       position: relative;
@@ -401,8 +418,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f2f8fc;
-      border: 2px solid rgba(7, 63, 101, 0.15);
+      background: rgba(255, 255, 255, 0.95);
+      border: 2px solid rgba(255, 255, 255, 0.35);
       position: relative;
       animation: gdb-pulse 2s ease-in-out infinite;
     }
@@ -427,13 +444,13 @@
       font-size: clamp(16px, 2.1vw, 24px);
       line-height: 1.35;
       font-weight: 700;
-      color: #073f65;
+      color: #ffffff;
       letter-spacing: 0.3px;
     }
 
     .gdb-loader-subtitle {
       margin: 10px 0 0;
-      color: #0b8a5f;
+      color: #d4f2e5;
       font-size: clamp(14px, 1.5vw, 18px);
       font-weight: 600;
     }
@@ -1338,6 +1355,15 @@
   <script src="{% static 'assets/js/particles.min.js' %}"></script>
   <script src="{% static 'assets/js/particles-config.js' %}"></script>
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script>
+    window.addEventListener("load", function () {
+      var preloader = document.querySelector(".preloader.gdb-premium-preloader");
+      if (!preloader) return;
+      setTimeout(function () {
+        preloader.classList.add("can-hide");
+      }, 1000);
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
