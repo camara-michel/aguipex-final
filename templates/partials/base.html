@@ -493,6 +493,51 @@
       100% { transform: translateX(130%); }
     }
 
+    /* Petit loader local pour les chargements de donnees */
+    .gdb-loader-scope {
+      position: relative !important;
+    }
+
+    .gdb-inline-loader {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      z-index: 25;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      pointer-events: none;
+      animation: gdb-inline-fade 0.2s ease-in-out;
+    }
+
+    .gdb-inline-loader-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 2.5px solid rgba(255, 255, 255, 0.35);
+      border-top-color: #0b8a5f;
+      border-right-color: #073f65;
+      background: transparent;
+      animation: gdb-inline-spin 0.85s linear infinite;
+    }
+
+    .gdb-inline-loader-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: #073f65;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+
+    @keyframes gdb-inline-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes gdb-inline-fade {
+      from { opacity: 0; transform: translateY(-2px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     /* Styles pour ajouter un contour noir sur les textes du slide */
     .hero-style6 .sub-title {
       text-shadow: 
@@ -1354,6 +1399,141 @@
   <script src="{% static 'assets/js/particles.min.js' %}"></script>
   <script src="{% static 'assets/js/particles-config.js' %}"></script>
   <script src="{% static 'assets/js/main.js' %}"></script>
+  <script>
+    (function () {
+      const scopeCounters = new WeakMap();
+
+      function resolveLoadingScope(explicitScope) {
+        if (explicitScope instanceof Element) return explicitScope;
+        if (typeof explicitScope === "string") {
+          const queried = document.querySelector(explicitScope);
+          if (queried) return queried;
+        }
+
+        const active = document.activeElement;
+        if (active && active.closest) {
+          const localScope = active.closest(
+            "[data-loading-scope], .detail-card, .card, form, section, main"
+          );
+          if (localScope) return localScope;
+        }
+
+        return document.querySelector("main") || document.body;
+      }
+
+      function ensureLoader(scope) {
+        if (!scope) return null;
+
+        if (getComputedStyle(scope).position === "static") {
+          scope.classList.add("gdb-loader-scope");
+        }
+
+        let loader = scope.querySelector(":scope > .gdb-inline-loader");
+        if (!loader) {
+          loader = document.createElement("div");
+          loader.className = "gdb-inline-loader";
+          loader.setAttribute("aria-hidden", "true");
+          loader.innerHTML =
+            '<span class="gdb-inline-loader-dot"></span><span class="gdb-inline-loader-label">Chargement...</span>';
+          scope.appendChild(loader);
+        }
+        return loader;
+      }
+
+      function showLocalLoader(explicitScope) {
+        const scope = resolveLoadingScope(explicitScope);
+        if (!scope) return null;
+
+        const currentCount = scopeCounters.get(scope) || 0;
+        scopeCounters.set(scope, currentCount + 1);
+        ensureLoader(scope);
+        return scope;
+      }
+
+      function hideLocalLoader(scope) {
+        if (!scope) return;
+
+        const currentCount = scopeCounters.get(scope) || 0;
+        if (currentCount <= 1) {
+          scopeCounters.delete(scope);
+          const loader = scope.querySelector(":scope > .gdb-inline-loader");
+          if (loader) loader.remove();
+          return;
+        }
+
+        scopeCounters.set(scope, currentCount - 1);
+      }
+
+      window.GDBInlineLoader = {
+        show(scope) {
+          return showLocalLoader(scope);
+        },
+        hide(scope) {
+          hideLocalLoader(scope);
+        },
+        withLoader(scope, promiseOrFactory) {
+          const resolvedScope = showLocalLoader(scope);
+          try {
+            const promise =
+              typeof promiseOrFactory === "function"
+                ? promiseOrFactory()
+                : promiseOrFactory;
+            return Promise.resolve(promise).finally(function () {
+              hideLocalLoader(resolvedScope);
+            });
+          } catch (error) {
+            hideLocalLoader(resolvedScope);
+            throw error;
+          }
+        },
+      };
+
+      const nativeFetch = window.fetch ? window.fetch.bind(window) : null;
+      if (nativeFetch) {
+        window.fetch = function (input, init) {
+          let explicitScope = null;
+          let sanitizedInit = init;
+
+          if (sanitizedInit && typeof sanitizedInit === "object" && "loadingScope" in sanitizedInit) {
+            explicitScope = sanitizedInit.loadingScope;
+            sanitizedInit = Object.assign({}, sanitizedInit);
+            delete sanitizedInit.loadingScope;
+          }
+
+          const scope = showLocalLoader(explicitScope);
+          return nativeFetch(input, sanitizedInit).finally(function () {
+            hideLocalLoader(scope);
+          });
+        };
+      }
+
+      const NativeXHR = window.XMLHttpRequest;
+      if (NativeXHR && !window.__gdbInlineXhrPatched) {
+        window.__gdbInlineXhrPatched = true;
+        window.XMLHttpRequest = function () {
+          const xhr = new NativeXHR();
+          let scope = null;
+          let done = false;
+
+          xhr.addEventListener("loadstart", function () {
+            scope = showLocalLoader();
+          });
+
+          function cleanup() {
+            if (done) return;
+            done = true;
+            hideLocalLoader(scope);
+          }
+
+          xhr.addEventListener("loadend", cleanup);
+          xhr.addEventListener("abort", cleanup);
+          xhr.addEventListener("error", cleanup);
+          return xhr;
+        };
+        window.XMLHttpRequest.prototype = NativeXHR.prototype;
+      }
+    })();
+  </script>
   <script>
     window.addEventListener("load", function () {
       var preloader = document.querySelector(".gdb-premium-preloader");
