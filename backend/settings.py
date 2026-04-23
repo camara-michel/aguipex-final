@@ -258,12 +258,12 @@ CKEDITOR_CONFIGS = {
         'allowedContent': True,
         'extraAllowedContent': 'span(*)',
         'extraPlugins': 'justify,font',
-        # Configuration de la police par défaut (Century Gothic - police du site)
+        # Configuration de la police par défaut (Neulis Neue - police du site)
         'contentsCss': '/static/ckeditor/ckeditor/contents.css',
-        'font_defaultLabel': 'Century Gothic',
+        'font_defaultLabel': 'Neulis Neue',
         'fontSize_defaultLabel': '16',
         'fontSize_sizes': '8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;36/36px;48/48px;72/72px',
-        'font_names': 'Century Gothic/Century Gothic, sans-serif;Arial/Arial, Helvetica, sans-serif;Comic Sans MS/Comic Sans MS, cursive;Courier New/Courier New, Courier, monospace;Georgia/Georgia, serif;Lucida Sans Unicode/Lucida Sans Unicode, Lucida Grande, sans-serif;Tahoma/Tahoma, Geneva, sans-serif;Times New Roman/Times New Roman, Times, serif;Trebuchet MS/Trebuchet MS, Helvetica, sans-serif;Verdana/Verdana, Geneva, sans-serif',
+        'font_names': 'Neulis Neue/Neulis Neue, sans-serif',
         # Assurer que les icônes s'affichent correctement
         'uiColor': '#f5f5f5',
         'language': 'fr',
@@ -282,10 +282,10 @@ CKEDITOR_CONFIGS = {
         'allowedContent': True,
         # Configuration de la police par défaut
         'contentsCss': '/static/ckeditor/ckeditor/contents.css',
-        'font_defaultLabel': 'Barlow',
+        'font_defaultLabel': 'Neulis Neue',
         'fontSize_defaultLabel': '16',
         'fontSize_sizes': '8/8px;9/9px;10/10px;11/11px;12/12px;14/14px;16/16px;18/18px;20/20px;22/22px;24/24px;26/26px;28/28px;36/36px;48/48px;72/72px',
-        'font_names': 'Barlow/Barlow, sans-serif;Roboto/Roboto, sans-serif;Arial/Arial, Helvetica, sans-serif;Comic Sans MS/Comic Sans MS, cursive;Courier New/Courier New, Courier, monospace;Georgia/Georgia, serif;Lucida Sans Unicode/Lucida Sans Unicode, Lucida Grande, sans-serif;Tahoma/Tahoma, Geneva, sans-serif;Times New Roman/Times New Roman, Times, serif;Trebuchet MS/Trebuchet MS, Helvetica, sans-serif;Verdana/Verdana, Geneva, sans-serif',
+        'font_names': 'Neulis Neue/Neulis Neue, sans-serif',
         'uiColor': '#f5f5f5',
         'language': 'fr',
     },

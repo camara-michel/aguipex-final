@@ -3,9 +3,9 @@
  * Cette feuille de style est appliquée au contenu édité dans CKEditor
  */
 
-/* Utiliser la police par défaut du site (Century Gothic) */
+/* Utiliser la police par défaut du site (Neulis Neue) */
 body {
-    font-family: "Century Gothic", sans-serif;
+    font-family: "Neulis Neue", sans-serif;
     font-size: 16px;
     font-weight: 400;
     color: #737887;
@@ -25,7 +25,7 @@ p, div, span, li, td, th, h1, h2, h3, h4, h5, h6, a, strong, em, u, s, b, i {
 
 /* Zone éditable CKEditor */
 .cke_editable {
-    font-family: "Century Gothic", sans-serif;
+    font-family: "Neulis Neue", sans-serif;
     font-size: 16px;
     line-height: 26px;
     color: #737887;
@@ -39,7 +39,7 @@ p, div, span, li, td, th, h1, h2, h3, h4, h5, h6, a, strong, em, u, s, b, i {
 h1, h2, h3, h4, h5, h6 {
     font-weight: normal;
     line-height: 1.2;
-    font-family: "Century Gothic", sans-serif;
+    font-family: "Neulis Neue", sans-serif;
     color: #141d38;
     margin: 1em 0 0.5em 0;
 }

@@ -1,4 +1,10 @@
 @use "sass:math";
+
+@font-face {
+  font-family: "Neulis Neue";
+  src: local("Neulis Neue"), local("NeulisNeue");
+  font-display: swap;
+}
 :root {
   --theme-color: #073f65;
   --theme-color2: #0b8a5f;
@@ -17,8 +23,8 @@
   --error-color: #e22541;
   --aguipex-accent: #e22541;
   --th-border-color: #e0e0e0;
-  --title-font: "Barlow", sans-serif;
-  --body-font: "Roboto", sans-serif;
+  --title-font: "Neulis Neue", sans-serif;
+  --body-font: "Neulis Neue", sans-serif;
   --icon-font: "Font Awesome 6 Pro";
   --main-container: 1220px;
   --container-gutters: 24px;
