@@ -986,7 +986,6 @@
           <li><a href="{% url 'aguipex-procedure-exportation' %}">Procédure d'exportation</a></li>
           <li><a href="{% url 'mapping-produit' %}">Cartographie produit</a></li>
           <li><a href="{% url 'aguipex-foire' %}">Foires</a></li>
-          <li><a href="{% url 'aguipex-contact' %}">Contactez-nous</a></li>
         </ul>
         <div class="d-flex align-items-center justify-content-center gap-2">
           <img src="{% static 'assets/img/branding.png' %}" alt="BrandingGuinée" class="img-fluid blinking-image"
@@ -1034,9 +1033,6 @@
                   </li>
                   <li class="{% if request.resolver_match.url_name == 'aguipex-foire' %}active{% endif %}">
                     <a href="{% url 'aguipex-foire' %}">Foires</a>
-                  </li>
-                  <li class="{% if request.resolver_match.url_name == 'aguipex-contact' %}active{% endif %}">
-                    <a href="{% url 'aguipex-contact' %}">Contactez-nous</a>
                   </li>
                 </ul>
               </nav>
