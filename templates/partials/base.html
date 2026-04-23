@@ -78,14 +78,15 @@
       flex-wrap: nowrap;
       flex-shrink: 0;
     }
-    .header-logo .icon-masking,
-    .mobile-logo .icon-masking {
-      background: transparent;
-      border-radius: 0;
-      padding: 0;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
+    .site-logo {
+      width: 126px;
+      height: auto;
+      display: block;
+      object-fit: contain;
+    }
+
+    .site-logo--footer {
+      width: 190px;
     }
 
     .header-nav {
@@ -215,6 +216,10 @@
         margin: 0 10px;
       }
 
+      .site-logo {
+        width: 118px;
+      }
+
       .main-menu>ul {
         gap: 10px;
       }
@@ -243,6 +248,10 @@
     @media (max-width: 767.98px) {
       .header-nav {
         margin: 0 5px;
+      }
+
+      .site-logo {
+        width: 108px;
       }
 
       .main-menu>ul {
@@ -282,6 +291,10 @@
     @media (max-width: 575.98px) {
       .header-nav {
         margin: 0 2px;
+      }
+
+      .site-logo {
+        width: 100px;
       }
 
       .main-menu>ul {
@@ -337,6 +350,10 @@
       .blinking-image {
         width: 30px !important;
         height: 30px !important;
+      }
+
+      .site-logo {
+        width: 94px;
       }
     }
 
@@ -765,7 +782,7 @@
       <button class="th-menu-toggle"><i class="fal fa-times"></i></button>
       <div class="mobile-logo">
         <a href="{% url 'aguipex-index' %}">
-          <img src="{% static 'assets/img/logo-gdb.png' %}" alt="GDB" style="width: 120px; height: auto;" />
+          <img src="{% static 'assets/img/gdb-logo-blue.png' %}" alt="GDB" class="site-logo" />
         </a>
       </div>
       <div class="th-mobile-menu">
@@ -804,7 +821,7 @@
             <!-- Logo -->
             <div class="header-logo mb-3">
               <a href="{% url 'aguipex-index' %}">
-                <img src="{% static 'assets/img/logo-gdb.png' %}" alt="GDB" style="width: 120px; height: auto;" />
+                <img src="{% static 'assets/img/gdb-logo-blue.png' %}" alt="GDB" class="site-logo" />
               </a>
             </div>
 
@@ -1081,7 +1098,7 @@
         padding: 3rem 0 1.5rem;
       }
       .gdb-footer-logo {
-        max-width: 150px;
+        max-width: 190px;
         margin-bottom: 1rem;
       }
       .gdb-footer p, .gdb-footer a, .gdb-footer li {
@@ -1124,7 +1141,7 @@
       <div class="row g-4">
         <div class="col-lg-4">
           <a href="{% url 'aguipex-index' %}">
-            <img class="gdb-footer-logo" src="{% static 'assets/img/gdb-logo-blue.png' %}" alt="GDB" />
+            <img class="gdb-footer-logo site-logo site-logo--footer" src="{% static 'assets/img/logo-gdb.png' %}" alt="GDB" />
           </a>
           <p>Investir en Guinee, c'est investir dans l'avenir. Le GDB accompagne chaque projet du premier contact a la realisation.</p>
           <p class="mb-1">Quartier Almamya, Conakry, Guinee</p>
