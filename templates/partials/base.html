@@ -772,12 +772,10 @@
                 <a href="{% url 'aguipex-exportations' %}#infrastructure-exportation">Infrastructures liées à
                   l'exportation</a>
               </li>
-              <li>
-                <a href="{% url 'mapping-produit' %}">Cartographie produit Guinée</a>
-              </li>
             </ul>
           </li>
           <li><a href="{% url 'aguipex-procedure-exportation' %}">Procédure d'exportation</a></li>
+          <li><a href="{% url 'mapping-produit' %}">Cartographie produit</a></li>
           <li><a href="{% url 'aguipex-foire' %}">Foires</a></li>
           <li><a href="{% url 'aguipex-contact' %}">Contactez-nous</a></li>
         </ul>
@@ -808,7 +806,7 @@
               <nav class="main-menu style2 d-none d-lg-inline-block">
                 <ul>
                   <li
-                    class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-exportations,mapping-produit' %}active{% endif %}">
+                    class="menu-item-has-children {% if request.resolver_match.url_name == 'aguipex-exportations' %}active{% endif %}">
                     <a href="#">Exportations</a>
                     <ul class="sub-menu">
                       <li class="{% if request.resolver_match.url_name == 'aguipex-exportations' %}active{% endif %}">
@@ -818,13 +816,13 @@
                         <a href="{% url 'aguipex-exportations' %}#infrastructure-exportation">Infrastructures liées à
                           l'exportation</a>
                       </li>
-                      <li class="{% if request.resolver_match.url_name == 'mapping-produit' %}active{% endif %}">
-                        <a href="{% url 'mapping-produit' %}">Cartographie produit Guinée</a>
-                      </li>
                     </ul>
                   </li>
                   <li class="{% if request.resolver_match.url_name == 'aguipex-procedure-exportation' %}active{% endif %}">
                     <a href="{% url 'aguipex-procedure-exportation' %}">Procédure d'exportation</a>
+                  </li>
+                  <li class="{% if request.resolver_match.url_name == 'mapping-produit' %}active{% endif %}">
+                    <a href="{% url 'mapping-produit' %}">Cartographie produit</a>
                   </li>
                   <li class="{% if request.resolver_match.url_name == 'aguipex-foire' %}active{% endif %}">
                     <a href="{% url 'aguipex-foire' %}">Foires</a>

@@ -46,6 +46,17 @@
   }
   .leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.15); }
   .leaflet-popup-content b { color: #073f65; }
+  .map-tooltip-premium {
+    background: #073f65;
+    color: #fff;
+    border: 1px solid #052a45;
+    border-radius: 8px;
+    box-shadow: 0 6px 14px rgba(0,0,0,.2);
+    font-size: .82rem;
+    font-weight: 600;
+    padding: 2px 6px;
+  }
+  .map-tooltip-premium::before { border-top-color: #073f65 !important; }
   .custom-div-icon { background: transparent !important; border: none !important; display: flex; gap: 4px; align-items: center; }
   .custom-div-icon div { border: 2px solid #fff !important; box-shadow: 0 3px 10px rgba(0,0,0,.25); }
   .info.legend {
@@ -165,9 +176,14 @@
       iconAnchor: [Math.max(produitsAAfficher.length * 9, 10), 10],
     });
 
-    return L.marker([ville.lat, ville.lng], { icon }).bindPopup(
-      "<b>" + ville.name + "</b><br>Produits: " + produitsAAfficher.join(", ")
-    );
+    return L.marker([ville.lat, ville.lng], { icon })
+      .bindPopup("<b>" + ville.name + "</b><br>Produits: " + produitsAAfficher.join(", "))
+      .bindTooltip(ville.name + " - " + produitsAAfficher.join(", "), {
+        direction: "top",
+        sticky: true,
+        opacity: 0.95,
+        className: "map-tooltip-premium"
+      });
   }
 
   function afficherMarqueurs(filtreVille = "", filtreProduit = "") {

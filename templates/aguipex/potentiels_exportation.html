@@ -749,7 +749,19 @@ document.getElementById("download-pdf").addEventListener("click", function () {
  
     
     </script>
-    
-    
-    
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const sectionInfrastructure = document.getElementById("infrastructure-exportation");
+        const sectionPotentiel = document.getElementById("potentiel-exportation");
+        const sectionProcedure = document.getElementById("procedure-exportation");
+        const sectionProcessus = document.getElementById("processus-exportation");
+
+        if (!sectionInfrastructure || !sectionPotentiel || !sectionProcedure || !sectionProcessus) return;
+
+        const parent = sectionProcedure.parentNode;
+        parent.insertBefore(sectionInfrastructure, sectionProcedure);
+        parent.insertBefore(sectionPotentiel, sectionProcedure);
+      });
+    </script>
+
 {% endblock script %}
