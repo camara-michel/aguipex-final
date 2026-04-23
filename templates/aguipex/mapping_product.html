@@ -3,10 +3,9 @@
 
 {% block style %}
 <style>
-  .mapping-section { padding: 2.5rem 0 4rem; background: linear-gradient(to bottom, #ffffff 0%, #f4f8fb 100%); }
+  .mapping-section { padding: 2.5rem 0 4rem; background: #f4f8fb; }
   .mapping-hero {
-    background: radial-gradient(circle at top right, rgba(11,138,95,.14), transparent 45%),
-      linear-gradient(135deg, #052a45 0%, #073f65 55%, #0b8a5f 100%);
+    background: #073f65;
     color: #fff;
     border-radius: 24px;
     padding: 2rem;
@@ -114,9 +113,10 @@
 <script>
   const DEFAULT_CENTER = [9.9456, -9.6966];
   const map = L.map("map").setView(DEFAULT_CENTER, 7);
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png", {
     maxZoom: 18,
-    attribution: "&copy; OpenStreetMap",
+    attribution: '&copy; OpenStreetMap, &copy; CARTO',
+    referrerPolicy: "strict-origin-when-cross-origin",
   }).addTo(map);
 
   const villes = {{ villes_data|safe }};
