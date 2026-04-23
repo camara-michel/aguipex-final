@@ -34,7 +34,12 @@ DEBUG = env.bool("DEBUG", default=True)
 
 ALLOWED_HOSTS = env.list(
     "ALLOWED_HOSTS",
-    default="aguipex.gov.gn,www.aguipex.gov.gn,127.0.0.1,localhost",
+    default="export.gdb.gn,www.export.gdb.gn,127.0.0.1,localhost",
+)
+
+CSRF_TRUSTED_ORIGINS = env.list(
+    "CSRF_TRUSTED_ORIGINS",
+    default="https://export.gdb.gn,https://www.export.gdb.gn",
 )
 
 
@@ -157,7 +162,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # In local dev, use local media. Only use production URL if explicitly set in env.
 #if DEBUG and MEDIA_URL == "/media/":
-    #MEDIA_URL = "https://aguipex.gov.gn/media/"
+    #MEDIA_URL = "https://export.gdb.gn/media/"
 
 AUTH_USER_MODEL = "userauths.User"
 

@@ -69,6 +69,11 @@
       flex-wrap: nowrap;
       flex-shrink: 0;
     }
+
+    .header-main-row {
+      gap: 12px;
+      flex-wrap: nowrap;
+    }
     .site-logo {
       width: 126px;
       height: auto;
@@ -178,6 +183,10 @@
 
     /* Responsive design pour le header */
     @media (max-width: 1199.98px) {
+      .header-main-row {
+        gap: 8px;
+      }
+
       .header-nav {
         margin: 0 15px;
       }
@@ -233,6 +242,10 @@
       .blinking-image {
         width: 45px !important;
         height: 45px !important;
+      }
+
+      .header-button {
+        display: none !important;
       }
     }
 
@@ -988,7 +1001,7 @@
     <div class="sticky-wrapper">
       <div class="menu-area">
         <div class="container th-container4">
-          <div class="d-flex align-items-center justify-content-between">
+          <div class="d-flex align-items-center justify-content-between header-main-row">
             <!-- Logo -->
             <div class="header-logo mb-3">
               <a href="{% url 'aguipex-index' %}">
@@ -998,7 +1011,7 @@
 
             <!-- Menu de navigation -->
             <div class="header-nav">
-              <nav class="main-menu style2 d-none d-lg-inline-block">
+              <nav class="main-menu style2 d-none d-xl-inline-block">
                 <ul>
                   <li
                     class="menu-item-has-children {% if request.resolver_match.url_name == 'aguipex-exportations' %}active{% endif %}">
@@ -1030,7 +1043,7 @@
             </div>
 
             <!-- Bouton de contact et logos -->
-            <div class="header-button d-flex align-items-center">
+            <div class="header-button d-none d-xl-flex align-items-center">
               <img src="{% static 'assets/img/branding.png' %}" alt="BrandingGuinée" width="50" height="50"
                 class="blinking-image me-2 d-none d-lg-block" />
               <img src="{% static 'assets/img/simandou.png' %}" alt="Simandou2040" width="50" height="50"
@@ -1042,7 +1055,7 @@
             </div>
 
             <!-- Bouton de menu mobile - séparé pour éviter la superposition -->
-            <div class="mobile-menu-toggle d-lg-none">
+            <div class="mobile-menu-toggle d-xl-none">
               <button type="button" class="th-menu-toggle">
                 <i class="far fa-bars"></i>
               </button>
