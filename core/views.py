@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.contrib import messages
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseGone
 from core import models as aguipex_models
 from django.shortcuts import render, get_object_or_404
 from django.db.models import Sum, Q, Prefetch, Count
@@ -12,6 +12,10 @@ import json
 from core.forms import CandidatureManifestationForm
 from core.models import MAX_ORDRE_ETAPE_PAR_STATUT, CANDIDATURES_VISIBLES_FRONT_Q
 # Create your views here.
+
+
+def page_supprimee(request):
+    return HttpResponseGone("Cette page a ete supprimee.")
 
 def index(request):
     slides = aguipex_models.Slide.objects.filter(status="publier", is_deleted=False).order_by("-created_at")

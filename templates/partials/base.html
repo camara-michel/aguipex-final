@@ -755,26 +755,6 @@
       </div>
       <div class="th-mobile-menu">
         <ul>
-          <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
-          <li class="menu-item-has-children mega-menu-wrap">
-            <a href="#">À propos de nous</a>
-            <ul class="sub-menu">
-              <li>
-                <a href="{% url 'aguipex-about' %}">Qui sommes nous ?</a>
-              </li>
-              <li>
-                <a href="{% url 'aguipex-about' %}#vision-mission">Vision et Mission</a>
-              </li>
-              <li><a href="{% url 'aguipex-equipe' %}">Équipes</a></li>
-              <li>
-                <a href="{% url 'aguipex-offreService' %}">Nos offres de services</a>
-              </li>
-              <li>
-                <a href="{% url 'aguipex-index' %}#temoignage">Temoignages</a>
-              </li>
-            </ul>
-          </li>
-
           <li class="menu-item-has-children mega-menu-wrap">
             <a href="#">Exportations</a>
             <ul class="sub-menu">
@@ -793,76 +773,8 @@
               </li>
             </ul>
           </li>
-          <li><a href="{% url 'aguipex-entreprises' %}">Entreprises</a></li>
           <li><a href="{% url 'aguipex-foire' %}">Foires</a></li>
-          <li class="menu-item-has-children">
-            <a href="#">Programmes</a>
-            <ul class="sub-menu">
-              {% for programme in programmes %}
-              <li>
-                <a href="{% url 'aguipex-detailProgramme' programme.slug %}">{{programme.accronyme}}</a>
-              </li>
-              {% endfor %}
-            </ul>
-          </li>
-          <li class="menu-item-has-children">
-            <a href="#">Ressources</a>
-            <ul class="sub-menu">
-              <li><a href="{% url 'aguipex-actualite' %}">Actualité</a></li>
-              <li><a href="{% url 'aguipex-interprofessions' %}">Interprofessions</a></li>
-              <li><a href="{% url 'aguipex-projets' %}">Projets</a></li>
-              <li><a href="{% url 'aguipex-manifestations' %}">Manifestations commerciales</a></li>
-              <li>
-                <a href="{% url 'aguipex-statistiques' %}">Statistiques</a>
-              </li>
-              <li>
-                <a href="{% url 'aguipex-word-cloud' %}">Nuage de mots-clés</a>
-              </li>
-              <li class="menu-item-has-children">
-                <a href="#">Nos Outils</a>
-                <ul class="sub-menu">
-                  <li>
-                    <a target="_blank" href="https://guceg.gov.gn/">GUCEG</a>
-                  </li> 
-                  <li>
-                    <a target="_blank" href="https://commerceexterieurgn.com">DNCEC – Commerce extérieur Guinée</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://www.stat-guinee.org/">INS – Statistique Guinée</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://www.wto.org">OMC – Organisation mondiale du commerce</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://www.intracen.org/fr">CCI – Centre du commerce international</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://unctad.org/fr">CNUCED</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://icdt-cidc.org/fr/">CIDC – Centre islamique du commerce</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://www.londonstockexchange.com/">London Stock Exchange</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://www.boursedirect.fr/fr/marche/new-york">Bourse de New York</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://www.bcrg-guinee.org">BCRG – Banque centrale Guinée</a>
-                  </li>
-                  <li>
-                    <a target="_blank" href="https://cpdm.mines.gov.gn/">CPDM Mines Guinée</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="{% url 'aguipex-espaceMedia' %}">Espace Média</a>
-              </li>
-              <li><a href="{% url 'aguipex-faq' %}">FAQ</a></li>
-              <li><a href="{% url 'aguipex-contact' %}">Contactez-nous</a></li>
-            </ul>
-          </li>
+          <li><a href="{% url 'aguipex-contact' %}">Contactez-nous</a></li>
         </ul>
         <div class="d-flex align-items-center justify-content-center gap-2">
           <img src="{% static 'assets/img/branding.png' %}" alt="BrandingGuinée" class="img-fluid blinking-image"
@@ -890,30 +802,6 @@
             <div class="header-nav">
               <nav class="main-menu style2 d-none d-lg-inline-block">
                 <ul>
-                  <li class="{% if request.resolver_match.url_name == 'aguipex-index' %}active{% endif %}">
-                    <a href="{% url 'aguipex-index' %}">Accueil</a>
-                  </li>
-                  <li
-                    class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-about,aguipex-equipe,aguipex-offreService' %}active{% endif %}">
-                    <a href="#">À propos de nous</a>
-                    <ul class="sub-menu">
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-about' %}active{% endif %}">
-                        <a href="{% url 'aguipex-about' %}">Qui sommes nous ?</a>
-                      </li>
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-about' %}active{% endif %}">
-                        <a href="{% url 'aguipex-about' %}#vision-mission">Vision et Mission</a>
-                      </li>
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-equipe' %}active{% endif %}">
-                        <a href="{% url 'aguipex-equipe' %}">Équipes</a>
-                      </li>
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-offreService' %}active{% endif %}">
-                        <a href="{% url 'aguipex-offreService' %}">Nos offres de services</a>
-                      </li>
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-index' %}active{% endif %}">
-                        <a href="{% url 'aguipex-index' %}#temoignage">Temoignages</a>
-                      </li>
-                    </ul>
-                  </li>
                   <li
                     class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-exportations,mapping-produit' %}active{% endif %}">
                     <a href="#">Exportations</a>
@@ -933,102 +821,11 @@
                       </li>
                     </ul>
                   </li>
-                  <li class="{% if request.resolver_match.url_name == 'aguipex-entreprises' %}active{% endif %}">
-                    <a href="{% url 'aguipex-entreprises' %}">Entreprises</a>
-                  </li>
                   <li class="{% if request.resolver_match.url_name == 'aguipex-foire' %}active{% endif %}">
                     <a href="{% url 'aguipex-foire' %}">Foires</a>
                   </li>
-                  <li
-                    class="menu-item-has-children {% if request.resolver_match.url_name == 'aguipex-detailProgramme' %}active{% endif %}">
-                    <a href="#">Programmes</a>
-                    <ul class="sub-menu">
-                      {% for programme in programmes %}
-                      <li
-                        class="{% if request.resolver_match.url_name == 'aguipex-detailProgramme' and request.resolver_match.kwargs.slug == programme.slug %}active{% endif %}">
-                        <a href="{% url 'aguipex-detailProgramme' programme.slug %}">{{programme.accronyme}}</a>
-                      </li>
-                      {% endfor %}
-                    </ul>
-                  </li>
-                  <li
-                    class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-actualite,aguipex-detail_actualite,aguipex-espaceMedia,aguipex-detail_espace,aguipex-faq,aguipex-contact,aguipex-interprofessions,aguipex-interprofession-detail,aguipex-projets,aguipex-projet-detail,aguipex-statistiques,aguipex-word-cloud,aguipex-manifestations,aguipex-manifestation-detail,aguipex-manifestation-postuler' %}active{% endif %}">
-                    <a href="#">Ressources</a>
-                    <ul class="sub-menu">
-                      <li
-                        class="{% if request.resolver_match.url_name in 'aguipex-actualite,aguipex-detail_actualite' %}active{% endif %}">
-                        <a href="{% url 'aguipex-actualite' %}">Actualité</a>
-                      </li>
-                      <li
-                        class="{% if request.resolver_match.url_name in 'aguipex-interprofessions,aguipex-interprofession-detail' %}active{% endif %}">
-                        <a href="{% url 'aguipex-interprofessions' %}">Interprofessions</a>
-                      </li>
-                      <li
-                        class="{% if request.resolver_match.url_name in 'aguipex-projets,aguipex-projet-detail' %}active{% endif %}">
-                        <a href="{% url 'aguipex-projets' %}">Projets</a>
-                      </li>
-                      <li
-                        class="{% if request.resolver_match.url_name in 'aguipex-manifestations,aguipex-manifestation-detail,aguipex-manifestation-postuler' %}active{% endif %}">
-                        <a href="{% url 'aguipex-manifestations' %}">Manifestations commerciales</a>
-                      </li>
-                      <li
-                        class="{% if request.resolver_match.url_name == 'aguipex-statistiques' %}active{% endif %}">
-                        <a href="{% url 'aguipex-statistiques' %}">Statistiques</a>
-                      </li>
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-word-cloud' %}active{% endif %}">
-                        <a href="{% url 'aguipex-word-cloud' %}">Nuage de mots-clés</a>
-                      </li>
-                      <li class="menu-item-has-children">
-                        <a href="#">Nos Outils</a>
-                        <ul class="sub-menu">
-                          <li>
-                            <a target="_blank" href="https://guceg.gov.gn/">GUCEG</a>
-                          </li>
-                        
-                          <li>
-                            <a target="_blank" href="https://commerceexterieurgn.com">DNCEC – Commerce extérieur Guinée</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://www.stat-guinee.org/">INS – Statistique Guinée</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://www.wto.org">OMC – Organisation mondiale du commerce</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://www.intracen.org/fr">CCI – Centre du commerce international</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://unctad.org/fr">CNUCED</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://icdt-cidc.org/fr/">CIDC – Centre islamique du commerce</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://www.londonstockexchange.com/">London Stock Exchange</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://www.boursedirect.fr/fr/marche/new-york">Bourse de New York</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://www.bcrg-guinee.org">BCRG – Banque centrale Guinée</a>
-                          </li>
-                          <li>
-                            <a target="_blank" href="https://cpdm.mines.gov.gn/">CPDM Mines Guinée</a>
-                          </li>
-                        </ul>
-                      </li>
-
-                      <li
-                        class="{% if request.resolver_match.url_name in 'aguipex-espaceMedia,aguipex-detail_espace' %}active{% endif %}">
-                        <a href="{% url 'aguipex-espaceMedia' %}">Espace Média</a>
-                      </li>
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-faq' %}active{% endif %}">
-                        <a href="{% url 'aguipex-faq' %}">FAQ</a>
-                      </li>
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-contact' %}active{% endif %}">
-                        <a href="{% url 'aguipex-contact' %}">Contactez-nous</a>
-                      </li>
-                    </ul>
+                  <li class="{% if request.resolver_match.url_name == 'aguipex-contact' %}active{% endif %}">
+                    <a href="{% url 'aguipex-contact' %}">Contactez-nous</a>
                   </li>
                 </ul>
               </nav>
@@ -1294,17 +1091,13 @@
               <h3 class="widget_title">NAVIGATION</h3>
               <div class="menu-all-pages-container">
                 <ul class="menu">
-                  <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
-                  <li>
-                    <a href="{% url 'aguipex-about' %}">À propos de nous</a>
-                  </li>
                   <li>
                     <a href="{% url 'aguipex-exportations' %}">Potentiel d'exportation</a>
                   </li>
                   <li>
                     <a href="{% url 'aguipex-offreService' %}">Offres de services</a>
                   </li>
-                  <li><a href="{% url 'aguipex-faq' %}">FAQ</a></li>
+                  <li><a href="{% url 'aguipex-contact' %}">Contactez-nous</a></li>
                 </ul>
               </div>
             </div>
@@ -1693,12 +1486,12 @@
         sendBtn.disabled = false;
         try {
           if (xhr.status !== 200) {
-            addMessage('bot', 'Le serveur a renvoyé une erreur. Réessayez ou consultez les pages **À propos** et **Contact** du site.');
+            addMessage('bot', 'Le serveur a renvoyé une erreur. Réessayez ou consultez les pages **Exportations** et **Contact** du site.');
             return;
           }
           var data = JSON.parse(xhr.responseText);
           if (data.session_id) { sessionId = data.session_id; localStorage.setItem('aguipex_chat_session', sessionId); }
-          var reply = (data && data.reply != null && data.reply !== '') ? data.reply : 'Je n\'ai pas pu formuler de réponse. Consultez les pages **À propos**, **Contact** ou **Ressources** du menu.';
+          var reply = (data && data.reply != null && data.reply !== '') ? data.reply : 'Je n\'ai pas pu formuler de réponse. Consultez les pages **Exportations** ou **Contact** du menu.';
           addMessage('bot', reply);
         } catch (e) {
           addMessage('bot', 'Réponse invalide du serveur. Réessayez ou consultez directement les pages du site.');
