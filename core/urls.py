@@ -13,6 +13,7 @@ urlpatterns = [
     path('espace-media/', views.page_supprimee, name="aguipex-espaceMedia"),
     path('offre-de-service/', views.offres_service, name="aguipex-offreService"),
     path('exportations/', views.potentiels_exportation, name="aguipex-exportations"),
+    path('procedure-exportation/', views.procedure_exportation, name='aguipex-procedure-exportation'),
     path('get_exportation_details/', views.get_exportation_details, name="get-exportation-details"),
     path('get-voies-by-produit/', views.get_voies_by_produit, name='get_voies_by_produit'),
     path('get-procedure-details/', views.get_procedure_details, name='get_procedure_details'),

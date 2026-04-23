@@ -1,0 +1,241 @@
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block style %}
+<style>
+  .procedure-hero {
+    background: radial-gradient(circle at top right, rgba(11, 138, 95, 0.12), transparent 45%),
+      linear-gradient(135deg, #052a45 0%, #073f65 55%, #0b8a5f 100%);
+    color: #fff;
+    border-radius: 24px;
+    padding: 2.2rem;
+    margin: 2rem 0 2.5rem;
+    box-shadow: 0 18px 50px rgba(7, 63, 101, 0.25);
+  }
+  .procedure-hero h2 { color: #fff; margin-bottom: 0.5rem; font-weight: 800; }
+  .procedure-hero p { color: rgba(255, 255, 255, 0.9); margin-bottom: 0; }
+
+  .process-card {
+    background: #fff;
+    border: 1px solid #e7eef3;
+    border-radius: 18px;
+    padding: 1.25rem;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    transition: transform .25s ease, box-shadow .25s ease;
+    height: 100%;
+  }
+  .process-card:hover { transform: translateY(-4px); box-shadow: 0 16px 30px rgba(7,63,101,0.12); }
+  .process-step {
+    width: 36px; height: 36px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center;
+    background: linear-gradient(135deg, #073f65, #0b8a5f); color: #fff; font-weight: 700; margin-bottom: 0.8rem;
+  }
+
+  .selector-wrap {
+    background: #fff;
+    border-radius: 18px;
+    border: 1px solid #e7eef3;
+    box-shadow: 0 8px 24px rgba(0,0,0,.06);
+    padding: 1.5rem;
+  }
+  .selector-wrap .form-select {
+    border: 2px solid #dce8f0;
+    border-radius: 12px;
+    padding: 0.8rem 1rem;
+  }
+  .selector-wrap .form-select:focus {
+    border-color: #073f65;
+    box-shadow: 0 0 0 3px rgba(7,63,101,0.1);
+  }
+
+  .detail-card {
+    margin-top: 1.25rem;
+    border-radius: 20px;
+    border: 1px solid #e7eef3;
+    background: linear-gradient(to bottom, #ffffff 0%, #f8fbfd 100%);
+    padding: 1.4rem;
+    display: none;
+  }
+  .detail-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #073f65;
+    margin-bottom: 1rem;
+  }
+  .detail-row { margin-bottom: 0.7rem; }
+  .detail-row strong { color: #073f65; }
+  .detail-image {
+    width: 100%;
+    max-height: 240px;
+    border-radius: 14px;
+    object-fit: cover;
+    border: 1px solid #e7eef3;
+    background: #fff;
+  }
+</style>
+{% endblock style %}
+
+{% block content %}
+<div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
+  <div class="container">
+    <div class="breadcumb-content">
+      <h1 class="breadcumb-title text-uppercase">Procédure d'exportation</h1>
+      <ul class="breadcumb-menu">
+        <li><a href="{% url 'aguipex-exportations' %}">Exportations</a></li>
+        <li>Procédure d'exportation</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<section class="space pt-0">
+  <div class="container">
+    <div class="procedure-hero">
+      <h2>Procédure exportation</h2>
+      <p>Retrouvez les étapes réglementaires et le processus d'exportation d'un produit avec une expérience claire et premium.</p>
+    </div>
+
+    <div class="row g-4 mb-5">
+      {% for procedure in procedure_globales %}
+      <div class="col-md-6 col-xl-3">
+        <div class="process-card">
+          <div class="process-step">{{ forloop.counter }}</div>
+          <h5>{{ procedure.titre }}</h5>
+          <div class="text-muted">{{ procedure.description|safe }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="selector-wrap" id="processus-exportation">
+      <div class="row g-3">
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Produit</label>
+          <select id="select-product" class="form-select">
+            <option value="" selected disabled>Choisissez un produit</option>
+            {% for procedure in produits %}
+            <option value="{{ procedure.id }}">{{ procedure.title }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Voie d'exportation</label>
+          <select id="select-voie" class="form-select" disabled>
+            <option value="" selected disabled>Choisissez une voie</option>
+          </select>
+        </div>
+      </div>
+
+      <div id="default-message" class="mt-4 text-muted">
+        Veuillez sélectionner un produit et une voie d'exportation pour afficher le processus complet.
+      </div>
+
+      <div id="export-details" class="detail-card">
+        <div class="row g-4">
+          <div class="col-lg-8">
+            <div class="detail-title">Processus d'exportation d'un produit</div>
+            <div class="detail-row"><strong>Produit :</strong> <span id="detail-product"></span></div>
+            <div class="detail-row"><strong>Voie d'exportation :</strong> <span id="detail-voie"></span></div>
+            <div class="detail-row"><strong>Formalisation :</strong> <span id="detail-formalisation"></span></div>
+            <div class="detail-row"><strong>DDE :</strong> <span id="detail-dde"></span></div>
+            <div class="detail-row"><strong>Certificat technique :</strong> <span id="detail-cert-tech"></span></div>
+            <div class="detail-row"><strong>Certificat conventionnel :</strong> <span id="detail-cert-conv"></span></div>
+            <div class="detail-row"><strong>Autorisation :</strong> <span id="detail-autorisation"></span></div>
+            <div class="detail-row"><strong>Redevance :</strong> <span id="detail-redevance"></span></div>
+            <div class="detail-row"><strong>Formalités douanières :</strong> <span id="detail-formalite"></span></div>
+            <div class="detail-row"><strong>Notes :</strong> <span id="detail-nb"></span></div>
+            <button id="download-pdf" class="th-btn style-radius mt-2">Télécharger en PDF</button>
+          </div>
+          <div class="col-lg-4">
+            <img id="detail-image" class="detail-image" alt="Image du produit">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
+
+{% block script %}
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const selectProduct = document.getElementById("select-product");
+  const selectVoie = document.getElementById("select-voie");
+  const exportDetails = document.getElementById("export-details");
+  const defaultMessage = document.getElementById("default-message");
+
+  const fields = {
+    product: document.getElementById("detail-product"),
+    voie: document.getElementById("detail-voie"),
+    formalisation: document.getElementById("detail-formalisation"),
+    dde: document.getElementById("detail-dde"),
+    certTech: document.getElementById("detail-cert-tech"),
+    certConv: document.getElementById("detail-cert-conv"),
+    autorisation: document.getElementById("detail-autorisation"),
+    redevance: document.getElementById("detail-redevance"),
+    formalite: document.getElementById("detail-formalite"),
+    nb: document.getElementById("detail-nb"),
+    image: document.getElementById("detail-image"),
+  };
+
+  function formatVoie(voie) {
+    if (voie === "transport_aerien") return "Transport aérien";
+    if (voie === "transport_maritime") return "Transport maritime";
+    if (voie === "transport_terrestre") return "Transport terrestre";
+    return voie || "—";
+  }
+
+  selectProduct.addEventListener("change", function () {
+    const productId = this.value;
+    selectVoie.innerHTML = '<option disabled selected>Chargement...</option>';
+    selectVoie.disabled = true;
+    exportDetails.style.display = "none";
+    defaultMessage.style.display = "block";
+
+    fetch(`/get-voies-by-produit/?product_id=${productId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        selectVoie.innerHTML = '<option value="" disabled selected>Choisissez une voie</option>';
+        (data.voies || []).forEach((voie) => {
+          const option = document.createElement("option");
+          option.value = voie;
+          option.textContent = formatVoie(voie);
+          selectVoie.appendChild(option);
+        });
+        selectVoie.disabled = false;
+      });
+  });
+
+  selectVoie.addEventListener("change", function () {
+    const voie = this.value;
+    const productId = selectProduct.value;
+
+    fetch(`/get-procedure-details/?product_id=${productId}&voie_exportation=${voie}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.error) {
+          exportDetails.style.display = "none";
+          defaultMessage.style.display = "block";
+          defaultMessage.textContent = "Aucune information disponible pour ce choix.";
+          return;
+        }
+
+        fields.product.textContent = selectProduct.options[selectProduct.selectedIndex].text;
+        fields.voie.textContent = formatVoie(voie);
+        fields.formalisation.textContent = data.formalisation || "—";
+        fields.dde.textContent = data.dde || "—";
+        fields.certTech.textContent = data.certificat_technique || "—";
+        fields.certConv.textContent = data.certificat_conventionnel || "—";
+        fields.autorisation.textContent = data.autorisation || "—";
+        fields.redevance.textContent = data.redevance || "—";
+        fields.formalite.textContent = data.formalite_douane || "—";
+        fields.nb.textContent = data.nb || "—";
+        fields.image.src = data.image || "{% static 'assets/img/logo.png' %}";
+        fields.image.alt = "Produit " + fields.product.textContent;
+
+        defaultMessage.style.display = "none";
+        exportDetails.style.display = "block";
+      });
+  });
+});
+</script>
+{% endblock script %}

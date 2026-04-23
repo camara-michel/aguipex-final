@@ -759,7 +759,7 @@
             <a href="#">Exportations</a>
             <ul class="sub-menu">
               <li>
-                <a href="{% url 'aguipex-exportations' %}#procedure-exportation">Procédure d'exportations</a>
+                <a href="{% url 'aguipex-procedure-exportation' %}">Procédure d'exportations</a>
               </li>
               <li>
                 <a href="{% url 'aguipex-exportations' %}#potentiel-exportation">Potentiel d'exportations</a>
@@ -803,11 +803,11 @@
               <nav class="main-menu style2 d-none d-lg-inline-block">
                 <ul>
                   <li
-                    class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-exportations,mapping-produit' %}active{% endif %}">
+                    class="menu-item-has-children {% if request.resolver_match.url_name in 'aguipex-exportations,aguipex-procedure-exportation,mapping-produit' %}active{% endif %}">
                     <a href="#">Exportations</a>
                     <ul class="sub-menu">
-                      <li class="{% if request.resolver_match.url_name == 'aguipex-exportations' %}active{% endif %}">
-                        <a href="{% url 'aguipex-exportations' %}#procedure-exportation">Procédure d'exportations</a>
+                      <li class="{% if request.resolver_match.url_name == 'aguipex-procedure-exportation' %}active{% endif %}">
+                        <a href="{% url 'aguipex-procedure-exportation' %}">Procédure d'exportations</a>
                       </li>
                       <li class="{% if request.resolver_match.url_name == 'aguipex-exportations' %}active{% endif %}">
                         <a href="{% url 'aguipex-exportations' %}#potentiel-exportation">Potentiel d'exportations</a>

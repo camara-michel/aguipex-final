@@ -175,6 +175,29 @@ def potentiels_exportation(request):
     return render(request, 'aguipex/potentiels_exportation.html', context)
 
 
+def procedure_exportation(request):
+    """Page dediee: procedure et processus d'exportation."""
+    produits = aguipex_models.Produit.objects.filter(
+        status="publier",
+        pour_site=True,
+        is_deleted=False
+    ).order_by("-created_at")
+    procedure_globales = aguipex_models.ProcedureGlobale.objects.filter(
+        status="publier",
+        is_deleted=False
+    ).order_by("created_at")
+    procedures = aguipex_models.ProcedureProduct.objects.filter(
+        status="publier",
+        is_deleted=False
+    )
+    context = {
+        "produits": produits,
+        "procedure_globales": procedure_globales,
+        "procedure_products": procedures,
+    }
+    return render(request, "aguipex/procedure_exportation.html", context)
+
+
 
 def get_exportation_details(request):
     """ Vue pour récupérer les détails en fonction du produit et de la voie d'exportation """

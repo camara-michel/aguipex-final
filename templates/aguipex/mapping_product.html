@@ -1,361 +1,220 @@
-{% extends "partials/base.html" %} {% load static %} {% block style %}
+{% extends "partials/base.html" %}
+{% load static %}
+
+{% block style %}
 <style>
-  .mapping-section {
-    padding: 3rem 0 4rem;
-    background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
-  }
-
-  .mapping-header {
-    text-align: center;
-    margin-bottom: 3rem;
-    animation: fadeInUp 0.6s ease-out;
-  }
-
-  .mapping-header .sub-title {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.75rem;
-    font-size: 1.75rem;
-    font-weight: 700;
-    background: linear-gradient(135deg, #073f65, #0b8a5f);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 1rem;
-  }
-
-  .mapping-filters {
-    background: #fff;
-    border-radius: 16px;
+  .mapping-section { padding: 2.5rem 0 4rem; background: linear-gradient(to bottom, #ffffff 0%, #f4f8fb 100%); }
+  .mapping-hero {
+    background: radial-gradient(circle at top right, rgba(11,138,95,.14), transparent 45%),
+      linear-gradient(135deg, #052a45 0%, #073f65 55%, #0b8a5f 100%);
+    color: #fff;
+    border-radius: 24px;
     padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-    border: 1px solid rgba(0,0,0,0.06);
-    animation: fadeInUp 0.6s ease-out 0.2s backwards;
+    margin-bottom: 1.6rem;
+    box-shadow: 0 18px 50px rgba(7,63,101,0.2);
   }
-
-  .mapping-filter-group {
-    display: flex;
-    gap: 1.5rem;
-    align-items: end;
+  .mapping-hero h2 { color: #fff; margin-bottom: .5rem; font-weight: 800; }
+  .mapping-hero p { color: rgba(255,255,255,.92); margin-bottom: 0; }
+  .mapping-stats { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 1rem; margin-bottom: 1.4rem; }
+  .stat-card {
+    background: #fff; border: 1px solid #e5edf3; border-radius: 14px; padding: 1rem 1.1rem;
+    box-shadow: 0 8px 22px rgba(0,0,0,.05);
   }
-
-  .mapping-filter-item {
-    flex: 1;
+  .stat-card .label { color: #66788a; font-size: .88rem; margin-bottom: .2rem; }
+  .stat-card .value { color: #073f65; font-size: 1.5rem; font-weight: 800; line-height: 1.1; }
+  .mapping-filters {
+    background: #fff; border-radius: 18px; padding: 1.2rem; margin-bottom: 1.2rem;
+    border: 1px solid #e5edf3; box-shadow: 0 8px 24px rgba(0,0,0,.06);
   }
-
-  .mapping-filter-item label {
-    display: block;
-    font-weight: 600;
-    color: #1a1a1a;
-    margin-bottom: 0.75rem;
-    font-size: 0.95rem;
-  }
-
+  .mapping-filter-grid { display: grid; grid-template-columns: 1fr 1fr auto; gap: .8rem; }
   .mapping-filter-select {
-    width: 100%;
-    padding: 0.875rem 1.25rem;
-    border: 2px solid rgba(0,0,0,0.1);
-    border-radius: 12px;
-    font-size: 1rem;
-    background: #fff;
-    color: #1a1a1a;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    cursor: pointer;
-    appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23073f65' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    padding-right: 3rem;
+    width: 100%; border: 2px solid #dce8f0; border-radius: 12px; padding: .8rem 1rem; background: #fff;
+    transition: all .25s ease;
   }
-
-  .mapping-filter-select:focus {
-    outline: none;
-    border-color: #073f65;
-    box-shadow: 0 0 0 3px rgba(7,63,101,0.1);
+  .mapping-filter-select:focus { border-color: #073f65; box-shadow: 0 0 0 3px rgba(7,63,101,.1); outline: none; }
+  .reset-btn {
+    border: none; border-radius: 12px; background: #073f65; color: #fff; padding: 0 .95rem; font-weight: 600;
+    transition: transform .2s ease, box-shadow .2s ease;
   }
-
-  .mapping-filter-select:hover {
-    border-color: #0b8a5f;
-  }
-
+  .reset-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(7,63,101,.25); }
   .mapping-container {
-    position: relative;
-    background: #fff;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.12);
-    border: 1px solid rgba(0,0,0,0.06);
-    animation: fadeInUp 0.6s ease-out 0.4s backwards;
+    background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid #e5edf3; box-shadow: 0 10px 30px rgba(0,0,0,.1);
   }
-
-  #map {
-    height: 650px;
-    width: 100%;
-    border-radius: 20px;
-    z-index: 1;
+  #map { height: 670px; width: 100%; }
+  .empty-state {
+    display: none; margin-top: .9rem; color: #e22541; background: #fdecef; border: 1px solid #f8d5dc;
+    border-radius: 10px; padding: .65rem .85rem; font-weight: 500;
   }
-
-  .leaflet-container {
-    background: #f8f9fa;
-    font-family: inherit;
-  }
-
-  .leaflet-popup-content-wrapper {
-    border-radius: 12px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
-    border: 1px solid rgba(0,0,0,0.06);
-  }
-
-  .leaflet-popup-content {
-    margin: 1rem;
-    font-size: 0.95rem;
-  }
-
-  .leaflet-popup-content b {
-    color: #073f65;
-    font-weight: 700;
-    font-size: 1.1rem;
-  }
-
-  .custom-div-icon {
-    background: transparent !important;
-    border: none !important;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-  }
-
-  .custom-div-icon div {
-    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-    border: 2px solid #fff !important;
-    transition: transform 0.3s ease;
-  }
-
-  .custom-div-icon:hover div {
-    transform: scale(1.2);
-  }
-
+  .leaflet-popup-content-wrapper { border-radius: 12px; box-shadow: 0 10px 24px rgba(0,0,0,.15); }
+  .leaflet-popup-content b { color: #073f65; }
+  .custom-div-icon { background: transparent !important; border: none !important; display: flex; gap: 4px; align-items: center; }
+  .custom-div-icon div { border: 2px solid #fff !important; box-shadow: 0 3px 10px rgba(0,0,0,.25); }
   .info.legend {
-    background: #fff;
-    padding: 1.25rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    border: 1px solid rgba(0,0,0,0.06);
-    font-family: inherit;
+    background: #fff; border: 1px solid #e5edf3; border-radius: 12px; padding: .95rem; box-shadow: 0 6px 18px rgba(0,0,0,.12);
   }
-
-  .info.legend h4 {
-    margin: 0 0 1rem 0;
-    font-size: 1rem;
-    font-weight: 700;
-    color: #1a1a1a;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    padding-bottom: 0.75rem;
-    border-bottom: 2px solid #073f65;
-  }
-
-  .info.legend i {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 8px;
-    vertical-align: middle;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border: 2px solid #fff;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @media (max-width: 767px) {
-    .mapping-filter-group {
-      flex-direction: column;
-      gap: 1rem;
-    }
-    .mapping-filters {
-      padding: 1.5rem;
-    }
-    #map {
-      height: 500px;
-    }
+  .info.legend h4 { margin: 0 0 .7rem 0; color: #073f65; font-size: .95rem; font-weight: 700; }
+  .info.legend i { width: 16px; height: 16px; border-radius: 50%; display: inline-block; margin-right: 8px; border: 2px solid #fff; }
+  @media (max-width: 991px) {
+    .mapping-stats { grid-template-columns: 1fr 1fr; }
+    .mapping-filter-grid { grid-template-columns: 1fr; }
+    #map { height: 540px; }
   }
 </style>
 {% endblock style %}
+
 {% block content %}
 <div class="breadcumb-wrapper" data-bg-src="{% static 'assets/img/bg/allpage.png' %}">
   <div class="container">
     <div class="breadcumb-content">
-      <h1 class="breadcumb-title text-uppercase">Cartographie</h1>
+      <h1 class="breadcumb-title text-uppercase">Cartographie produit</h1>
       <ul class="breadcumb-menu">
-        <li><a href="{% url 'aguipex-index' %}">Accueil</a></li>
+        <li><a href="{% url 'aguipex-exportations' %}">Exportations</a></li>
         <li>Cartographie</li>
       </ul>
     </div>
   </div>
 </div>
+
 <section class="mapping-section">
   <div class="container">
-    <div class="mapping-header">
-      <span class="sub-title">
-        <div class="icon-masking me-2">
-          <img src="{% static 'assets/img/theme-img/title_shape_4.svg' %}" alt="shape" />
-        </div>
-        <span class="fs-20 text-uppercase">Découvrez nos produits</span>
-      </span>
+    <div class="mapping-hero">
+      <h2>Cartographie premium des produits exportables</h2>
+      <p>Filtrez par ville et produit pour visualiser les zones de disponibilite et faciliter vos decisions d'exportation.</p>
     </div>
+
+    <div class="mapping-stats">
+      <div class="stat-card"><div class="label">Villes couvertes</div><div class="value" id="stat-villes">0</div></div>
+      <div class="stat-card"><div class="label">Produits reperes</div><div class="value" id="stat-produits">0</div></div>
+      <div class="stat-card"><div class="label">Points visibles</div><div class="value" id="stat-points">0</div></div>
+    </div>
+
     <div class="mapping-filters">
-      <div class="mapping-filter-group">
-        <div class="mapping-filter-item">
-          <label for="villeSelect">
-            <i class="fas fa-map-marker-alt me-2" style="color: #073f65;"></i>Ville
-          </label>
-          <select id="villeSelect" class="mapping-filter-select">
-            <option value="">-- Sélectionner une ville --</option>
-          </select>
-        </div>
-        <div class="mapping-filter-item">
-          <label for="produitSelect">
-            <i class="fas fa-seedling me-2" style="color: #073f65;"></i>Produit
-          </label>
-          <select id="produitSelect" class="mapping-filter-select">
-            <option value="">-- Sélectionner un produit --</option>
-          </select>
-        </div>
+      <div class="mapping-filter-grid">
+        <select id="villeSelect" class="mapping-filter-select">
+          <option value="">-- Selectionner une ville --</option>
+        </select>
+        <select id="produitSelect" class="mapping-filter-select">
+          <option value="">-- Selectionner un produit --</option>
+        </select>
+        <button id="resetFilters" class="reset-btn" type="button">Reinitialiser</button>
       </div>
+      <div id="emptyState" class="empty-state">Aucune correspondance pour ce filtre. Essayez un autre choix.</div>
     </div>
+
     <div class="mapping-container">
       <div id="map"></div>
     </div>
   </div>
 </section>
+{% endblock content %}
 
-{% endblock content %} {% block script %}
-<!-- Leaflet CSS -->
+{% block script %}
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-
-<!-- Leaflet JS -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 <script>
-  var map = L.map('map').setView([9.9456, -9.6966], 7);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  const DEFAULT_CENTER = [9.9456, -9.6966];
+  const map = L.map("map").setView(DEFAULT_CENTER, 7);
+  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 18,
-    attribution: '&copy; OpenStreetMap',
+    attribution: "&copy; OpenStreetMap",
   }).addTo(map);
 
-  // Données dynamiques depuis Django
-  var villes = {{ villes_data| safe }};
-  var produitColors = {{ produit_colors| safe }};
+  const villes = {{ villes_data|safe }};
+  const produitColors = {{ produit_colors|safe }};
+  const villeSelect = document.getElementById("villeSelect");
+  const produitSelect = document.getElementById("produitSelect");
+  const emptyState = document.getElementById("emptyState");
+  const statVilles = document.getElementById("stat-villes");
+  const statProduits = document.getElementById("stat-produits");
+  const statPoints = document.getElementById("stat-points");
+  const resetBtn = document.getElementById("resetFilters");
+  let markers = [];
 
-  var markers = [];
-
-  // Ajouter options dans les filtres
-  var villeSelect = document.getElementById('villeSelect');
-  var produitSelect = document.getElementById('produitSelect');
-
-  // Liste produits unique
-  var produitsSet = new Set();
-
-  villes.forEach(function (ville) {
-    // Ville
-    var opt = document.createElement('option');
-    opt.value = ville.name;
-    opt.textContent = ville.name;
-    villeSelect.appendChild(opt);
-
-    // Produits
-    ville.produits.forEach(p => produitsSet.add(p));
+  const produitsSet = new Set();
+  villes.forEach((ville) => {
+    const option = document.createElement("option");
+    option.value = ville.name;
+    option.textContent = ville.name;
+    villeSelect.appendChild(option);
+    ville.produits.forEach((p) => produitsSet.add(p));
   });
 
-  produitsSet.forEach(function (prod) {
-    var opt = document.createElement('option');
-    opt.value = prod;
-    opt.textContent = prod;
-    produitSelect.appendChild(opt);
+  produitsSet.forEach((prod) => {
+    const option = document.createElement("option");
+    option.value = prod;
+    option.textContent = prod;
+    produitSelect.appendChild(option);
   });
 
-  // Fonction pour afficher les marqueurs
-  function afficherMarqueurs(filtreVille = "", filtreProduit = "") {
-    // Supprimer les anciens
-    markers.forEach(m => map.removeLayer(m));
-    markers = [];
-
-    villes.forEach(function (ville) {
-      if (filtreVille && ville.name !== filtreVille) return;
-      if (filtreProduit && !ville.produits.includes(filtreProduit)) return;
-
-      // Produits à afficher : soit tous, soit uniquement celui filtré
-      var produitsAAfficher = filtreProduit
-        ? ville.produits.filter(p => p === filtreProduit)
-        : ville.produits;
-
-      var htmlCircles = produitsAAfficher.map(p =>
-        '<div style="background-color:' + (produitColors[p] || 'gray') +
-        '; width: 15px; height: 15px; border-radius: 50%; display:inline-block; margin-right:2px; border:1px solid #fff;"></div>'
-      ).join('');
-
-      var icon = L.divIcon({
-        className: 'custom-div-icon',
-        html: htmlCircles,
-        iconSize: [produitsAAfficher.length * 17, 20],
-        iconAnchor: [(produitsAAfficher.length * 17) / 2, 10],
-      });
-
-      var marker = L.marker([ville.lat, ville.lng], { icon: icon })
-        .bindPopup('<b>' + ville.name + '</b><br>Produits: ' + produitsAAfficher.join(', '));
-
-      marker.addTo(map);
-      markers.push(marker);
-    });
+  function updateStats(pointsVisible) {
+    statVilles.textContent = villes.length;
+    statProduits.textContent = produitsSet.size;
+    statPoints.textContent = pointsVisible;
   }
 
+  function buildMarker(ville, produitsAAfficher) {
+    const htmlCircles = produitsAAfficher.map((p) =>
+      '<div style="background-color:' + (produitColors[p] || "#999") +
+      '; width: 16px; height: 16px; border-radius: 50%; display:inline-block;"></div>'
+    ).join("");
 
-  // Initialisation
-  afficherMarqueurs();
+    const icon = L.divIcon({
+      className: "custom-div-icon",
+      html: htmlCircles,
+      iconSize: [Math.max(produitsAAfficher.length * 18, 20), 20],
+      iconAnchor: [Math.max(produitsAAfficher.length * 9, 10), 10],
+    });
 
-  // Filtre par ville
-  villeSelect.addEventListener('change', function () {
-    var villeName = this.value;
-    afficherMarqueurs(villeName, produitSelect.value);
+    return L.marker([ville.lat, ville.lng], { icon }).bindPopup(
+      "<b>" + ville.name + "</b><br>Produits: " + produitsAAfficher.join(", ")
+    );
+  }
 
-    // Zoom sur la ville si sélectionnée
-    if (villeName) {
-      var v = villes.find(v => v.name === villeName);
-      map.setView([v.lat, v.lng], 12);
+  function afficherMarqueurs(filtreVille = "", filtreProduit = "") {
+    markers.forEach((m) => map.removeLayer(m));
+    markers = [];
+    const bounds = [];
+
+    villes.forEach((ville) => {
+      if (filtreVille && ville.name !== filtreVille) return;
+      if (filtreProduit && !ville.produits.includes(filtreProduit)) return;
+      const produitsAAfficher = filtreProduit ? ville.produits.filter((p) => p === filtreProduit) : ville.produits;
+      if (!produitsAAfficher.length) return;
+
+      const marker = buildMarker(ville, produitsAAfficher).addTo(map);
+      markers.push(marker);
+      bounds.push([ville.lat, ville.lng]);
+    });
+
+    updateStats(markers.length);
+    emptyState.style.display = markers.length ? "none" : "block";
+
+    if (bounds.length) {
+      map.fitBounds(bounds, { padding: [30, 30], maxZoom: filtreVille ? 12 : 9 });
     } else {
-      map.setView([9.9456, -9.6966], 7);
+      map.setView(DEFAULT_CENTER, 7);
     }
+  }
+
+  villeSelect.addEventListener("change", () => afficherMarqueurs(villeSelect.value, produitSelect.value));
+  produitSelect.addEventListener("change", () => afficherMarqueurs(villeSelect.value, produitSelect.value));
+  resetBtn.addEventListener("click", () => {
+    villeSelect.value = "";
+    produitSelect.value = "";
+    afficherMarqueurs();
   });
 
-  // Filtre par produit
-  produitSelect.addEventListener('change', function () {
-    afficherMarqueurs(villeSelect.value, this.value);
-  });
-
-  // Légende dynamique améliorée
-  var legend = L.control({ position: 'bottomright' });
-  legend.onAdd = function (map) {
-    var div = L.DomUtil.create('div', 'info legend');
-    div.innerHTML = '<h4>Produits</h4>';
-    for (var produit in produitColors) {
-      div.innerHTML +=
-        '<i style="background:' + produitColors[produit] + '; width: 18px; height: 18px; border-radius: 50%; display: inline-block; margin-right: 8px; vertical-align: middle; box-shadow: 0 2px 4px rgba(0,0,0,0.1); border: 2px solid #fff;"></i> ' +
-        '<span style="font-size: 0.9rem; color: #1a1a1a;">' + produit + '</span><br>';
-    }
+  const legend = L.control({ position: "bottomright" });
+  legend.onAdd = function () {
+    const div = L.DomUtil.create("div", "info legend");
+    div.innerHTML = "<h4>Legende produits</h4>";
+    Object.keys(produitColors).forEach((produit) => {
+      div.innerHTML += '<i style="background:' + produitColors[produit] + '"></i><span>' + produit + "</span><br>";
+    });
     return div;
   };
   legend.addTo(map);
-</script>
 
+  afficherMarqueurs();
+</script>
 {% endblock script %}
