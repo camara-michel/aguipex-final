@@ -441,42 +441,24 @@
                 <img src="{% static 'assets/img/bg/process_line_3.png' %}" alt="line">
             </div>
             <div class="row gy-40 justify-content-xl-between justify-content-center">
+                {% for infrastructure in infrastructures_exportation %}
                 <div class="col-md-6 col-xl-auto process-card-wrap">
                     <div class="process-card-other style3">
                         <div class="process-card_icon">
-                            <img src="{% static 'assets/img/icon/route.png' %}" alt="icon">
+                            <img src="{% static infrastructure.icone %}" alt="{{ infrastructure.titre }}">
                         </div>
-                        <div class="process-card_number">1</div>
-                        <h2 class="box-title">Transport Terrestre</h2>
+                        <div class="process-card_number">{{ forloop.counter }}</div>
+                        <h2 class="box-title">{{ infrastructure.titre }}</h2>
                         <p class="process-card_text">
-                            Une solution sur mesure pour faciliter l’exportation vers les pays voisins via le transport terrestre.
+                            {{ infrastructure.description|safe }}
                         </p>
                     </div>
                 </div>
-                <div class="col-md-6 col-xl-auto process-card-wrap">
-                    <div class="process-card-other style3">
-                        <div class="process-card_icon">
-                            <img src="{% static 'assets/img/icon/bateau.png' %}" alt="icon">
-                        </div>
-                        <div class="process-card_number">2</div>
-                        <h2 class="box-title">Transport Maritime</h2>
-                        <p class="process-card_text">
-                            Idéal pour l’exportation de grandes quantités de marchandises par voie maritime.
-                        </p>
-                    </div>
+                {% empty %}
+                <div class="col-12">
+                    <p class="text-center text-muted">Aucune infrastructure disponible pour le moment.</p>
                 </div>
-                <div class="col-md-6 col-xl-auto process-card-wrap">
-                    <div class="process-card-other style3">
-                        <div class="process-card_icon">
-                            <img src="{% static 'assets/img/icon/avion.png' %}" alt="icon">
-                        </div>
-                        <div class="process-card_number">3</div>
-                        <h2 class="box-title">Transport Aérien</h2>
-                        <p class="process-card_text">
-                            Convient aux exportations urgentes et aux marchandises à forte valeur ajoutée.
-                        </p>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>

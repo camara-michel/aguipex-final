@@ -1964,6 +1964,24 @@ class ProcedureGlobaleAdmin(CustomAdmin):
         return self.has_view_permission(request)
 
 
+@admin.register(aguipex_models.InfrastructureExportation)
+class InfrastructureExportationAdmin(CustomAdmin):
+    list_display = ('titre', 'ordre', 'status', 'is_deleted', 'created_at', 'updated_at')
+    list_filter = ('status',)
+    search_fields = ('titre', 'description', 'icone')
+    ordering = ('ordre', 'created_at')
+
+    def has_view_permission(self, request, obj=None):
+        if request.user.is_superuser:
+            return True
+        if request.user.is_authenticated and getattr(request.user, "role", None) in ["communication", "certification"]:
+            return True
+        return False
+
+    def has_module_permission(self, request):
+        return self.has_view_permission(request)
+
+
 
 
 

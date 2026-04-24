@@ -162,6 +162,10 @@ def potentiels_exportation(request):
     # Produits uniques à partir des procédures publiées
     procedures = aguipex_models.ProcedureProduct.objects.filter(status="publier", is_deleted=False)
     voie_exportations = aguipex_models.ProcedureProduct.objects.filter(status="publier", is_deleted=False)
+    infrastructures_exportation = aguipex_models.InfrastructureExportation.objects.filter(
+        status="publier",
+        is_deleted=False
+    ).order_by("ordre", "created_at")
     produits_ids = procedures.values_list('product_id', flat=True).distinct()
     produits_uniques = aguipex_models.Produit.objects.filter(id__in=produits_ids)
 
@@ -171,6 +175,7 @@ def potentiels_exportation(request):
         'procedure_products': procedures,  # pour gérer les voies d'exportation en JS par exemple
         'produits':produits,
         'voie_exportations':voie_exportations,
+        'infrastructures_exportation': infrastructures_exportation,
     }
     return render(request, 'aguipex/potentiels_exportation.html', context)
 

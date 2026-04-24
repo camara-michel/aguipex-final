@@ -1294,6 +1294,28 @@ class ProcedureGlobale(models.Model):
         verbose_name = "Procédure Global"
 
 
+class InfrastructureExportation(models.Model):
+    titre = models.CharField(max_length=150)
+    description = RichTextField()
+    icone = models.CharField(
+        max_length=255,
+        help_text="Chemin statique de l'icone, ex: assets/img/icon/route.png",
+    )
+    ordre = models.PositiveIntegerField(default=0)
+    status = models.CharField(max_length=10, choices=STATUS, default='brouillon')
+    is_deleted = models.BooleanField(default=False, verbose_name="Est supprimé")
+    created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
+    updated_at = models.DateTimeField(auto_now=True, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "Infrastructure d'exportation"
+        verbose_name_plural = "Infrastructures d'exportation"
+        ordering = ['ordre', 'created_at']
+
+    def __str__(self):
+        return self.titre
+
+
 
 # class Statistique(models.Model):
 #     title = models.CharField(max_length=191)
